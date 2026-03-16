@@ -1,0 +1,15 @@
+node_modules
+.git
+.vscode
+dist
+.astro
+.netlify
+npm-debug.log
+pnpm-debug.log
+yarn-debug.log
+.env
+.env.*
+!.env.example
+README.md
+Dockerfile
+.dockerignore

@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { 
+  Apple, Home, Activity, Users, Shirt, 
+  Scale, Beef, HeartHandshake, BookOpen,
+  ArrowRight
+} from 'lucide-react';
+
+const allServices = [
+  {
+    title: "Ayuda Alimentaria",
+    description: "Distribución semanal de cestas de alimentos básicos y nutritivos para familias en situación de vulnerabilidad extrema.",
+    icon: Apple,
+    image: "/img/entrega_alimentos.JPG",
+    category: "Básico"
+  },
+  {
+    title: "Refugio Temporal",
+    description: "Espacio seguro de acogida para personas en riesgo de calle, proporcionando techo, higiene y protección inmediata.",
+    icon: Home,
+    image: "/img/refugio.jpg",
+    category: "Vivienda"
+  },
+  {
+    title: "Atención Médica",
+    description: "Jornadas de salud preventiva y entrega controlada de medicamentos donados para quienes no tienen acceso al sistema sanitario.",
+    icon: Activity,
+    image: "/img/jornada_medica.JPG",
+    category: "Salud"
+  },
+  {
+    title: "Formación y Cursos",
+    description: "Programas de capacitación para mejorar la empleabilidad e integración laboral de la comunidad migrante.",
+    icon: BookOpen,
+    image: "/img/voluntariado.JPG",
+    category: "Desarrollo"
+  },
+  {
+    title: "Ropero Solidario",
+    description: "Suministro de prendas de vestir y calzado en buen estado para adultos y niños, adaptado a las estaciones del año.",
+    icon: Shirt,
+    image: "/img/ropero.jpg",
+    category: "Básico"
+  },
+  {
+    title: "Asesoría Legal",
+    description: "Orientación en trámites de extranjería, derechos laborales y regularización para facilitar la estancia legal.",
+    icon: Scale,
+    image: "/img/carrusel 2.webp",
+    category: "Legal"
+  },
+  {
+    title: "Banco de Alimentos",
+    description: "Gestión de grandes donaciones y logística de almacenamiento para garantizar la continuidad de nuestras jornadas.",
+    icon: Beef,
+    image: "/img/Banco.alimentos..png",
+    category: "Logística"
+  }
+];
+---
+
+<Layout title="Nuestros Servicios | ASISVE">
+  <section class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center mb-20 space-y-6">
+        <h2 class="text-primary font-bold tracking-widest uppercase text-sm">¿Cómo ayudamos?</h2>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-dark leading-tight">
+          Soporte integral para una <br/> <span class="text-primary">integración real</span>
+        </h1>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          Nuestros programas están diseñados para cubrir desde las necesidades más básicas (techo y comida) hasta el empoderamiento legal y profesional.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allServices.map((service, index) => (
+          <div class="animate-fade-in-up" style={`animation-delay: ${index * 100}ms`}>
+            <ServiceCard {...service} />
+          </div>
+        ))}
+      </div>
+
+      {/* CTA Section */}
+      <div class="mt-24 bg-primary rounded-[40px] p-12 md:p-20 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-dark/10"></div>
+        <div class="relative z-10 max-w-2xl mx-auto space-y-8">
+          <HeartHandshake size={64} className="mx-auto text-white/50" />
+          <h2 class="text-4xl font-bold">¿Necesitas ayuda o quieres colaborar?</h2>
+          <p class="text-lg text-white/80">
+            Nuestro equipo está listo para escucharte. Ya sea que busques apoyo o quieras donar tu tiempo y recursos, cada acción cuenta.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 pt-4">
+            <a href="/contact" class="bg-white text-primary hover:bg-dark hover:text-white px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center gap-2 group">
+              Contactar ahora
+              <ArrowRight className="transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+</style>

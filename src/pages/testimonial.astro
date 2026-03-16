@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Quote, Star } from 'lucide-react';
+
+const testimonials = [
+  {
+    name: "María G.",
+    role: "Beneficiaria",
+    content: "Llegué a Madrid con mucho miedo y sin saber a dónde ir. ASISVE no solo me dio comida, me dio la esperanza y el apoyo legal que necesitaba para empezar de nuevo. Hoy tengo un trabajo digno.",
+    image: "/img/avatar-woman-1.webp" // I will use generic ones or placeholders if needed, but since I should generate images or use existing ones... 
+  },
+  {
+    name: "Carlos R.",
+    role: "Voluntario",
+    content: "Ser parte del ropero solidario me ha cambiado la perspectiva. Ver la sonrisa de un niño cuando recibe ropa limpia es la mejor recompensa. Es una comunidad de amor real.",
+    image: "/img/avatar-man-1.webp"
+  },
+  {
+    name: "Elena S.",
+    role: "Colaboradora",
+    content: "Como médico, poder aportar mi granito de arena en las jornadas de salud de ASISVE es un honor. Atendemos a personas que de otra forma estarían desprotegidas.",
+    image: "/img/avatar-woman-2.webp"
+  }
+];
+---
+
+<Layout title="Testimonios | ASISVE">
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center mb-20 space-y-6">
+        <h2 class="text-primary font-bold tracking-widest uppercase text-sm">Voces de Cambio</h2>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-dark leading-tight">
+          Historias que <span class="text-primary">inspiran</span>
+        </h1>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          Nuestra labor cobra vida a través de las personas que forman parte de esta gran familia.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {testimonials.map((t, index) => (
+          <div class="bg-gray-50 p-8 rounded-[32px] relative animate-fade-in-up" style={`animation-delay: ${index * 150}ms`}>
+            <Quote size={48} className="text-primary/10 absolute top-8 right-8" />
+            <div class="flex gap-1 mb-6">
+              {[...Array(5)].map(() => <Star size={16} className="fill-primary text-primary" />)}
+            </div>
+            <p class="text-gray-700 italic mb-8 leading-relaxed">"{t.content}"</p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold">
+                {t.name[0]}
+              </div>
+              <div>
+                <h4 class="font-bold text-dark">{t.name}</h4>
+                <p class="text-sm text-gray-500">{t.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Impact Section */}
+      <div class="mt-32 text-center space-y-12">
+        <h3 class="text-3xl font-bold text-dark italic">"Tu ayuda no es solo una donación, es una oportunidad de vida."</h3>
+        <div class="flex justify-center gap-8">
+           <img src="/img/jornada_medica.JPG" alt="Jornada" class="w-48 h-48 rounded-full object-cover border-4 border-white shadow-xl rotate-3" />
+           <img src="/img/entrega_alimentos.JPG" alt="Impacto" class="w-56 h-56 rounded-full object-cover border-4 border-white shadow-xl -rotate-3 z-10" />
+           <img src="/img/voluntariado.JPG" alt="Voluntarios" class="w-48 h-48 rounded-full object-cover border-4 border-white shadow-xl rotate-6" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+</style>

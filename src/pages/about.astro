@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Target, Eye, Rocket, Users, HandHeart, Globe } from 'lucide-react';
+---
+
+<Layout title="Sobre Nosotros | ASISVE">
+  <section class="py-24 bg-white overflow-hidden">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        {/* Intro Section */}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+          <div class="space-y-8 animate-fade-in-up">
+            <h2 class="text-primary font-bold tracking-widest uppercase text-sm">Nuestra Identidad</h2>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-dark leading-tight">
+              Dignidad y esperanza para el <span class="text-primary italic">migrante</span>
+            </h1>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              ASISVE nació como un faro de solidaridad en Madrid, con la firme convicción de que nadie debería enfrentar la migración en soledad o precariedad. Somos una comunidad que tiende puentes hacia la integración real.
+            </p>
+          </div>
+          <div class="relative animate-fade-in-up" style="animation-delay: 200ms">
+            <div class="absolute -top-6 -left-6 w-full h-full border-2 border-primary/10 rounded-3xl -z-10 translate-x-4 translate-y-4"></div>
+            <img 
+              src="/img/combined_logo.png" 
+              alt="ASISVE Logo" 
+              class="w-full h-auto rounded-3xl shadow-2xl bg-white p-12"
+            />
+          </div>
+        </div>
+
+        {/* Vision & Mission Grid */}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
+          <div class="bg-gray-50 p-10 rounded-3xl space-y-6 hover:shadow-xl transition-shadow border border-gray-100 group">
+            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+              <Eye size={32} />
+            </div>
+            <h3 class="text-3xl font-bold text-dark">Nuestra Visión</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Buscamos ser reconocidos como el centro de referencia integral en Madrid, donde cada migrante iberoamericano encuentre las herramientas para su desarrollo pleno en una sociedad equitativa y justa.
+            </p>
+          </div>
+
+          <div class="bg-gray-50 p-10 rounded-3xl space-y-6 hover:shadow-xl transition-shadow border border-gray-100 group">
+            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+              <Rocket size={32} />
+            </div>
+            <h3 class="text-3xl font-bold text-dark">Nuestra Misión</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Brindamos soporte vital inmediato: alimentación, refugio, atención médica y formación. Trabajamos para transformar la asistencia en empoderamiento y soluciones de vida sostenibles.
+            </p>
+          </div>
+        </div>
+
+        {/* Strategy Section */}
+        <div class="bg-dark rounded-[40px] p-8 md:p-16 text-white relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+              <h2 class="text-3xl font-bold">Nuestro Objetivo Estratégico</h2>
+              <p class="text-gray-400 text-lg leading-relaxed">
+                Ser el pilar de apoyo continuo que permita a los migrantes reintegrarse plenamente, facilitando el acceso a recursos educativos, laborales y sociales esenciales para alcanzar sus sueños.
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <div class="flex items-center gap-2 text-sm text-primary font-semibold py-2 px-4 bg-primary/10 rounded-full border border-primary/20">
+                  <HandHeart size={16} /> Solidaridad
+                </div>
+                <div class="flex items-center gap-2 text-sm text-primary font-semibold py-2 px-4 bg-primary/10 rounded-full border border-primary/20">
+                  <Globe size={16} /> Integración
+                </div>
+                <div class="flex items-center gap-2 text-sm text-primary font-semibold py-2 px-4 bg-primary/10 rounded-full border border-primary/20">
+                  <Users size={16} /> Comunidad
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <img src="/img/VISION.JPG" alt="Impacto" class="rounded-2xl aspect-square object-cover shadow-lg translate-y-8" />
+              <img src="/img/VISION 2.JPG" alt="Comunidad" class="rounded-2xl aspect-square object-cover shadow-lg" />
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-24 text-center">
+          <div class="p-8">
+            <div class="text-5xl font-extrabold text-primary mb-2">8.334</div>
+            <div class="text-gray-500 font-medium">Familias Beneficiadas</div>
+          </div>
+          <div class="p-8">
+            <div class="text-5xl font-extrabold text-primary mb-2">505</div>
+            <div class="text-gray-500 font-medium">Personas en Refugio</div>
+          </div>
+          <div class="p-8">
+            <div class="text-5xl font-extrabold text-primary mb-2">414k+</div>
+            <div class="text-gray-500 font-medium">Kilos de Alimentos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+</style>

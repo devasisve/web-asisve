@@ -1,0 +1,143 @@
+---
+const navLinks = [
+  { name: 'Inicio', href: '/' },
+  { name: 'Sobre Nosotros', href: '/about' },
+  { name: 'Servicios', href: '/services' },
+  { name: 'Testimonios', href: '/testimonial' },
+  { name: 'Contacto', href: '/contact' },
+];
+
+import { Heart, Menu, X } from 'lucide-react';
+---
+
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 group">
+      <img src="/logo.webp" alt="Logo" class="size-22">
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8">
+      {navLinks.map(link => (
+        <a 
+          href={link.href} 
+          class="text-dark/80 hover:text-primary font-medium transition-colors"
+        >
+          {link.name}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <a 
+        href="/contact" 
+        class="hidden sm:block bg-primary text-white px-5 py-2 rounded-full font-semibold hover:bg-dark transition-all shadow-md hover:shadow-lg active:scale-95"
+      >
+        Colabora
+      </a>
+      
+      <!-- Hamburger Button -->
+      <button id="menu-toggle" class="md:hidden text-dark p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none" aria-label="Menu">
+        <div id="menu-icon-open">
+          <Menu size={24} />
+        </div>
+        <div id="menu-icon-close" class="hidden">
+          <X size={24} />
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu overlay -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 md:hidden invisible opacity-0 transition-all duration-300 pointer-events-none">
+    <!-- Backdrop -->
+    <div id="menu-backdrop" class="absolute inset-0 bg-dark/20 backdrop-blur-sm"></div>
+    
+    <!-- Menu Content -->
+    <nav class="absolute right-0 top-0 bottom-0 w-3/4 max-w-sm bg-white shadow-2xl p-8 flex flex-col gap-6 transform translate-x-full transition-transform duration-300">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-xl font-bold text-dark">Navegación</span>
+      </div>
+      
+      {navLinks.map(link => (
+        <a 
+          href={link.href} 
+          class="text-lg font-medium text-dark/80 hover:text-primary py-2 border-b border-gray-50 flex items-center justify-between group"
+        >
+          {link.name}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-hover:opacity-100 transition-opacity"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      ))}
+      
+      <a 
+        href="/contact" 
+        class="mt-4 bg-primary text-white text-center py-4 rounded-xl font-bold shadow-lg hover:shadow-primary/20 active:scale-95 transition-all"
+      >
+        Colabora con nosotros
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const setupMenu = () => {
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuContent = mobileMenu?.querySelector('nav');
+    const backdrop = document.getElementById('menu-backdrop');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+
+    if (!toggleBtn || !mobileMenu || !menuContent || !backdrop) return;
+
+    const toggleMenu = () => {
+      const isOpen = !mobileMenu.classList.contains('invisible');
+      
+      if (isOpen) {
+        // Close
+        menuContent.classList.add('translate-x-full');
+        mobileMenu.classList.add('opacity-0');
+        setTimeout(() => {
+          mobileMenu.classList.add('invisible');
+          mobileMenu.classList.remove('pointer-events-auto');
+          mobileMenu.classList.add('pointer-events-none');
+        }, 300);
+        iconOpen?.classList.remove('hidden');
+        iconClose?.classList.add('hidden');
+        document.body.style.overflow = '';
+      } else {
+        // Open
+        mobileMenu.classList.remove('invisible');
+        mobileMenu.classList.add('pointer-events-auto');
+        mobileMenu.classList.remove('pointer-events-none');
+        
+        // Use requestAnimationFrame to ensure visibility transition works
+        requestAnimationFrame(() => {
+          mobileMenu.classList.remove('opacity-0');
+          menuContent.classList.remove('translate-x-full');
+        });
+        
+        iconOpen?.classList.add('hidden');
+        iconClose?.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    toggleBtn.addEventListener('click', toggleMenu);
+    backdrop.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking on a link
+    const links = mobileMenu.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (!mobileMenu.classList.contains('invisible')) {
+          toggleMenu();
+        }
+      });
+    });
+  };
+
+  // Run on first load and after view transitions
+  setupMenu();
+  document.addEventListener('astro:after-swap', setupMenu);
+</script>

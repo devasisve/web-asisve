@@ -1,0 +1,75 @@
+---
+interface Sponsor {
+  name: string;
+  logo: string;
+}
+
+const sponsors: Sponsor[] = [
+  { name: "Banco de Alimentos", logo: "/img/Banco.alimentos..png" },
+  { name: "Shukran", logo: "/img/Logo_Shukran.png" },
+  { name: "Amazon", logo: "/img/amazón.png" },
+  { name: "Altius", logo: "/img/colaborador_altius.png" },
+  { name: "Diaconía", logo: "/img/colaborador_diaconia.png" },
+  { name: "Remar", logo: "/img/colaborador_remar.png" },
+  { name: "Alcamar", logo: "/img/colaborador_alcamar.webp" },
+  { name: "AMA", logo: "/img/logo_AMA.jpg" },
+  { name: "Frioval", logo: "/img/frioval.jfif" },
+  { name: "Comunidad de Madrid", logo: "/img/colaborador_madrid.webp" },
+];
+
+// Duplicate sponsors for infinite effect
+const allSponsors = [...sponsors, ...sponsors];
+---
+
+<section class="py-20 bg-white overflow-hidden">
+  <div class="container mx-auto px-4 mb-12">
+    <div class="max-w-2xl">
+      <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-2">Empresas Increíbles</h2>
+      <h3 class="text-4xl md:text-5xl font-extrabold text-dark leading-tight">Nuestros Colaboradores</h3>
+      <div class="w-16 h-1 bg-primary mt-4"></div>
+    </div>
+  </div>
+
+  <div class="relative flex overflow-x-hidden group">
+    <div class="animate-scroll flex gap-8 py-4 whitespace-nowrap min-w-full">
+      {allSponsors.map((sponsor) => (
+        <div class="flex-shrink-0 w-64 h-32 flex items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 grayscale hover:grayscale-0">
+          <img 
+            src={sponsor.logo} 
+            alt={`Logo de ${sponsor.name}`} 
+            class="max-w-full max-h-full object-contain"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-scroll {
+    display: flex;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+  }
+
+  .group:hover .animate-scroll {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Optional: smoothing for different screen sizes */
+  @media (max-width: 768px) {
+    .animate-scroll {
+      animation-duration: 30s;
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+---
+
+<form id="contactForm" class="space-y-6 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-2">
+      <label for="nombre" class="text-sm font-bold text-dark">Nombre completo</label>
+      <input 
+        type="text" 
+        name="nombre" 
+        id="nombre" 
+        required 
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+        placeholder="Tu nombre..."
+      />
+    </div>
+    <div class="space-y-2">
+      <label for="email" class="text-sm font-bold text-dark">Correo electrónico</label>
+      <input 
+        type="email" 
+        name="email" 
+        id="email" 
+        required 
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+        placeholder="ejemplo@correo.com"
+      />
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <label for="Asunto" class="text-sm font-bold text-dark">Asunto</label>
+    <input 
+      type="text" 
+      name="Asunto" 
+      id="Asunto" 
+      required 
+      class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+      placeholder="¿Cómo podemos ayudarte?"
+    />
+  </div>
+
+  <div class="space-y-2">
+    <label for="Mensaje" class="text-sm font-bold text-dark">Mensaje</label>
+    <textarea 
+      name="Mensaje" 
+      id="Mensaje" 
+      rows="4" 
+      required 
+      class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+      placeholder="Escribe tu mensaje aquí..."></textarea>
+  </div>
+
+  <button 
+    type="submit" 
+    class="w-full bg-primary hover:bg-dark text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-primary/20 flex items-center justify-center gap-2 group"
+  >
+    Enviar mensaje
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+  </button>
+  
+  <div id="formStatus" class="hidden text-center p-4 rounded-xl font-medium"></div>
+</form>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  const form = document.querySelector('#contactForm') as HTMLFormElement;
+  const statusEl = document.querySelector('#formStatus') as HTMLDivElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const dataObj = Object.fromEntries(formData);
+    
+    statusEl.textContent = 'Enviando...';
+    statusEl.className = 'text-center p-4 rounded-xl font-medium bg-gray-100 text-gray-600';
+    statusEl.classList.remove('hidden');
+
+    const { data, error } = await actions.sendContactEmail(dataObj as any);
+
+    if (error) {
+      statusEl.textContent = 'Hubo un error al enviar el mensaje.';
+      statusEl.className = 'text-center p-4 rounded-xl font-medium bg-red-50 text-red-600';
+    } else {
+      statusEl.textContent = '¡Mensaje enviado con éxito!';
+      statusEl.className = 'text-center p-4 rounded-xl font-medium bg-green-50 text-green-600';
+      form.reset();
+    }
+  });
+</script>

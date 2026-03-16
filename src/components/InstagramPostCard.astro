@@ -1,0 +1,61 @@
+---
+import { Play, ExternalLink } from "lucide-react";
+import type { InstagramPost } from "../types/instagram";
+
+interface Props {
+  post: InstagramPost;
+}
+
+const { post } = Astro.props;
+const imageSrc =
+  post.mediaType === "VIDEO"
+    ? post.thumbnailUrl || post.mediaUrl
+    : post.mediaUrl;
+---
+
+<a
+  href={post.permalink}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group relative aspect-[4/5] rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-2xl transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
+  aria-label={`Ver publicación en Instagram: ${post.caption.slice(0, 50)}...`}
+>
+  <img
+    src={imageSrc}
+    alt={post.caption || "Instagram Post"}
+    class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+    loading="lazy"
+  />
+
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"
+  >
+  </div>
+
+  <div
+    class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    <div
+      class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-xl shadow-primary/40 transform scale-75 group-hover:scale-100 transition-transform duration-300"
+    >
+      <Play fill="currentColor" size={24} />
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+  >
+    <p class="text-white/80 line-clamp-2 text-sm italic mb-4 leading-relaxed">
+      "{post.caption}"
+    </p>
+    <div class="flex items-center justify-between">
+      <span
+        class="text-primary text-xs font-bold uppercase tracking-widest flex items-center gap-2"
+      >
+        <div class="w-2 h-2 bg-primary animate-ping rounded-full"></div>
+        Ver {post.mediaType === "VIDEO" ? "Reel" : "Publicación"}
+      </span>
+      <ExternalLink size={16} className="text-white/40" />
+    </div>
+  </div>
+</a>

@@ -9,27 +9,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.7",
-    "@astrojs/netlify": "7.0.3",
-    "@astrojs/react": "^5.0.0",
     "@tailwindcss/vite": "^4.2.1",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
     "astro": "^6.0.4",
-    "framer-motion": "^12.36.0",
-    "lucide-react": "^0.577.0",
-    "mysql2": "^3.19.1",
-    "nodemailer": "^8.0.2",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "tailwind-animations": "^1.0.1",
+    "lucide-astro": "^0.556.0",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
-  },
-  "devDependencies": {
-    "@types/nodemailer": "^7.0.11"
   }
 }

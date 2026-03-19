@@ -62,7 +62,7 @@
 </form>
 
 <script>
-  import { actions } from 'astro:actions';
+  import { ApiClient } from '../services/api.client';
 
   const form = document.querySelector('#contactForm') as HTMLFormElement;
   const statusEl = document.querySelector('#formStatus') as HTMLDivElement;
@@ -72,19 +72,27 @@
     const formData = new FormData(form);
     const dataObj = Object.fromEntries(formData);
     
-    statusEl.textContent = 'Enviando...';
-    statusEl.className = 'text-center p-4 rounded-xl font-medium bg-gray-100 text-gray-600';
+    // Indicador de carga
+    statusEl.textContent = 'Enviando mensaje...';
+    statusEl.className = 'text-center p-4 rounded-xl font-medium bg-blue-50 text-blue-600 animate-pulse';
     statusEl.classList.remove('hidden');
 
-    const { data, error } = await actions.sendContactEmail(dataObj as any);
+    // Realizar la petición a nuestra nueva API en PHP
+    const result = await ApiClient.post('/contact.php', dataObj);
 
-    if (error) {
-      statusEl.textContent = 'Hubo un error al enviar el mensaje.';
-      statusEl.className = 'text-center p-4 rounded-xl font-medium bg-red-50 text-red-600';
-    } else {
-      statusEl.textContent = '¡Mensaje enviado con éxito!';
-      statusEl.className = 'text-center p-4 rounded-xl font-medium bg-green-50 text-green-600';
+    if (result.success) {
+      statusEl.textContent = result.message || '¡Mensaje enviado con éxito!';
+      statusEl.className = 'text-center p-4 rounded-xl font-medium bg-green-50 text-green-600 border border-green-200';
       form.reset();
+      
+      // Ocultar mensaje después de 5 segundos
+      setTimeout(() => {
+        statusEl.classList.add('hidden');
+      }, 5000);
+    } else {
+      statusEl.textContent = result.message || 'Hubo un error al enviar el mensaje.';
+      statusEl.className = 'text-center p-4 rounded-xl font-medium bg-red-50 text-red-600 border border-red-200';
     }
   });
 </script>
+

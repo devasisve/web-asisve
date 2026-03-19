@@ -7,7 +7,7 @@ const navLinks = [
   { name: 'Contacto', href: '/contact' },
 ];
 
-import { Heart, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-astro';
 ---
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -39,10 +39,10 @@ import { Heart, Menu, X } from 'lucide-react';
       <!-- Hamburger Button -->
       <button id="menu-toggle" class="md:hidden text-dark p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none" aria-label="Menu">
         <div id="menu-icon-open">
-          <Menu size={24} />
+          <Menu size="24" />
         </div>
         <div id="menu-icon-close" class="hidden">
-          <X size={24} />
+          <X size="24" />
         </div>
       </button>
     </div>

@@ -1,5 +1,5 @@
 ---
-import { Play, ExternalLink } from "lucide-react";
+import { Play, ExternalLink } from "lucide-astro";
 import type { InstagramPost } from "../types/instagram";
 
 interface Props {
@@ -38,7 +38,7 @@ const imageSrc =
     <div
       class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-xl shadow-primary/40 transform scale-75 group-hover:scale-100 transition-transform duration-300"
     >
-      <Play fill="currentColor" size={24} />
+      <Play fill="currentColor" size="24" />
     </div>
   </div>
 
@@ -55,7 +55,7 @@ const imageSrc =
         <div class="w-2 h-2 bg-primary animate-ping rounded-full"></div>
         Ver {post.mediaType === "VIDEO" ? "Reel" : "Publicación"}
       </span>
-      <ExternalLink size={16} className="text-white/40" />
+      <ExternalLink size="16" class="text-white/40" />
     </div>
   </div>
 </a>

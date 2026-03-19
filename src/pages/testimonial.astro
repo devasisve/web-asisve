@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Quote, Star } from 'lucide-react';
+import { Quote, Star } from 'lucide-astro';
 
 const testimonials = [
   {
@@ -40,9 +40,9 @@ const testimonials = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {testimonials.map((t, index) => (
           <div class="bg-gray-50 p-8 rounded-[32px] relative animate-fade-in-up" style={`animation-delay: ${index * 150}ms`}>
-            <Quote size={48} className="text-primary/10 absolute top-8 right-8" />
+            <Quote size="48" class="text-primary/10 absolute top-8 right-8" />
             <div class="flex gap-1 mb-6">
-              {[...Array(5)].map(() => <Star size={16} className="fill-primary text-primary" />)}
+              {[...Array(5)].map(() => <Star size="16" class="fill-primary text-primary" />)}
             </div>
             <p class="text-gray-700 italic mb-8 leading-relaxed">"{t.content}"</p>
             <div class="flex items-center gap-4">

@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-astro';
 ---
 
 <Layout title="ASISVE | Contacto">
@@ -22,7 +22,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
             <div class="grid grid-cols-1 gap-8">
               <div class="flex gap-6 items-start group">
                 <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                  <Mail size={24} />
+                  <Mail size="24" />
                 </div>
                 <div>
                   <h4 class="text-lg font-bold text-dark">Correo Electrónico</h4>
@@ -32,7 +32,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
               <div class="flex gap-6 items-start group">
                 <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                  <Phone size={24} />
+                  <Phone size="24" />
                 </div>
                 <div>
                   <h4 class="text-lg font-bold text-dark">Teléfono / WhatsApp</h4>
@@ -42,7 +42,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
               <div class="flex gap-6 items-start group">
                 <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                  <MapPin size={24} />
+                  <MapPin size="24" />
                 </div>
                 <div>
                   <h4 class="text-lg font-bold text-dark">Ubicación</h4>

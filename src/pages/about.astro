@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Target, Eye, Rocket, Users, HandHeart, Globe } from 'lucide-react';
+import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
 ---
 
 <Layout title="Sobre Nosotros | ASISVE">
@@ -32,7 +32,7 @@ import { Target, Eye, Rocket, Users, HandHeart, Globe } from 'lucide-react';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
           <div class="bg-gray-50 p-10 rounded-3xl space-y-6 hover:shadow-xl transition-shadow border border-gray-100 group">
             <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-              <Eye size={32} />
+              <Eye size="32" />
             </div>
             <h3 class="text-3xl font-bold text-dark">Nuestra Visión</h3>
             <p class="text-gray-600 leading-relaxed">
@@ -42,7 +42,7 @@ import { Target, Eye, Rocket, Users, HandHeart, Globe } from 'lucide-react';
 
           <div class="bg-gray-50 p-10 rounded-3xl space-y-6 hover:shadow-xl transition-shadow border border-gray-100 group">
             <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-              <Rocket size={32} />
+              <Rocket size="32" />
             </div>
             <h3 class="text-3xl font-bold text-dark">Nuestra Misión</h3>
             <p class="text-gray-600 leading-relaxed">
@@ -63,13 +63,13 @@ import { Target, Eye, Rocket, Users, HandHeart, Globe } from 'lucide-react';
               </p>
               <div class="flex flex-wrap gap-4">
                 <div class="flex items-center gap-2 text-sm text-primary font-semibold py-2 px-4 bg-primary/10 rounded-full border border-primary/20">
-                  <HandHeart size={16} /> Solidaridad
+                  <HandHeart size="16" /> Solidaridad
                 </div>
                 <div class="flex items-center gap-2 text-sm text-primary font-semibold py-2 px-4 bg-primary/10 rounded-full border border-primary/20">
-                  <Globe size={16} /> Integración
+                  <Globe size="16" /> Integración
                 </div>
                 <div class="flex items-center gap-2 text-sm text-primary font-semibold py-2 px-4 bg-primary/10 rounded-full border border-primary/20">
-                  <Users size={16} /> Comunidad
+                  <Users size="16" /> Comunidad
                 </div>
               </div>
             </div>

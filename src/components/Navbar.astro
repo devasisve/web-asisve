@@ -1,143 +1,514 @@
 ---
 const navLinks = [
-  { name: 'Inicio', href: '/' },
-  { name: 'Sobre Nosotros', href: '/about' },
-  { name: 'Servicios', href: '/services' },
-  { name: 'Testimonios', href: '/testimonial' },
-  { name: 'Contacto', href: '/contact' },
+  { name: "Inicio", href: "/" },
+  { name: "Sobre Nosotros", href: "/about" },
+  { name: "Voluntariado", href: "/voluntariado" },
+  { name: "Servicios", href: "/services" },
+  { name: "Testimonios", href: "/testimonial" },
+  { name: "Contacto", href: "/contact" },
 ];
-
-import { Menu, X } from 'lucide-astro';
 ---
+<div class="bg-primary sticky top-0 z-50">
+<header
+  id="main-header"
+  class=" border-b border-gray-100 shadow-sm mx-auto transition-all duration-300"
+>
+  <!-- Top Bar -->
+  <div class="bg-primary text-white py-2 px-4 hidden sm:block">
+    <div class="flex justify-between items-center text-xs">
+      <div class="flex items-center gap-6 text-sm">
+        <div class="flex items-center gap-2">
+          <a
+            href="https://maps.app.goo.gl/xyM9AFHq11JRcjXM9"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 hover:text-white/80 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-white/80"
+              ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+              ></path><circle cx="12" cy="10" r="3"></circle></svg
+            >
+            <span>Ubicacion</span>
+          </a>
+        </div>
+        <a
+          href="tel:+34644740559"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 hover:text-white/80 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-white/80"
+            ><path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path></svg
+          >
+          <span>34644740559</span>
+        </a>
+        <a
+          href="mailto:contacto@asisve.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 hover:text-white/80 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-white/80"
+            ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
+              d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+          >
+          <span>contacto@asisve.org</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- Social Icons -->
+        <a
+          href="https://www.tiktok.com/@asisve_madrid"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:scale-110 transition-transform"
+          aria-label="TikTok"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            role="img"
+          >
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+          </svg>
+        </a>
+        <a
+          href="https://www.instagram.com/asisve_madrid/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:scale-110 transition-transform"
+          aria-label="Instagram"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#ig-grad)"
+            ></rect>
+            <circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.5"
+            ></circle>
+            <circle cx="17.5" cy="6.5" r="0.75" fill="white"></circle>
+            <rect
+              x="2"
+              y="2"
+              width="20"
+              height="20"
+              rx="5"
+              stroke="white"
+              stroke-width="1.5"></rect>
+            <defs>
+              <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FED373"></stop>
+                <stop offset="25%" stop-color="#F15245"></stop>
+                <stop offset="50%" stop-color="#D92E7F"></stop>
+                <stop offset="75%" stop-color="#9B36B7"></stop>
+                <stop offset="100%" stop-color="#515ECF"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+        </a>
+        <a
+          href="https://wa.me/+34644740559/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:scale-110 transition-transform"
+          aria-label="WhatsApp"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            class="text-[#25D366]"
+          >
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.414 0 .004 5.408 0 12.044c0 2.121.554 4.191 1.604 6.06L0 24l6.095-1.599a11.77 11.77 0 0 0 5.95 1.603h.005c6.635 0 12.046-5.41 12.05-12.047a11.814 11.814 0 0 0-3.593-8.406"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
 
-<header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 group">
-      <img src="/logo.webp" alt="Logo" class="size-22">
+  <div class="bg-white w-full px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <img
+        src="/img/logo-ASISVE-vertical.webp"
+        alt="Logo"
+        class="w-40 h-auto"
+      />
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-8">
-      {navLinks.map(link => (
-        <a 
-          href={link.href} 
-          class="text-dark/80 hover:text-primary font-medium transition-colors"
-        >
-          {link.name}
-        </a>
-      ))}
+    <nav class="hidden lg:flex items-center gap-8">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-primary hover:text-primary-light font-bold transition-colors"
+          >
+            {link.name}
+          </a>
+        ))
+      }
     </nav>
 
     <div class="flex items-center gap-4">
-      <a 
-        href="/contact" 
-        class="hidden sm:block bg-primary text-white px-5 py-2 rounded-full font-semibold hover:bg-dark transition-all shadow-md hover:shadow-lg active:scale-95"
-      >
-        Colabora
-      </a>
-      
+        <a
+          href="/contact"
+          class="hidden lg:flex bg-primary text-white text-center px-5 py-2 rounded-2xl font-semibold text-xl transition-all items-center justify-center gap-3 overflow-hidden group relative"
+        >
+          <span class="z-10 transition-transform duration-300">Dona Ahora</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="relative z-10 animate-pulse"
+            ><path
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+            ></path></svg
+          >
+        </a>
       <!-- Hamburger Button -->
-      <button id="menu-toggle" class="md:hidden text-dark p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none" aria-label="Menu">
+      <button
+        id="menu-toggle"
+        class="lg:hidden text-dark p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none"
+        aria-label="Menu"
+      >
         <div id="menu-icon-open">
-          <Menu size="24" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><line x1="4" x2="20" y1="12" y2="12"></line><line
+              x1="4"
+              x2="20"
+              y1="6"
+              y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
+          >
         </div>
         <div id="menu-icon-close" class="hidden">
-          <X size="24" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+          >
         </div>
       </button>
     </div>
   </div>
-
-  <!-- Mobile Menu overlay -->
-  <div id="mobile-menu" class="fixed inset-0 z-40 md:hidden invisible opacity-0 transition-all duration-300 pointer-events-none">
-    <!-- Backdrop -->
-    <div id="menu-backdrop" class="absolute inset-0 bg-dark/20 backdrop-blur-sm"></div>
-    
-    <!-- Menu Content -->
-    <nav class="absolute right-0 top-0 bottom-0 w-3/4 max-w-sm bg-white shadow-2xl p-8 flex flex-col gap-6 transform translate-x-full transition-transform duration-300">
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-xl font-bold text-dark">Navegación</span>
-      </div>
-      
-      {navLinks.map(link => (
-        <a 
-          href={link.href} 
-          class="text-lg font-medium text-dark/80 hover:text-primary py-2 border-b border-gray-50 flex items-center justify-between group"
-        >
-          {link.name}
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-hover:opacity-100 transition-opacity"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-      ))}
-      
-      <a 
-        href="/contact" 
-        class="mt-4 bg-primary text-white text-center py-4 rounded-xl font-bold shadow-lg hover:shadow-primary/20 active:scale-95 transition-all"
-      >
-        Colabora con nosotros
-      </a>
-    </nav>
-  </div>
 </header>
+</div>
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-60 lg:hidden invisible opacity-0 transition-opacity duration-300 pointer-events-none"
+>
+  <div
+    id="menu-backdrop"
+    class="absolute inset-0 bg-dark/60 backdrop-blur-xl transition-all duration-500"
+  >
+  </div>
+
+  <nav
+    class="absolute right-0 top-0 bottom-0 w-full xs:w-[85%] max-w-[450px] bg-white shadow-2xl p-6 xs:p-10 flex flex-col transform translate-x-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1)"
+  >
+    <div class="flex justify-between items-center mb-12 sm:mb-16">
+      <div class="flex flex-col">
+        <img
+          src="/img/logo-ASISVE-vertical.webp"
+          alt="ASISVE Logo"
+          class="w-32 sm:w-40 h-auto"
+        />
+      </div>
+
+      <button
+        id="menu-close-internal"
+        class="group p-2.5 bg-primary/5 hover:bg-primary text-primary hover:text-white rounded-xl transition-all duration-300 active:scale-95"
+        aria-label="Cerrar menú"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transform group-hover:rotate-90 transition-transform duration-300"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-col gap-1 grow overflow-y-auto custom-scrollbar">
+      {
+        navLinks.map((link, index) => (
+          <a
+            href={link.href}
+            class="mobile-nav-link text-2xl font-bold text-dark/90 hover:text-primary py-5 px-3 rounded-2xl hover:bg-primary/3 transition-all flex items-center justify-between group"
+            style={`--index: ${index};`}
+          >
+            <span class="relative">
+              {link.name}
+              <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+            </span>
+            <div class="w-8 h-8 rounded-full border border-dark/10 flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-primary"
+              >
+                <>
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </>
+              </svg>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-8 pt-8 border-t border-gray-100/50">
+      <a
+        href="/contact"
+        class="w-full bg-primary text-white text-center py-5 rounded-2xl font-bold text-xl shadow-2xl shadow-primary/30 hover:bg-dark hover:-translate-y-1 active:scale-[0.97] transition-all flex items-center justify-center gap-3 overflow-hidden group relative"
+      >
+        <span
+          class="relative z-10 transition-transform duration-300 group-hover:scale-110"
+          >Dona Ahora</span
+        >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="relative z-10 animate-pulse"
+          ><path
+            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+          ></path></svg
+        >
+        <div
+          class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+        >
+        </div>
+      </a>
+      <div class="flex items-center justify-center gap-6 mt-8">
+        <span class="h-0.5 w-8 bg-dark/10"></span>
+        <p
+          class="text-[10px] text-dark/30 font-bold uppercase tracking-[0.3em]"
+        >
+          Asisve Madrid
+        </p>
+        <span class="h-0.5 w-8 bg-dark/10"></span>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-primary), 0.1);
+    border-radius: 10px;
+  }
+
+  /* Entrance animations for links when menu is visible */
+  #mobile-menu:not(.invisible) .mobile-nav-link {
+    animation: slideInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: calc(var(--index) * 0.08s + 0.3s);
+    opacity: 0;
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+  }
+</style>
 
 <script>
   const setupMenu = () => {
-    const toggleBtn = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuContent = mobileMenu?.querySelector('nav');
-    const backdrop = document.getElementById('menu-backdrop');
-    const iconOpen = document.getElementById('menu-icon-open');
-    const iconClose = document.getElementById('menu-icon-close');
+    const toggleBtn = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuContent = mobileMenu?.querySelector("nav");
+    const backdrop = document.getElementById("menu-backdrop");
+    const iconOpen = document.getElementById("menu-icon-open");
+    const iconClose = document.getElementById("menu-icon-close");
 
     if (!toggleBtn || !mobileMenu || !menuContent || !backdrop) return;
 
     const toggleMenu = () => {
-      const isOpen = !mobileMenu.classList.contains('invisible');
-      
+      const isOpen = !mobileMenu.classList.contains("invisible");
+
       if (isOpen) {
         // Close
-        menuContent.classList.add('translate-x-full');
-        mobileMenu.classList.add('opacity-0');
+        menuContent.classList.add("translate-x-full");
+        mobileMenu.classList.add("opacity-0");
         setTimeout(() => {
-          mobileMenu.classList.add('invisible');
-          mobileMenu.classList.remove('pointer-events-auto');
-          mobileMenu.classList.add('pointer-events-none');
+          mobileMenu.classList.add("invisible");
+          mobileMenu.classList.remove("pointer-events-auto");
+          mobileMenu.classList.add("pointer-events-none");
         }, 300);
-        iconOpen?.classList.remove('hidden');
-        iconClose?.classList.add('hidden');
-        document.body.style.overflow = '';
+        iconOpen?.classList.remove("hidden");
+        iconClose?.classList.add("hidden");
+        document.body.style.overflow = "";
       } else {
         // Open
-        mobileMenu.classList.remove('invisible');
-        mobileMenu.classList.add('pointer-events-auto');
-        mobileMenu.classList.remove('pointer-events-none');
-        
+        mobileMenu.classList.remove("invisible");
+        mobileMenu.classList.add("pointer-events-auto");
+        mobileMenu.classList.remove("pointer-events-none");
+
         // Use requestAnimationFrame to ensure visibility transition works
         requestAnimationFrame(() => {
-          mobileMenu.classList.remove('opacity-0');
-          menuContent.classList.remove('translate-x-full');
+          mobileMenu.classList.remove("opacity-0");
+          menuContent.classList.remove("translate-x-full");
         });
-        
-        iconOpen?.classList.add('hidden');
-        iconClose?.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+
+        iconOpen?.classList.add("hidden");
+        iconClose?.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
       }
     };
 
-    toggleBtn.addEventListener('click', toggleMenu);
-    backdrop.addEventListener('click', toggleMenu);
+    toggleBtn.addEventListener("click", toggleMenu);
+    backdrop.addEventListener("click", toggleMenu);
+
+    // Add listener for internal close button
+    const closeBtnInternal = document.getElementById("menu-close-internal");
+    if (closeBtnInternal) {
+      closeBtnInternal.addEventListener("click", toggleMenu);
+    }
 
     // Close menu when clicking on a link
-    const links = mobileMenu.querySelectorAll('a');
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        if (!mobileMenu.classList.contains('invisible')) {
+    const links = mobileMenu.querySelectorAll("a");
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (!mobileMenu.classList.contains("invisible")) {
           toggleMenu();
         }
       });
     });
   };
 
+  const setupScroll = () => {
+    const header = document.getElementById("main-header");
+
+    const onScroll = () => {
+      if (window.scrollY > 20) {
+        header?.classList.remove("max-w-[1320px]");
+        header?.classList.add("max-w-full");
+      } else {
+        header?.classList.add("max-w-[1320px]");
+        header?.classList.remove("max-w-full");
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+    onScroll(); // Run once to set initial state
+  };
+
   // Run on first load and after view transitions
-  setupMenu();
-  document.addEventListener('astro:after-swap', setupMenu);
+  const init = () => {
+    setupMenu();
+    setupScroll();
+  };
+
+  init();
+  document.addEventListener("astro:after-swap", init);
 </script>

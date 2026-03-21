@@ -1,0 +1,155 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout 
+  title="Voluntariado - ASISVE" 
+  description="Únete a ASISVE como voluntario y ayuda a fortalecer nuestra comunidad con tu tiempo y talento."
+>
+  <main>
+    <!-- Hero Section Personalized -->
+    <section class="relative min-h-[70vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-dark text-center">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/img/hero.voluntariado.webp" 
+          alt="Voluntarios ASISVE en Madrid" 
+          class="w-full h-full object-cover opacity-50 grayscale-20"
+        />
+        <div class="absolute inset-0 bg-linear-to-b from-dark/60 via-transparent to-dark/80"></div>
+      </div>
+      
+      <div class="container max-w-[1320px] mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto space-y-8">
+          <div class="inline-block px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-bold tracking-wider mb-2">
+            Voluntariado en Madrid
+          </div>
+          
+          <h1 class="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl">
+            Dedica unas horas <br class="hidden md:block" />
+            y <span class="text-primary italic">cambia una vida</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto drop-shadow-lg">
+            Únete a ASISVE y ayuda a familias vulnerables cada sábado.
+          </p>
+          
+          <div class="pt-4 space-y-6">
+            <a 
+              href="#formulario" 
+              class="inline-block bg-primary hover:bg-white hover:text-dark text-white text-xl font-black px-12 py-5 rounded-xl transition-all shadow-2xl hover:shadow-primary/40 active:scale-95 uppercase tracking-wide"
+            >
+              Quiero ser voluntariado
+            </a>
+            
+            <div class="flex items-center justify-center gap-2 text-primary font-bold drop-shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Inscripción en menos de 1 minuto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Volunteer Section (Remaining consistent) -->
+    <section class="py-24 bg-white">
+      <div class="container max-w-[1320px] mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="relative">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full -z-10 animate-pulse"></div>
+            <img 
+              src="/img/voluntariado.JPG" 
+              alt="Voluntarios ASISVE en acción" 
+              class="rounded-[40px] shadow-2xl w-full h-[500px] object-cover ring-8 ring-gray-50 transition-transform duration-500 hover:scale-[1.02]"
+            />
+            <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-3xl shadow-xl flex items-center gap-4 max-w-xs border border-gray-100">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+              <p class="text-sm font-bold text-dark">+50 voluntarios activos hoy</p>
+            </div>
+          </div>
+          
+          <div class="space-y-10">
+            <div class="space-y-4">
+              <h2 class="text-4xl md:text-5xl font-black text-dark tracking-tight leading-tight">
+                ¿Por qué ser voluntario en <span class="text-primary italic">ASISVE?</span>
+              </h2>
+              <p class="text-lg text-dark/60 leading-relaxed font-medium">
+                Ser voluntario en Madrid es una oportunidad única para dar apoyo a quienes más lo necesitan mientras creces personalmente junto a un equipo comprometido.
+              </p>
+            </div>
+
+            <div class="grid gap-6">
+              {[
+                {
+                  title: "Impacto Local Real",
+                  desc: "Trabajarás directamente con familias en los barrios de Madrid.",
+                  color: "bg-blue-50 text-blue-600"
+                },
+                {
+                  title: "Equipo Solidario",
+                  desc: "Forma parte de una familia que comparte tu pasión por ayudar.",
+                  color: "bg-emerald-50 text-emerald-600"
+                },
+                {
+                  title: "Desarrollo Humano",
+                  desc: "Conoce historias que cambiarán tu perspectiva del mundo.",
+                  color: "bg-orange-50 text-orange-600"
+                }
+              ].map(item => (
+                <div class="flex gap-5 p-6 rounded-3xl bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:shadow-lg group">
+                  <div class={`w-14 h-14 shrink-0 rounded-2xl ${item.color} flex items-center justify-center transition-transform group-hover:scale-110`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold text-dark mb-1">{item.title}</h3>
+                    <p class="text-dark/60 font-medium text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Google Form Section -->
+    <section id="formulario" class="py-24 bg-gray-50">
+      <div class="container max-w-[1320px] mx-auto px-4 text-center">
+        <div class="max-w-5xl mx-auto space-y-12">
+          <div class="space-y-4">
+            <h2 class="text-4xl md:text-5xl font-black text-dark tracking-tight leading-none uppercase">Únete a nosotros</h2>
+            <div class="w-20 h-1.5 bg-primary mx-auto rounded-full"></div>
+            <p class="text-xl text-dark/60 font-medium">Para ser voluntario déjanos tus datos, nos pondremos en contacto contigo.</p>
+          </div>
+
+          <div class="bg-white rounded-[30px] md:rounded-[50px] shadow-2xl overflow-hidden border border-gray-100 min-h-[800px] md:min-h-[900px] relative focus-visible:outline-none p-2 sm:p-6 md:p-12">
+            <iframe 
+              src="https://docs.google.com/forms/d/1KwOcXix7g45RHlhyv7AKP5HK1r6pRK1_hUbEuspa1mc/viewform?embedded=true" 
+              class="w-full h-full min-h-[800px] md:min-h-[900px] rounded-2xl"
+              frameborder="0" 
+              marginheight="0" 
+              marginwidth="0"
+            >
+              Cargando...
+            </iframe>
+          </div>
+
+          <div class="p-8 bg-primary/5 rounded-3xl border border-primary/10">
+            <p class="text-dark/70 font-medium">
+              ¿Tienes dudas? Escríbenos directamente a <a href="mailto:info@asisve.org" class="text-primary font-bold hover:underline">info@asisve.org</a> o llámanos al <a href="tel:+34644740559" class="text-primary font-bold hover:underline">+34 644 740 559</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

@@ -18,15 +18,15 @@ Este repositorio contiene el código fuente de la aplicación web oficial, dise�
 
 ## 📸 Vista Previa
 
-| Hero Section (Portada) | Servicios de Impacto |
+| Hero Section (Portada) | Pilares de Ayuda |
 | :--- | :--- |
-| ![Hero Preview](./assets/readme/hero-preview.png) | ![Services Preview](./assets/readme/services-preview.png) |
+| ![Hero Real](./assets/readme/hero-real.png) | ![Services Real](./assets/readme/services-real.png) |
 
 ## 🚀 Características Principales
 
 - **⚡ Arquitectura Moderna**: Construido con **Astro 6** para un rendimiento óptimo con carga mínima de JavaScript.
 - **🎨 Diseño UI/UX Premium**: Interfaz moderna utilizando **Tailwind CSS 4**, con efectos de glassmorphism, micro-animaciones y diseño totalmente adaptativo (Mobile First).
-- **📋 Gestión de Servicios**: Sistema modular de servicios que incluye:
+- **📋 Pilares de Ayuda**: Sistema modular de servicios que incluye:
   - Distribución de Alimentos Esenciales.
   - Refugio Temporal y Acogida.
   - Jornadas Médicas y Donación de Medicamentos.

@@ -70,7 +70,7 @@ try {
     $mail->Host       = Config::SMTP_HOST;
     $mail->SMTPAuth   = true;
     $mail->Username   = Config::SMTP_USER;
-    $mail->Password   = Config::SMTP_PASS;
+    $mail->Password   = Config::getSmtpPass();
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = Config::SMTP_PORT;
     $mail->CharSet    = 'UTF-8';

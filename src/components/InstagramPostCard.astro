@@ -1,5 +1,4 @@
 ---
-import { Play, ExternalLink } from "lucide-astro";
 import type { InstagramPost } from "../types/instagram";
 
 interface Props {
@@ -17,7 +16,7 @@ const imageSrc =
   href={post.permalink}
   target="_blank"
   rel="noopener noreferrer"
-  class="group relative aspect-[4/5] rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-2xl transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
+  class="group relative aspect-4/5 rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-2xl transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
   aria-label={`Ver publicación en Instagram: ${post.caption.slice(0, 50)}...`}
 >
   <img
@@ -28,7 +27,7 @@ const imageSrc =
   />
 
   <div
-    class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"
+    class="absolute inset-0 bg-linear-to-t from-dark/95 via-dark/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"
   >
   </div>
 
@@ -38,24 +37,28 @@ const imageSrc =
     <div
       class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-xl shadow-primary/40 transform scale-75 group-hover:scale-100 transition-transform duration-300"
     >
-      <Play fill="currentColor" size="24" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
     </div>
   </div>
 
   <div
-    class="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+    class="absolute bottom-0 left-0 right-0 p-5 sm:p-7 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300"
   >
-    <p class="text-white/80 line-clamp-2 text-sm italic mb-4 leading-relaxed">
-      "{post.caption}"
-    </p>
+    <div class="backdrop-blur-md bg-black/30 rounded-xl p-3 mb-3 border border-white/10">
+      <p class="text-white line-clamp-2 text-sm font-semibold leading-relaxed drop-shadow-xl">
+        {post.caption}
+      </p>
+    </div>
     <div class="flex items-center justify-between">
       <span
-        class="text-primary text-xs font-bold uppercase tracking-widest flex items-center gap-2"
+        class="bg-primary text-white text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2 px-4 py-2 rounded-full shadow-lg shadow-primary/20 hover:bg-dark transition-colors"
       >
-        <div class="w-2 h-2 bg-primary animate-ping rounded-full"></div>
+        <span class="w-2 h-2 bg-white animate-pulse rounded-full"></span>
         Ver {post.mediaType === "VIDEO" ? "Reel" : "Publicación"}
       </span>
-      <ExternalLink size="16" class="text-white/40" />
+      <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/80"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+      </div>
     </div>
   </div>
 </a>

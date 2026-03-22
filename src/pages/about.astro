@@ -83,15 +83,15 @@ import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
         {/* Stats Section */}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-24 text-center">
           <div class="p-8">
-            <div class="text-5xl font-extrabold text-primary mb-2">8.334</div>
+            <div class="text-5xl font-extrabold text-primary mb-2 stat-number" data-target="8334">0</div>
             <div class="text-gray-500 font-medium">Familias Beneficiadas</div>
           </div>
           <div class="p-8">
-            <div class="text-5xl font-extrabold text-primary mb-2">505</div>
+            <div class="text-5xl font-extrabold text-primary mb-2 stat-number" data-target="505">0</div>
             <div class="text-gray-500 font-medium">Personas en Refugio</div>
           </div>
           <div class="p-8">
-            <div class="text-5xl font-extrabold text-primary mb-2">414k+</div>
+            <div class="text-5xl font-extrabold text-primary mb-2 stat-number" data-target="414" data-suffix="k+">0</div>
             <div class="text-gray-500 font-medium">Kilos de Alimentos</div>
           </div>
         </div>
@@ -99,6 +99,48 @@ import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
     </div>
   </section>
 </Layout>
+
+<script>
+  const animateStats = () => {
+    const stats = document.querySelectorAll('.stat-number');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const target = parseInt(el.getAttribute('data-target') || '0');
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 2000; // 2 seconds
+          const startTime = performance.now();
+          
+          const updateCount = (currentTime: number) => {
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            
+            // Easing function: easeOutExpo
+            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const currentCount = Math.floor(easeProgress * target);
+            
+            el.textContent = currentCount.toLocaleString('es-ES') + suffix;
+            
+            if (progress < 1) {
+              requestAnimationFrame(updateCount);
+            }
+          };
+          
+          requestAnimationFrame(updateCount);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    stats.forEach(stat => observer.observe(stat));
+  };
+
+  // Run on load and after view transitions
+  animateStats();
+  document.addEventListener('astro:after-swap', animateStats);
+</script>
 
 <style>
   @keyframes fadeInUp {

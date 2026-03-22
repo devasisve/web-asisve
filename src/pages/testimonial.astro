@@ -81,20 +81,20 @@ const testimonials = [
 <Layout title="Testimonios | ASISVE">
   <section class="py-24 bg-white">
     <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center mb-20 space-y-6">
+      <div class="max-w-4xl mx-auto text-center mb-12 md:mb-20 space-y-6">
         <h2 class="text-primary font-bold tracking-widest uppercase text-sm">Voces de Cambio</h2>
-        <h1 class="text-5xl md:text-6xl font-extrabold text-dark leading-tight">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-dark leading-tight">
           Historias que <span class="text-primary">inspiran</span>
         </h1>
-        <p class="text-xl text-gray-600 leading-relaxed">
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
           Nuestra labor cobra vida a través de las personas que forman parte de esta gran familia.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
         {testimonials.map((t, index) => (
-          <div class="bg-gray-50 p-8 rounded-[32px] relative animate-fade-in-up" style={`animation-delay: ${index * 150}ms`}>
-            <Quote size="48" class="text-primary/10 absolute top-8 right-8" />
+          <div class="bg-gray-50 p-6 md:p-8 rounded-[32px] relative animate-fade-in-up" style={`animation-delay: ${index * 150}ms`}>
+            <Quote size="48" class="text-primary/10 absolute top-6 md:top-8 right-6 md:right-8" />
             <div class="flex gap-1 mb-6">
               {[...Array(5)].map(() => <Star size="16" class="fill-primary text-primary" />)}
             </div>
@@ -113,12 +113,12 @@ const testimonials = [
       </div>
 
       {/* Impact Section */}
-      <div class="mt-32 text-center space-y-12">
-        <h3 class="text-3xl font-bold text-dark italic">"Tu ayuda no es solo una donación, es una oportunidad de vida."</h3>
-        <div class="flex justify-center gap-8">
-           <img src="/img/jornada_medica.JPG" alt="Jornada" class="w-48 h-48 rounded-full object-cover border-4 border-white shadow-xl rotate-3" />
-           <img src="/img/entrega_alimentos.JPG" alt="Impacto" class="w-56 h-56 rounded-full object-cover border-4 border-white shadow-xl -rotate-3 z-10" />
-           <img src="/img/voluntariado.JPG" alt="Voluntarios" class="w-48 h-48 rounded-full object-cover border-4 border-white shadow-xl rotate-6" />
+      <div class="mt-20 md:mt-32 text-center space-y-12 overflow-hidden">
+        <h3 class="text-2xl md:text-3xl font-bold text-dark italic px-4">"Tu ayuda no es solo una donación, es una oportunidad de vida."</h3>
+        <div class="flex justify-center gap-4 md:gap-8 flex-nowrap md:flex-row px-2">
+           <img src="/img/jornada_medica.JPG" alt="Jornada" class="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-white shadow-xl rotate-3" />
+           <img src="/img/entrega_alimentos.JPG" alt="Impacto" class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full object-cover border-4 border-white shadow-xl -rotate-3 z-10" />
+           <img src="/img/voluntariado.JPG" alt="Voluntarios" class="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-white shadow-xl rotate-6" />
         </div>
       </div>
     </div>

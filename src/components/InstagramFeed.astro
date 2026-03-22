@@ -3,13 +3,14 @@ import { Instagram } from "lucide-astro";
 import { InstagramService } from "../services/instagram.service";
 import InstagramPostCard from "./InstagramPostCard.astro";
 
-const { posts, isDemo } = await InstagramService.getFeed(3);
+// Pre-fetch some dummy/initial data for SEO/Structure, 
+// but the real data will be fetched on the client.
+const { posts: initialPosts } = await InstagramService.getFeed(3);
 
-// const PUBLIC_BEHOLD_URL = import.meta.env.PUBLIC_BEHOLD_URL;
-const PUBLIC_BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
+const BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
 ---
 
-<section class="py-24 bg-dark relative overflow-hidden">
+<section class="py-24 bg-dark relative overflow-hidden" id="instagram-section">
   <!-- Decorative Glows -->
   <div class="absolute inset-0 opacity-10 pointer-events-none">
     <div class="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
@@ -41,20 +42,93 @@ const PUBLIC_BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
       </a>
     </header>
 
-    <!-- Dev Mode Warning -->
-    {isDemo && !PUBLIC_BEHOLD_URL && (
-      <aside class="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-2xl text-yellow-200 text-sm text-center" role="alert">
-        <p>
-          <strong>Modo Preview:</strong> Configura <code>PUBLIC_BEHOLD_URL</code> en tu archivo <code>.env</code> para ver el feed real.
-        </p>
-      </aside>
-    )}
-
-    <!-- Posts Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {posts.map((post) => (
-        <InstagramPostCard post={post} />
+    <!-- Posts Grid (Initially empty, populated by script) -->
+    <div 
+      id="instagram-posts-container" 
+      data-url={BEHOLD_URL}
+      class="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[400px]"
+    >
+      {initialPosts.map((post) => (
+        <div class="opacity-50 blur-sm pointer-events-none">
+          <InstagramPostCard post={post} />
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  async function loadInstagramFeed() {
+    const container = document.getElementById("instagram-posts-container");
+    const url = container?.dataset.url;
+    if (!container || !url) return;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) return;
+      const data = await response.json();
+      
+      if (data && Array.isArray(data.posts)) {
+        const posts = data.posts.slice(0, 3);
+        
+        // Clear container
+        container.innerHTML = "";
+        
+        posts.forEach((post: any) => {
+          const beholdMedia = post.sizes?.large?.mediaUrl || post.sizes?.full?.mediaUrl || post.mediaUrl || post.media_url;
+          const caption = post.caption || post.text || "";
+          const isReel = post.mediaType === "VIDEO" || post.isReel;
+          
+          const cardHtml = `
+            <a
+              href="${post.permalink}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative aspect-4/5 rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-2xl transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              aria-label="Ver publicación en Instagram"
+            >
+              <img
+                src="${beholdMedia}"
+                alt="${caption.replace(/"/g, '&quot;')}"
+                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+              
+              ${isReel ? `
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-xl transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </div>
+                </div>
+              ` : ''}
+
+              <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                <div class="backdrop-blur-md bg-black/30 rounded-xl p-3 mb-3 border border-white/10">
+                  <p class="text-white line-clamp-2 text-sm font-semibold leading-relaxed">
+                    ${caption}
+                  </p>
+                </div>
+                <span class="bg-red-600 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+                  Ver ${isReel ? "Reel" : "Post"}
+                </span>
+              </div>
+            </a>
+          `;
+          container.insertAdjacentHTML("beforeend", cardHtml);
+        });
+      }
+    } catch (error) {
+      console.error("Error loading Instagram feed on client:", error);
+      // Fallback: remove blur from initial posts so users see something (even if links expire)
+      const blurred = container.querySelectorAll('.blur-sm');
+      blurred.forEach(el => el.classList.remove('blur-sm', 'opacity-50', 'pointer-events-none'));
+    }
+  }
+
+  // Load feed
+  loadInstagramFeed();
+  
+  // Re-load on view transitions if using them
+  document.addEventListener('astro:after-swap', loadInstagramFeed);
+</script>

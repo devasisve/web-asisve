@@ -43,17 +43,23 @@ export class InstagramService {
       const data = await response.json();
       
       if (data && Array.isArray(data.posts)) {
-        const posts = data.posts.slice(0, limit).map((post: any) => ({
-          id: post.id,
-          mediaUrl: post.mediaUrl || post.media_url,
-          thumbnailUrl: post.thumbnailUrl || post.thumbnail_url || post.thumbnail,
-          permalink: post.permalink,
-          caption: post.caption || post.text || "",
-          mediaType: post.mediaType || post.media_type || "IMAGE",
-          isReel: post.isReel,
-          timestamp: post.timestamp,
-          sizes: post.sizes,
-        }));
+        const posts = data.posts.slice(0, limit).map((post: any) => {
+          // Prefer permanent Behold links from 'sizes' object to avoid Instagram CDN expiration
+          const beholdMedia = post.sizes?.large?.mediaUrl || post.sizes?.full?.mediaUrl;
+          const beholdThumb = post.sizes?.medium?.mediaUrl || post.sizes?.small?.mediaUrl;
+
+          return {
+            id: post.id,
+            mediaUrl: beholdMedia || post.mediaUrl || post.media_url,
+            thumbnailUrl: beholdThumb || post.thumbnailUrl || post.thumbnail_url || post.thumbnail,
+            permalink: post.permalink,
+            caption: post.caption || post.text || "",
+            mediaType: post.mediaType || post.media_type || "IMAGE",
+            isReel: post.mediaType === "VIDEO" || post.isReel,
+            timestamp: post.timestamp,
+            sizes: post.sizes,
+          };
+        });
         
         return { posts, isDemo: false };
       }

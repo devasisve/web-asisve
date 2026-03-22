@@ -10,6 +10,11 @@ const navLinks = [
   { name: "Testimonios", href: "/testimonial" },
   { name: "Contacto", href: "/contact" },
 ];
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.endsWith('/') && pathname.length > 1 
+  ? pathname.slice(0, -1) 
+  : pathname;
 ---
 <div class="bg-primary sticky top-0 z-50">
 <header
@@ -18,14 +23,14 @@ const navLinks = [
 >
   <!-- Top Bar -->
   <div class="bg-primary text-white py-2 px-4 hidden sm:block">
-    <div class="flex justify-between items-center text-xs">
+    <div class="flex justify-between items-center">
       <div class="flex items-center gap-6 text-sm">
         <div class="flex items-center gap-2">
           <a
             href="https://maps.app.goo.gl/xyM9AFHq11JRcjXM9"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center gap-2 hover:text-white/80 transition-colors"
+            class="flex items-center gap-2 text-white hover:underline transition-all"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,21 +39,21 @@ const navLinks = [
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.5"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-white/80"
+              class="text-white"
               ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
               ></path><circle cx="12" cy="10" r="3"></circle></svg
             >
-            <span>Ubicación</span>
+            <span class="font-medium">Ubicación</span>
           </a>
         </div>
         <a
           href="tel:+34644740559"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 hover:text-white/80 transition-colors"
+          class="flex items-center gap-2 text-white hover:underline  transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,21 +62,21 @@ const navLinks = [
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.5"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="text-white/80"
+            class="text-white"
             ><path
               d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
             ></path></svg
           >
-          <span>+34 644 740 559</span>
+          <span class="font-medium">+34 644 740 559</span>
         </a>
         <a
           href="mailto:contacto@asisve.org"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 hover:text-white/80 transition-colors"
+          class="flex items-center gap-2 text-white hover:underline transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -80,14 +85,14 @@ const navLinks = [
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.5"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="text-white/80"
+            class="text-white"
             ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
               d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
           >
-          <span>contacto@asisve.org</span>
+          <span class="font-medium">contacto@asisve.org</span>
         </a>
       </div>
       <div class="flex items-center gap-4">
@@ -176,7 +181,7 @@ const navLinks = [
     </div>
   </div>
 
-  <div class="bg-white w-full px-4 py-4 flex items-center justify-between">
+  <div class="bg-white w-full px-4 py-3 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2">
       <Image
         src={logoImage}
@@ -187,23 +192,26 @@ const navLinks = [
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden lg:flex items-center gap-8">
+    <nav class="hidden lg:flex items-center gap-10">
       {
-        navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="text-primary hover:text-primary-light font-bold transition-colors"
-          >
-            {link.name}
-          </a>
-        ))
+        navLinks.map((link) => {
+          const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+          return (
+            <a
+              href={link.href}
+              class={`nav-link text-primary font-medium text-[17px] transition-all duration-300 relative py-2.5 px-1 ${isActive ? 'active' : ''}`}
+            >
+              {link.name}
+            </a>
+          );
+        })
       }
     </nav>
 
     <div class="flex items-center gap-4">
         <a
           href="/contact"
-          class="hidden lg:flex bg-primary text-white text-center px-5 py-2 rounded-2xl font-semibold text-xl transition-all items-center justify-center gap-3 overflow-hidden group relative"
+          class="hidden lg:flex bg-primary text-white text-center px-6 py-2.5 rounded-2xl font-bold text-lg transition-all items-center justify-center gap-3 overflow-hidden group relative shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
         >
           <span class="z-10 transition-transform duration-300">Dona Ahora</span>
           <svg
@@ -225,7 +233,7 @@ const navLinks = [
       <!-- Hamburger Button -->
       <button
         id="menu-toggle"
-        class="lg:hidden text-dark p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none"
+        class="lg:hidden bg-primary/5 text-primary p-2.5 rounded-xl transition-all duration-300 hover:bg-primary hover:text-white active:scale-95 focus:outline-none"
         aria-label="Menu"
       >
         <div id="menu-icon-open">
@@ -236,7 +244,7 @@ const navLinks = [
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.5"
             stroke-linecap="round"
             stroke-linejoin="round"
             ><line x1="4" x2="20" y1="12" y2="12"></line><line
@@ -254,7 +262,7 @@ const navLinks = [
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.5"
             stroke-linecap="round"
             stroke-linejoin="round"
             ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
@@ -276,26 +284,27 @@ const navLinks = [
   </div>
 
   <nav
-    class="absolute right-0 top-0 bottom-0 w-full xs:w-[85%] max-w-[450px] bg-white shadow-2xl p-6 xs:p-10 flex flex-col transform translate-x-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1)"
+    class="absolute right-0 top-0 bottom-0 w-full xs:w-[85%] max-w-[450px] bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1)"
   >
-    <div class="flex justify-between items-center mb-12 sm:mb-16">
-      <div class="flex flex-col">
+    <!-- Mobile Menu Header (Matches Main Header exactly) -->
+    <div class="w-full px-4 py-3 flex items-center justify-between border-b border-gray-100/50">
+      <div class="flex items-center gap-2">
         <Image
           src={logoImage}
           alt="Asociación ASISVE" 
-          class="w-32 sm:w-40 h-auto"
+          class="w-40 h-auto"
         />
       </div>
 
       <button
         id="menu-close-internal"
-        class="group p-2.5 bg-primary/5 hover:bg-primary text-primary hover:text-white rounded-xl transition-all duration-300 active:scale-95"
+        class="group p-2.5 bg-primary text-white rounded-xl shadow-lg shadow-primary/20 transition-all duration-300 active:scale-95"
         aria-label="Cerrar menú"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
+          width="24"
+          height="24"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -310,12 +319,12 @@ const navLinks = [
       </button>
     </div>
 
-    <div class="flex flex-col gap-1 grow overflow-y-auto">
+    <div class="flex flex-col gap-1 grow overflow-y-auto p-6 xs:p-8">
       {
         navLinks.map((link, index) => (
           <a
             href={link.href}
-            class="mobile-nav-link text-xl font-bold text-dark/90 hover:text-primary py-4 px-3 rounded-2xl hover:bg-primary/3 transition-all flex items-center justify-between group"
+            class="mobile-nav-link text-xl font-medium text-dark/90 hover:text-primary p-2.5 rounded-2xl hover:bg-primary/3 transition-all flex items-center justify-between group"
             style={`--index: ${index};`}
           >
             <span class="relative">
@@ -346,13 +355,13 @@ const navLinks = [
       }
     </div>
 
-    <div class="mt-8 pt-8 border-t border-gray-100/50">
+    <div class="mt-4 p-6 xs:p-8 space-y-8 border-t border-gray-100/50">
       <a
         href="/contact"
-        class="w-full bg-primary text-white text-center py-5 rounded-2xl font-bold text-xl shadow-2xl shadow-primary/30 hover:bg-dark hover:-translate-y-1 active:scale-[0.97] transition-all flex items-center justify-center gap-3 overflow-hidden group relative"
+        class="w-full bg-primary text-white text-center py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-3 overflow-hidden group relative"
       >
         <span
-          class="relative z-10 transition-transform duration-300 group-hover:scale-110"
+          class="relative z-10 transition-transform duration-300 group-hover:scale-105"
           >Dona Ahora</span
         >
         <svg
@@ -370,10 +379,6 @@ const navLinks = [
             d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
           ></path></svg
         >
-        <div
-          class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-        >
-        </div>
       </a>
       <div class="flex items-center justify-center gap-6 mt-8">
         <span class="h-0.5 w-8 bg-dark/10"></span>
@@ -389,6 +394,38 @@ const navLinks = [
 </div>
 
 <style>
+  .nav-link {
+    transition: color 0.3s;
+  }
+  
+  .nav-link::before,
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--color-primary, #7e2b34);
+    transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+  }
+
+  .nav-link::before {
+    top: 0;
+  }
+
+  .nav-link::after {
+    bottom: 0;
+  }
+
+  .nav-link:hover::before,
+  .nav-link:hover::after,
+  .nav-link.active::before,
+  .nav-link.active::after {
+    width: 100%;
+    opacity: 1;
+  }
+
   /* Entrance animations for links when menu is visible */
   #mobile-menu:not(.invisible) .mobile-nav-link {
     animation: slideInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;

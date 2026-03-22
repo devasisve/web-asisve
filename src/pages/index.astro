@@ -46,13 +46,17 @@ const services = [
 ---
 
 <Layout title="ASISVE | Ayuda en acción">
+  <link rel="preload" as="image" href="/img/carrusel 1.webp" fetchpriority="high" slot="head" />
   {/* Hero Section */}
   <section class="relative h-[85vh] flex items-center overflow-hidden bg-dark">
     <div class="absolute inset-0 z-0">
       <img
         src="/img/carrusel 1.webp"
         class="w-full h-full object-cover opacity-40 scale-105 animate-slow-zoom"
-        alt="Hero Background"
+        alt="Voluntarios de ASISVE brindando ayuda humanitaria"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
       />
       <div
         class="absolute inset-0 bg-linear-to-r from-dark via-dark/80 to-transparent"
@@ -106,6 +110,7 @@ const services = [
           <a
             href="/testimonial"
             class="border-2 border-white/20 hover:border-white text-white px-8 py-4 rounded-full font-bold text-lg transition-all backdrop-blur-sm"
+            aria-label="Ver testimonios de beneficiarios y voluntarios"
           >
             Ver testimonios
           </a>

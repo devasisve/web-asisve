@@ -1,0 +1,190 @@
+---
+---
+
+<div id="cookie-banner" class="fixed bottom-0 left-0 w-full z-40 translate-y-full transition-all duration-500 ease-in-out hidden">
+  <div class="bg-primary/95 backdrop-blur-md text-white border-t border-white/10 shadow-2xl overflow-hidden">
+    <div class="container mx-auto px-6 py-6 lg:py-4 flex flex-col lg:flex-row items-center justify-between gap-6 font-['Open_Sans']">
+      
+      <!-- Content -->
+      <div class="flex items-center gap-4 flex-1">
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/80"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/></svg>
+        </div>
+        <p class="text-xs md:text-sm font-medium leading-relaxed max-w-2xl text-white/90">
+          Usamos cookies para mejorar tu experiencia. Consulta nuestra <a href="/cookies" class="font-bold underline hover:text-white transition-colors">Política de Cookies</a>.
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-wrap items-center gap-3 shrink-0">
+        <button id="cookie-config-btn" class="px-5 py-2.5 rounded-xl text-[11px] font-bold border border-white/30 hover:bg-white/10 transition-all text-center min-w-[120px]">
+          Configuración
+        </button>
+        <button id="cookie-reject" class="px-5 py-2.5 rounded-xl text-[11px] font-bold border border-white/30 hover:bg-white/10 transition-all text-center min-w-[100px]">
+          Rechazar
+        </button>
+        <button id="cookie-accept" class="px-8 py-2.5 rounded-xl text-[11px] font-black bg-white text-primary hover:bg-secondary hover:text-white transition-all shadow-lg active:scale-95 text-center min-w-[100px]">
+          Aceptar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Preferences Modal -->
+<div id="cookie-modal" class="fixed inset-0 z-60 items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden transform scale-95 transition-transform duration-300" id="cookie-modal-content">
+    <!-- Modal Header -->
+    <div class="bg-secondary px-6 py-5 flex items-center justify-between">
+      <h2 class="text-white font-bold text-lg">Configuración de Cookies</h2>
+      <button id="close-cookie-modal" class="text-white/70 hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-6 space-y-2">
+      <!-- Item 1: Essential -->
+      <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-black/5 transition-colors">
+        <input type="checkbox" checked disabled class="accent-secondary w-5 h-5 cursor-not-allowed opacity-50" id="cookies-essential" />
+        <label for="cookies-essential" class="text-sm font-medium text-gray-400 select-none">
+          Cookies necesarias (siempre activas)
+        </label>
+      </div>
+
+      <!-- Item 2: Performance -->
+      <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-black/5 transition-colors">
+        <input type="checkbox" class="accent-secondary w-5 h-5 cursor-pointer" id="cookies-analytics" />
+        <label for="cookies-analytics" class="text-sm font-medium text-gray-600 cursor-pointer select-none">
+          Cookies de rendimiento (Google Analytics)
+        </label>
+      </div>
+
+      <!-- Item 3: Marketing -->
+      <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-black/5 transition-colors">
+        <input type="checkbox" class="accent-secondary w-5 h-5 cursor-pointer" id="cookies-marketing" />
+        <label for="cookies-marketing" class="text-sm font-medium text-gray-600 cursor-pointer select-none">
+          Cookies de publicidad y redes sociales
+        </label>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-6 py-6 border-t border-gray-100 flex items-center justify-end gap-3">
+      <button id="cancel-cookie-config" class="px-6 py-2.5 rounded-xl text-[13px] font-bold bg-[#6B7280] text-white hover:bg-gray-700 transition-colors min-w-[100px]">
+        Cancelar
+      </button>
+      <button id="save-cookie-config" class="px-6 py-2.5 rounded-xl text-[13px] font-bold bg-secondary text-white hover:bg-primary-dark transition-colors min-w-[150px]">
+        Guardar preferencias
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const banner = document.querySelector('#cookie-banner') as HTMLDivElement;
+  const acceptBtn = document.querySelector('#cookie-accept');
+  const rejectBtn = document.querySelector('#cookie-reject');
+  const configBtn = document.querySelector('#cookie-config-btn');
+  const modal = document.querySelector('#cookie-modal') as HTMLDivElement;
+  const modalContent = document.querySelector('#cookie-modal-content');
+  const closeModalBtn = document.querySelector('#close-cookie-modal');
+  const cancelBtn = document.querySelector('#cancel-cookie-config');
+  const saveBtn = document.querySelector('#save-cookie-config');
+  
+  const analyticsCheckbox = document.querySelector('#cookies-analytics') as HTMLInputElement;
+  const marketingCheckbox = document.querySelector('#cookies-marketing') as HTMLInputElement;
+
+  const showBanner = () => {
+    if (banner) {
+      banner.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        banner.classList.remove('translate-y-full');
+      });
+    }
+  };
+
+  const hideBanner = () => {
+    if (banner) {
+      banner.classList.add('translate-y-full');
+      setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 500);
+    }
+  };
+
+  const openModal = () => {
+    if (modal && modalContent) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        modal.classList.remove('pointer-events-none');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+      });
+      
+      // Load current preferences
+      const consent = JSON.parse(localStorage.getItem('cookie-preferences') || '{}');
+      if (analyticsCheckbox) analyticsCheckbox.checked = consent.analytics ?? false;
+      if (marketingCheckbox) marketingCheckbox.checked = consent.marketing ?? false;
+    }
+  };
+
+  const closeModal = () => {
+    if (modal && modalContent) {
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0');
+      modal.classList.add('pointer-events-none');
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 300);
+    }
+  };
+
+  const setConsent = (status: 'accepted' | 'rejected' | 'custom', preferences?: { analytics: boolean, marketing: boolean }) => {
+    const finalPreferences = preferences || {
+      analytics: status === 'accepted',
+      marketing: status === 'accepted'
+    };
+    
+    localStorage.setItem('cookie-consent', status);
+    localStorage.setItem('cookie-preferences', JSON.stringify(finalPreferences));
+    hideBanner();
+    closeModal();
+    
+    // Dispatch event for other components to listen to
+    window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: { status, preferences: finalPreferences } }));
+  };
+
+  acceptBtn?.addEventListener('click', () => setConsent('accepted'));
+  rejectBtn?.addEventListener('click', () => setConsent('rejected'));
+  configBtn?.addEventListener('click', openModal);
+  closeModalBtn?.addEventListener('click', closeModal);
+  cancelBtn?.addEventListener('click', closeModal);
+  
+  saveBtn?.addEventListener('click', () => {
+    setConsent('custom', {
+      analytics: analyticsCheckbox?.checked || false,
+      marketing: marketingCheckbox?.checked || false
+    });
+  });
+
+  // Initialize
+  const checkCookieConsent = () => {
+    const consent = localStorage.getItem('cookie-consent');
+    if (!consent) {
+      showBanner();
+    }
+  };
+
+  checkCookieConsent();
+</script>

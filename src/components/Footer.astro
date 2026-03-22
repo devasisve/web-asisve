@@ -6,20 +6,20 @@ import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from 'lucide-astro'
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
       <div class="space-y-6">
-        <h3 class="text-2xl font-bold flex items-center gap-2 text-primary">
+        <h3 class="text-2xl font-bold flex items-center gap-2 text-primary-light">
           ASISVE
         </h3>
         <p class="text-gray-400 leading-relaxed max-w-sm">
           Voces de cambio y dignidad. Tu ayuda importa: Súmate a nuestra misión por un mundo más justo.
         </p>
         <div class="flex gap-4">
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors" aria-label="Sintoniza con ASISVE en Facebook">
             <Facebook size="20" />
           </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors" aria-label="Síguenos en Instagram">
             <Instagram size="20" />
           </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors" aria-label="Nuestro perfil en X (Twitter)">
             <Twitter size="20" />
           </a>
         </div>
@@ -28,11 +28,11 @@ import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from 'lucide-astro'
       <div class="space-y-6">
         <h4 class="text-lg font-bold border-b border-primary/30 pb-2 inline-block">Mapa del Sitio</h4>
         <ul class="space-y-4">
-          <li><a href="/" class="text-gray-400 hover:text-primary transition-colors">Inicio</a></li>
-          <li><a href="/about" class="text-gray-400 hover:text-primary transition-colors">Sobre Nosotros</a></li>
-          <li><a href="/services" class="text-gray-400 hover:text-primary transition-colors">Servicios</a></li>
-          <li><a href="/testimonial" class="text-gray-400 hover:text-primary transition-colors">Testimonios</a></li>
-          <li><a href="/contact" class="text-gray-400 hover:text-primary transition-colors">Contacto</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-primary-light transition-colors">Inicio</a></li>
+          <li><a href="/about" class="text-gray-400 hover:text-primary-light transition-colors">Sobre Nosotros</a></li>
+          <li><a href="/services" class="text-gray-400 hover:text-primary-light transition-colors">Servicios</a></li>
+          <li><a href="/testimonial" class="text-gray-400 hover:text-primary-light transition-colors">Testimonios</a></li>
+          <li><a href="/contact" class="text-gray-400 hover:text-primary-light transition-colors">Contacto</a></li>
         </ul>
 
       </div>
@@ -59,8 +59,8 @@ import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from 'lucide-astro'
     <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
       <p>&copy; {new Date().getFullYear()} ASISVE. Todos los derechos reservados.</p>
       <div class="flex gap-6">
-        <a href="/privacy" class="hover:text-primary transition-colors">Política de Privacidad</a>
-        <a href="/cookies" class="hover:text-primary transition-colors">Política de Cookies</a>
+        <a href="/privacy" class="hover:text-primary-light transition-colors">Política de Privacidad</a>
+        <a href="/cookies" class="hover:text-primary-light transition-colors">Política de Cookies</a>
       </div>
     </div>
   </div>

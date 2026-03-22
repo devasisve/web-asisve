@@ -1,20 +1,24 @@
 ---
+import { Image } from "astro:assets";
+
 interface Sponsor {
   name: string;
-  logo: string;
+  logoPath: string;
 }
 
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.{png,webp,jpg,jpeg}', { eager: true });
+
 const sponsors: Sponsor[] = [
-  { name: "Banco de Alimentos", logo: "/img/Banco.alimentos..png" },
-  { name: "Shukran", logo: "/img/Logo_Shukran.png" },
-  { name: "Amazon", logo: "/img/amazón.png" },
-  { name: "Altius", logo: "/img/colaborador_altius.png" },
-  { name: "Diaconía", logo: "/img/colaborador_diaconia.png" },
-  { name: "Remar", logo: "/img/colaborador_remar.png" },
-  { name: "Alcamar", logo: "/img/colaborador_alcamar.webp" },
-  { name: "AMA", logo: "/img/logo_AMA.jpg" },
-  { name: "Frioval", logo: "/img/frioval.jfif" },
-  { name: "Comunidad de Madrid", logo: "/img/colaborador_madrid.webp" },
+  { name: "Banco de Alimentos", logoPath: "../assets/img/banco-alimentos.png" },
+  { name: "Shukran", logoPath: "../assets/img/logo-shukran.png" },
+  { name: "Amazon", logoPath: "../assets/img/amazon.png" },
+  { name: "Altius", logoPath: "../assets/img/logo-altius.png" },
+  { name: "Diaconía", logoPath: "../assets/img/logo-diaconia.png" },
+  { name: "Remar", logoPath: "../assets/img/logo-remar.png" },
+  { name: "Alcamar", logoPath: "../assets/img/logo-alcamar.webp" },
+  { name: "AMA", logoPath: "../assets/img/logo-ama.jpg" },
+  { name: "Frioval", logoPath: "../assets/img/frioval.jpg" },
+  { name: "Comunidad de Madrid", logoPath: "../assets/img/logo-madrid.webp" },
 ];
 
 // Duplicate sponsors for infinite effect
@@ -32,16 +36,25 @@ const allSponsors = [...sponsors, ...sponsors];
 
   <div class="relative flex overflow-x-hidden group max-w-[1480px] mx-auto">
     <div class="animate-scroll flex gap-8 py-4 whitespace-nowrap min-w-full">
-      {allSponsors.map((sponsor) => (
-        <div class="flex shrink-0 w-64 h-32 items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 grayscale hover:grayscale-0">
-          <img 
-            src={sponsor.logo} 
-            alt={`Logo de ${sponsor.name}`} 
-            class="max-w-full max-h-full object-cover object-top"
-            loading="lazy"
-          />
-        </div>
-      ))}
+      {allSponsors.map((sponsor) => {
+        const logo = images[sponsor.logoPath]?.default;
+        return (
+          <div class="flex shrink-0 w-64 h-32 items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 grayscale hover:grayscale-0">
+            {logo ? (
+              <Image 
+                src={logo} 
+                alt={`Logo de ${sponsor.name}`} 
+                width={200}
+                height={100}
+                class="max-w-full max-h-full object-contain"
+                loading="lazy"
+              />
+            ) : (
+              <span class="text-gray-300 font-bold">{sponsor.name}</span>
+            )}
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>

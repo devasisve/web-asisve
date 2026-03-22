@@ -1,6 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import Layout from '../layouts/Layout.astro';
 import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
+import combinedLogo from "../assets/img/combined_logo.png";
+import vision1 from "../assets/img/vision.jpg";
+import vision2 from "../assets/img/vision-2.jpg";
 ---
 
 <Layout title="Sobre Nosotros | ASISVE">
@@ -20,8 +24,8 @@ import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
           </div>
           <div class="relative animate-fade-in-up" style="animation-delay: 200ms">
             <div class="absolute -top-6 -left-6 w-full h-full border-2 border-primary/10 rounded-3xl -z-10 translate-x-4 translate-y-4"></div>
-            <img 
-              src="/img/combined_logo.png" 
+            <Image 
+              src={combinedLogo} 
               alt="ASISVE Logo" 
               class="w-full h-auto rounded-3xl shadow-2xl bg-white p-12"
             />
@@ -74,8 +78,8 @@ import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
               </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
-              <img src="/img/VISION.JPG" alt="Impacto" class="rounded-2xl aspect-square object-cover shadow-lg translate-y-8" />
-              <img src="/img/VISION 2.JPG" alt="Comunidad" class="rounded-2xl aspect-square object-cover shadow-lg" />
+              <Image src={vision1} alt="Impacto" class="rounded-2xl aspect-square object-cover shadow-lg translate-y-8" />
+              <Image src={vision2} alt="Comunidad" class="rounded-2xl aspect-square object-cover shadow-lg" />
             </div>
           </div>
         </div>

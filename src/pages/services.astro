@@ -7,54 +7,55 @@ import {
   ArrowRight
 } from 'lucide-astro';
 
+// Service Images
+import serviceAlimentos from "../assets/img/entrega-alimentos.jpg";
+import serviceRefugio from "../assets/img/refugio.jpg";
+import serviceMedica from "../assets/img/jornada-medica.jpg";
+import serviceRopero from "../assets/img/ropero.jpg";
+import serviceLegal from "../assets/img/carrusel-2.webp";
+import serviceBanco from "../assets/img/banco-alimentos.png";
+
 const allServices = [
   {
     title: "Ayuda Alimentaria",
     description: "Distribución semanal de cestas de alimentos básicos y nutritivos para familias en situación de vulnerabilidad extrema.",
     icon: Apple,
-    image: "/img/entrega_alimentos.JPG",
+    image: serviceAlimentos,
     category: "Básico"
   },
   {
     title: "Refugio Temporal",
     description: "Espacio seguro de acogida para personas en riesgo de calle, proporcionando techo, higiene y protección inmediata.",
     icon: Home,
-    image: "/img/refugio.jpg",
+    image: serviceRefugio,
     category: "Vivienda"
   },
   {
     title: "Atención Médica",
     description: "Jornadas de salud preventiva y entrega controlada de medicamentos donados para quienes no tienen acceso al sistema sanitario.",
     icon: Activity,
-    image: "/img/jornada_medica.JPG",
+    image: serviceMedica,
     category: "Salud"
-  },
-  {
-    title: "Formación y Cursos",
-    description: "Programas de capacitación para mejorar la empleabilidad e integración laboral de la comunidad migrante.",
-    icon: BookOpen,
-    image: "/img/voluntariado.JPG",
-    category: "Desarrollo"
   },
   {
     title: "Ropero Solidario",
     description: "Suministro de prendas de vestir y calzado en buen estado para adultos y niños, adaptado a las estaciones del año.",
     icon: Shirt,
-    image: "/img/ropero.jpg",
+    image: serviceRopero,
     category: "Básico"
   },
   {
     title: "Asesoría Legal",
     description: "Orientación en trámites de extranjería, derechos laborales y regularización para facilitar la estancia legal.",
     icon: Scale,
-    image: "/img/carrusel 2.webp",
+    image: serviceLegal,
     category: "Legal"
   },
   {
     title: "Banco de Alimentos",
     description: "Gestión de grandes donaciones y logística de almacenamiento para garantizar la continuidad de nuestras jornadas.",
     icon: Beef,
-    image: "/img/Banco.alimentos..png",
+    image: serviceBanco,
     category: "Logística"
   }
 ];

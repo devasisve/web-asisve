@@ -306,12 +306,12 @@ const navLinks = [
       </button>
     </div>
 
-    <div class="flex flex-col gap-1 grow overflow-y-auto custom-scrollbar">
+    <div class="flex flex-col gap-1 grow overflow-y-auto">
       {
         navLinks.map((link, index) => (
           <a
             href={link.href}
-            class="mobile-nav-link text-2xl font-bold text-dark/90 hover:text-primary py-5 px-3 rounded-2xl hover:bg-primary/3 transition-all flex items-center justify-between group"
+            class="mobile-nav-link text-xl font-bold text-dark/90 hover:text-primary py-4 px-3 rounded-2xl hover:bg-primary/3 transition-all flex items-center justify-between group"
             style={`--index: ${index};`}
           >
             <span class="relative">
@@ -385,14 +385,6 @@ const navLinks = [
 </div>
 
 <style>
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 3px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(var(--color-primary), 0.1);
-    border-radius: 10px;
-  }
-
   /* Entrance animations for links when menu is visible */
   #mobile-menu:not(.invisible) .mobile-nav-link {
     animation: slideInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
@@ -409,16 +401,6 @@ const navLinks = [
       opacity: 1;
       transform: translateY(0);
     }
-  }
-</style>
-
-<style>
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #eee;
-    border-radius: 10px;
   }
 </style>
 

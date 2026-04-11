@@ -4,18 +4,19 @@ import type { ImageMetadata } from "astro";
 
 interface Props {
   title: string;
+  subtitle: string;
   description: string;
   icon: any;
   image: string | ImageMetadata;
   delay?: string;
 }
 
-const { title, description, icon: Icon, image, delay = "0" } = Astro.props;
+const { title, subtitle, description, icon: Icon, image, delay = "0" } = Astro.props;
 
 // Detect if image is likely a logo to use object-contain instead of cover
 const isLogo = typeof image === 'string' 
-  ? image.toLowerCase().includes('logo') || image.toLowerCase().includes('banco')
-  : (image as any).src.toLowerCase().includes('logo') || (image as any).src.toLowerCase().includes('banco');
+  ? image.toLowerCase().includes('logo')
+  : (image as any).src.toLowerCase().includes('logo');
 ---
 
 <div 
@@ -28,7 +29,7 @@ const isLogo = typeof image === 'string'
       alt={title} 
       width={600}
       height={400}
-      class={`w-full h-full transition-transform duration-700 group-hover:scale-110 ${isLogo ? 'object-contain' : 'object-cover'}`}
+      class={`w-full h-full transition-transform duration-700 group-hover:scale-110 object-cover`}
     />
     <div class="absolute inset-0 bg-linear-to-t from-dark/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
   </div>
@@ -41,19 +42,11 @@ const isLogo = typeof image === 'string'
     <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
       {title}
     </h3>
+    <h4 class="text-gray-800 text-sm leading-relaxed mb-3">
+      {subtitle}
+    </h4>
     <p class="text-gray-800 text-sm leading-relaxed">
       {description}
     </p>
-    
-    <div class="mt-6 pt-6 border-t border-gray-50">
-      <a 
-        href="/services" 
-        class="text-primary font-semibold text-sm flex items-center gap-2 group/link"
-        aria-label={`Saber más sobre ${title}`}
-      >
-        Saber más 
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover/link:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
-    </div>
   </div>
 </div>

@@ -5,55 +5,89 @@ import ServiceCard from "../components/ServiceCard.astro";
 import SponsorsCarousel from "../components/SponsorsCarousel.astro";
 import InstagramFeed from "../components/InstagramFeed.astro";
 import Location from "../components/Location.astro";
-import { Apple, Home, Activity, Shirt, ArrowRight, Scale } from "lucide-astro";
+import { Apple, Home, Activity, Shirt, ArrowRight, Scale, Beef } from "lucide-astro";
 
 // Hero Image
 import heroImage from "../assets/img/carrusel-1.webp";
 
 // Service Images
-import serviceAlimentos from "../assets/img/entrega-alimentos.jpg";
-import serviceRefugio from "../assets/img/refugio.jpg";
-import serviceMedica from "../assets/img/jornada-medica.jpg";
-import serviceLegal from "../assets/img/carrusel-2.webp";
-import serviceRopero from "../assets/img/ropero.jpg";
+import serviceAlimentos from "../assets/services/alimentos.webp";
+import serviceRefugio from "../assets/services/refugio.webp";
+import serviceMedica from "../assets/services/recetas.medicina.webp";
+import serviceLegal from "../assets/services/asesorialegal.webp";
+import serviceRopero from "../assets/services/ropero.webp";
+import serviceBanco from "../assets/services/bancodealimentos.webp";
 
 const services = [
   {
-    title: "Jornada Alimentos",
+    title: "Jornada de alimentos",
+    subtitle: "Sábados · 11:00 am · Registro con documento",
     description:
-      "Proveemos alimentos esenciales a familias migrantes en situación de vulnerabilidad. Cada semana, distribuimos cestas que incluyen productos básicos.",
+      "Proveemos alimentos esenciales a familias migrantes en situación de vulnerabilidad. Cada semana, distribuimos cestas que incluyen productos básicos para garantizar una alimentación balanceada y contribuir al bienestar de quienes más lo necesitan.",
     icon: Apple,
     image: serviceAlimentos,
   },
   {
-    title: "Refugio Temporal",
+    title: "Casa de Acogida",
+    subtitle: "Plazas limitadas · Evaluación de urgencia",
     description:
-      "Ofrecemos un lugar seguro para personas en riesgo, proporcionando un techo temporal. Un espacio de esperanza y protección.",
+      "Ofrecemos un lugar seguro para personas en riesgo, proporcionando un techo temporal. Nuestro refugio busca ser más que un espacio físico: es un lugar de esperanza, donde quienes enfrentan situaciones críticas pueden sentirse acogidos y protegidos.",
     icon: Home,
     image: serviceRefugio,
   },
   {
-    title: "Jornada Médica",
+    title: "Entrega de medicamentos",
+    subtitle: "Con receta médica · Turnos programados",
     description:
-      "Brindamos jornadas de salud y recibimos donaciones de medicamentos entregados de manera segura por personal especializado.",
+      "En nuestra organización, también brindamos jornadas de salud. Además, recibimos donaciones de medicamentos, los cuales son entregados de manera segura y responsable por nuestro personal especializado, siempre bajo receta médica.",
     icon: Activity,
     image: serviceMedica,
   },
   {
-    title: "Asesoría Legal",
+    title: "Asesoría Legal Gratuita",
+    subtitle: "Migración · Arraigo · Consultas",
     description: "Orientación en trámites de extranjería, derechos laborales y regularización para facilitar la estancia legal.",
     icon: Scale,
     image: serviceLegal,
-    category: "Legal"
   },
   {
     title: "Ropero Solidario",
+    subtitle: "Ropa de temporada · Según stock",
     description:
-      "Contamos con prendas para toda la familia, asegurando que cada persona reciba lo necesario para su día a día.",
+      "Contamos con prendas para toda la familia: desde abrigos para el invierno hasta ropa ligera para el verano, así como calzado y accesorios. A través de donaciones generosas y el trabajo de nuestros voluntarios, aseguramos que cada persona reciba lo necesario para sentirse cómodo en su día a día.",
     icon: Shirt,
     image: serviceRopero,
   },
+  {
+    title: "Banco de Alimentos",
+    subtitle: "Ayuda mensual",
+    description: "Gestión de grandes donaciones y logística de almacenamiento para garantizar la continuidad de nuestras jornadas.",
+    icon: Beef,
+    image: serviceBanco,
+  },
 ];
+
+// Datos de colaboradores desacoplados
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.{png,webp,jpg,jpeg}', { eager: true });
+const sponsorsData = [
+  { name: "Banco de Alimentos", logoPath: "../assets/img/banco-alimentos.png" },
+  { name: "Shukran", logoPath: "../assets/img/logo-shukran.png" },
+  { name: "Amazon", logoPath: "../assets/img/amazon.png" },
+  { name: "Altius", logoPath: "../assets/img/logo-altius.png" },
+  { name: "Diaconía", logoPath: "../assets/img/logo-diaconia.png" },
+  { name: "Remar", logoPath: "../assets/img/logo-remar.png" },
+  { name: "Alcamar", logoPath: "../assets/img/logo-alcamar.webp" },
+  { name: "AMA", logoPath: "../assets/img/logo-ama.jpg" },
+  { name: "Frioval", logoPath: "../assets/img/frioval.jpg" },
+  { name: "Comunidad de Madrid", logoPath: "../assets/img/logo-madrid.webp" },
+];
+
+const sponsors = sponsorsData
+  .map(s => ({
+    name: s.name,
+    logo: sponsorImages[s.logoPath]?.default
+  }))
+  .filter(s => s.logo);
 ---
 
 <Layout title="ASISVE | Ayuda en acción">
@@ -151,21 +185,18 @@ const services = [
           cubriendo desde necesidades básicas hasta integración laboral.
         </p>
       </div>
-
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
-      >
-        {
-          services.map((service, index) => (
-            <ServiceCard {...service} delay={(index * 150).toString()} />
-          ))
-        }
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <div class="animate-fade-in-up" style={`animation-delay: ${index * 100}ms`}>
+            <ServiceCard {...service} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
   {/* Sponsors Carousel Section */}
-  <SponsorsCarousel />
+  <SponsorsCarousel sponsors={sponsors} />
 
   {/* Instagram Feed Section */}
   <InstagramFeed />

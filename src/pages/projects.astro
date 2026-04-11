@@ -1,0 +1,369 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { 
+  Briefcase, 
+  GraduationCap, 
+  TrendingUp, 
+  CheckCircle2, 
+  ArrowRight,
+  ShieldCheck,
+  Users2,
+  Zap
+} from "lucide-astro";
+import SponsorsCarousel from "../components/SponsorsCarousel.astro";
+
+const steps = [
+  {
+    title: "Formación",
+    description: "Talleres intensivos orientados a habilidades comerciales y técnicas.",
+    icon: GraduationCap,
+    gradient: "from-[#d65c6b] to-[#7e2b34]"
+  },
+  {
+    title: "Desarrollo",
+    description: "Preparación de perfiles adaptados a la realidad del mercado español.",
+    icon: TrendingUp,
+    gradient: "from-[#d65c6b] to-[#7e2b34]"
+  },
+  {
+    title: "Inserción",
+    description: "Conexión directa con oportunidades dentro del tejido empresarial.",
+    icon: Briefcase,
+    gradient: "from-[#d65c6b] to-[#7e2b34]"
+  }
+];
+
+const attributes = [
+  { name: "Compromiso", convencional: "Variable", asisve: "Máximo" },
+  { name: "Resiliencia", convencional: "Estándar", asisve: "Alta" },
+  { name: "Formación", convencional: "Genérica", asisve: "Específica" },
+  { name: "Soporte", convencional: "Individual", asisve: "Red Sólida" }
+];
+
+const dossierFeatures = [
+  {
+    title: "Perfiles Validados",
+    desc: "Competencias certificadas.",
+    icon: ShieldCheck
+  },
+  {
+    title: "Casos de Éxito",
+    desc: "Referencias reales de desempeño.",
+    icon: Users2
+  },
+  {
+    title: "Valor Inmediato",
+    desc: "Listos para aportar desde el día 1.",
+    icon: Zap
+  }
+];
+
+// Sponsors data moved here to decouple the component
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.{png,webp,jpg,jpeg}', { eager: true });
+const sponsorsData = [
+  { name: "Banco de Alimentos", logoPath: "../assets/img/banco-alimentos.png" },
+  { name: "Shukran", logoPath: "../assets/img/logo-shukran.png" },
+  { name: "Amazon", logoPath: "../assets/img/amazon.png" },
+  { name: "Altius", logoPath: "../assets/img/logo-altius.png" },
+  { name: "Diaconía", logoPath: "../assets/img/logo-diaconia.png" },
+  { name: "Remar", logoPath: "../assets/img/logo-remar.png" },
+  { name: "Alcamar", logoPath: "../assets/img/logo-alcamar.webp" },
+  { name: "AMA", logoPath: "../assets/img/logo-ama.jpg" },
+  { name: "Frioval", logoPath: "../assets/img/frioval.jpg" },
+  { name: "Comunidad de Madrid", logoPath: "../assets/img/logo-madrid.webp" },
+];
+
+const sponsors = sponsorsData
+  .map(s => ({
+    name: s.name,
+    logo: sponsorImages[s.logoPath]?.default
+  }))
+  .filter(s => s.logo);
+---
+
+<Layout 
+  title="Inserción Socio-Laboral - ASISVE" 
+  description="Conectamos formación técnica y práctica con el mercado laboral real. Descubre nuestro modelo de integración socio-laboral."
+>
+  <main class="overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative bg-primary py-24 md:py-32 flex items-center justify-center text-center overflow-hidden">
+      <!-- Decorative Background Elements -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--color-primary-light)_0%,transparent_70%)] opacity-20"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-dark/50 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="container max-w-[1320px] mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto space-y-8 animate-fade-in">
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight">
+            Un Proyecto de <span class="italic text-primary-contrast">Integración Socio-Laboral</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed">
+            ASISVE desarrolla un modelo estructurado que conecta formación práctica, capacitación técnica y acceso real al mercado laboral.
+          </p>
+        </div>
+
+        <!-- Cards Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20">
+          {steps.map((step, index) => (
+            <div 
+              class="group relative p-8 rounded-4xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-500 hover:-translate-y-2"
+              style={`animation-delay: ${index * 150}ms`}
+            >
+              <div class={`w-16 h-16 rounded-2xl bg-linear-to-br ${step.gradient} flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 transition-transform duration-500`}>
+                <step.icon class="text-white w-8 h-8" />
+              </div>
+              <div class="space-y-4 text-left">
+                <span class="text-primary-contrast/50 font-black text-4xl opacity-20 group-hover:opacity-40 transition-opacity">0{index + 1}</span>
+                <h3 class="text-2xl font-bold text-white tracking-tight">{step.title}</h3>
+                <p class="text-white/70 text-lg leading-relaxed">{step.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners Carousel (Logos de) -->
+    <div class="bg-gray-50 border-y border-gray-100">
+        <SponsorsCarousel sponsors={sponsors} />
+    </div>
+
+    <!-- Talent Differential -->
+    <section class="py-24 bg-white relative">
+      <div class="container max-w-[1320px] mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="space-y-8">
+            <div class="space-y-4">
+              <h2 class="text-3xl md:text-5xl font-black text-dark tracking-tighter leading-tight">
+                El Diferencial de <span class="text-primary italic">Talento ASISVE</span>
+              </h2>
+              <div class="w-20 h-2 bg-primary rounded-full"></div>
+            </div>
+            <p class="text-xl text-gray-700 leading-relaxed font-medium italic border-l-4 border-primary pl-6">
+              "Formamos talento con habilidades técnicas, resiliencia y compromiso superior, respaldados por una red comunitaria sólida para garantizar estabilidad laboral."
+            </p>
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div class="p-6 bg-gray-50 rounded-2xl flex items-start gap-4 transition-hover hover:shadow-md">
+                <CheckCircle2 class="text-primary shrink-0 transition-hover" />
+                <p class="font-bold text-dark text-sm md:text-base">Habilidades técnicas validadas</p>
+              </div>
+              <div class="p-6 bg-gray-50 rounded-2xl flex items-start gap-4 transition-hover hover:shadow-md">
+                <CheckCircle2 class="text-primary shrink-0" />
+                <p class="font-bold text-dark text-sm md:text-base">Compromiso superior</p>
+              </div>
+              <div class="p-6 bg-gray-50 rounded-2xl flex items-start gap-4 transition-hover hover:shadow-md">
+                <CheckCircle2 class="text-primary shrink-0" />
+                <p class="font-bold text-dark text-sm md:text-base">Resiliencia ante desafíos</p>
+              </div>
+              <div class="p-6 bg-gray-50 rounded-2xl flex items-start gap-4 transition-hover hover:shadow-md">
+                <CheckCircle2 class="text-primary shrink-0" />
+                <p class="font-bold text-dark text-sm md:text-base">Estabilidad garantizada</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative group hidden lg:block">
+            <div class="absolute -inset-4 bg-primary/10 rounded-[3rem] blur-2xl group-hover:bg-primary/20 transition-all duration-700"></div>
+            <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-primary aspect-video flex items-center justify-center p-8">
+              <div class="text-center space-y-4">
+                <Users2 size="64" class="text-primary-contrast/50 mx-auto" />
+                <h3 class="text-3xl font-black text-white italic">Construyendo Futuro</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Project Phases -->
+    <section class="py-24 bg-gray-50 overflow-hidden">
+      <div class="container max-w-[1320px] mx-auto px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-black text-dark mb-16 tracking-tight">Fases del Proyecto</h2>
+        
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Phase 1 -->
+          <div class="bg-white rounded-[3rem] p-8 md:p-12 shadow-xl border border-gray-100 text-left relative overflow-hidden group hover:shadow-2xl transition-all duration-500">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="relative space-y-6">
+              <span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-black uppercase">Fase 1: Actual</span>
+              <h3 class="text-3xl font-black text-dark leading-none">Consolidación de Ventas</h3>
+              <p class="text-lg text-gray-600 font-medium">Formación experta en el sector comercial para el mercado español. Perfiles validados con altas capacidades comunicativas.</p>
+              <div class="aspect-video rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+                <img 
+                    src="https://trello.com/1/cards/69c94b4e4c679ae62b6325fe/attachments/69d5285dea41c276ee9309fd/previews/69d5285eea41c276ee930a4a/download/image.webp" 
+                    alt="Formación en ventas ASISVE" 
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <ul class="space-y-3 pt-4">
+                 <li class="flex items-center gap-3 font-bold text-dark">
+                    <div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                        <ArrowRight size="12" class="text-primary" />
+                    </div>
+                    Técnicas de venta adaptadas
+                 </li>
+                 <li class="flex items-center gap-3 font-bold text-dark">
+                    <div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                        <ArrowRight size="12" class="text-primary" />
+                    </div>
+                    Comunicación persuasiva
+                 </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="bg-dark rounded-[3rem] p-8 md:p-12 shadow-xl text-left relative overflow-hidden group hover:shadow-primary/20 transition-all duration-500">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="relative space-y-6">
+              <span class="inline-block px-4 py-1.5 rounded-full bg-primary/30 text-white text-sm font-black uppercase">Fase 2: Próximamente</span>
+              <h3 class="text-3xl font-black text-white leading-none">Expansión a Oficios</h3>
+              <p class="text-lg text-white/70 font-medium">Respuesta a la escasez de técnicos en Electricidad e Fontanería. Capacitación técnica práctica y especializada.</p>
+              <div class="aspect-video rounded-3xl overflow-hidden shadow-lg border-4 border-white/10 grayscale group-hover:grayscale-0 transition-all duration-700">
+                <img 
+                    src="https://trello.com/1/cards/69c94b4e4c679ae62b6325fe/attachments/69d529f7f0f73379ae9dbd8c/previews/69d529f8f0f73379ae9dbde9/download/image.webp" 
+                    alt="Formación en oficios técnicos" 
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <ul class="space-y-3 pt-4">
+                 <li class="flex items-center gap-3 font-bold text-white/80">
+                    <div class="w-5 h-5 rounded-full bg-primary/50 flex items-center justify-center">
+                        <ArrowRight size="12" class="text-white" />
+                    </div>
+                    Electricidad residencial
+                 </li>
+                 <li class="flex items-center gap-3 font-bold text-white/80">
+                    <div class="w-5 h-5 rounded-full bg-primary/50 flex items-center justify-center">
+                        <ArrowRight size="12" class="text-white" />
+                    </div>
+                    Fontanería técnica
+                 </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Table Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container max-w-[1000px] mx-auto px-4">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl p-6 md:p-12 border border-gray-100 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8">
+                     <div class="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center border border-primary/10">
+                        <CheckCircle2 class="text-primary" size="32" />
+                     </div>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-black text-dark mb-12 tracking-tight">Comparativa de <br/><span class="text-primary italic">Perfiles de Talento</span></h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-primary/10">
+                                <th class="py-4 font-black uppercase tracking-widest text-gray-400 text-xs text-left">Atributo</th>
+                                <th class="py-4 font-black uppercase tracking-widest text-gray-400 text-xs text-center">Convencional</th>
+                                <th class="py-4 font-black uppercase tracking-widest text-primary text-xs text-right">Modelo ASISVE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {attributes.map(attr => (
+                                <tr class="border-b border-gray-50 group hover:bg-primary/5 transition-colors">
+                                    <td class="py-6 font-bold text-dark">{attr.name}</td>
+                                    <td class="py-6 text-center text-gray-500 font-medium">{attr.convencional}</td>
+                                    <td class="py-6 text-right">
+                                        <span class="inline-block px-4 py-1.5 bg-primary text-white text-sm font-black rounded-lg shadow-md transform group-hover:scale-105 transition-transform">
+                                            {attr.asisve}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-12 p-6 bg-primary-contrast rounded-2xl flex items-center gap-4 border border-primary/10">
+                    <ShieldCheck class="text-primary shrink-0" />
+                    <p class="text-primary font-bold text-sm md:text-base">Nuestro modelo garantiza perfiles con un compromiso y preparación superior al estándar del mercado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Dossier & CTA -->
+    <section class="py-24 bg-white relative overflow-hidden">
+        <div class="container max-w-[1320px] mx-auto px-4">
+            <div class="bg-primary rounded-[3rem] md:rounded-[5rem] p-8 md:p-20 text-white relative overflow-hidden">
+                <div class="absolute inset-0 bg-dark/10"></div>
+                <!-- Abstract blobs -->
+                <div class="absolute -top-1/2 -left-1/4 w-full h-full bg-white/5 rounded-full blur-[100px] animate-pulse"></div>
+                
+                <div class="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-10">
+                        <div class="space-y-4">
+                            <h2 class="text-4xl md:text-6xl font-black tracking-tighter leading-tight drop-shadow-lg">
+                                Dossier de <br/> <span class="text-primary-contrast italic">Talento Comercial</span>
+                            </h2>
+                            <p class="text-xl md:text-2xl text-white/80 font-medium">Nuestra herramienta principal para abrir puertas en el tejido empresarial español.</p>
+                        </div>
+
+                        <div class="grid gap-6">
+                            {dossierFeatures.map(feature => (
+                                <div class="flex items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group">
+                                    <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <feature.icon class="text-primary-contrast" />
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold">{feature.title}</h4>
+                                        <p class="text-white/60 font-medium">{feature.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div class="pt-6">
+                            <a 
+                                href="/contact" 
+                                class="inline-flex items-center gap-4 bg-white text-primary hover:bg-primary-contrast px-10 py-5 rounded-2xl font-black text-xl transition-all shadow-2xl active:scale-95 group"
+                            >
+                                Solicitar Dossier
+                                <ArrowRight class="group-hover:translate-x-2 transition-transform" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative hidden lg:block">
+                        <div class="absolute -inset-10 bg-white/5 rounded-full blur-3xl"></div>
+                        <img 
+                            src="https://trello.com/1/cards/69c94b4e4c679ae62b6325fe/attachments/69d52bfb20d8b27d50fafbe3/previews/69d52bfc20d8b27d50fafc50/download/image.webp" 
+                            alt="Dossier ASISVE Preview" 
+                            class="w-full h-auto rounded-4xl shadow-[-20px_20px_60px_rgba(0,0,0,0.4)] rotate-3 hover:rotate-0 transition-all duration-700 border-4 border-white/10"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .transition-hover {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>

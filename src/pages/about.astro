@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import Layout from '../layouts/Layout.astro';
-import { Eye, Rocket, Users, HandHeart, Globe } from 'lucide-astro';
-import combinedLogo from "../assets/img/combined_logo.png";
-import vision1 from "../assets/img/vision.jpg";
-import vision2 from "../assets/img/vision-2.jpg";
+import combinedLogo from "../assets/about/qs01.webp";
+import vision1 from "../assets/about/qs02.webp";
+import vision2 from "../assets/about/qs03.webp";
+import premioImg from "../assets/about/premio.jpeg";
 ---
 
 <Layout title="Sobre Nosotros | ASISVE">
@@ -22,80 +22,97 @@ import vision2 from "../assets/img/vision-2.jpg";
               ASISVE nació como un faro de solidaridad en Madrid, con la firme convicción de que nadie debería enfrentar la migración en soledad o precariedad. Somos una comunidad que tiende puentes hacia la integración real.
             </p>
           </div>
-          <div class="relative animate-fade-in-up" style="animation-delay: 200ms">
-            <div class="absolute -top-6 -left-6 w-full h-full border-2 border-primary/10 rounded-3xl -z-10 translate-x-4 translate-y-4"></div>
-            <Image 
-              src={combinedLogo} 
-              alt="ASISVE Logo" 
-              class="w-full h-auto rounded-3xl shadow-2xl bg-white p-12"
-            />
+          <div class="relative animate-fade-in-up w-full aspect-video" style="animation-delay: 200ms">
+           <iframe 
+              width="560" 
+              height="315" 
+              src="https://www.youtube.com/embed/SioW0_Rve0s?si=Ifb9sdkG0lrIR6hF" 
+              title="YouTube video player" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin" 
+              allowfullscreen
+              class="w-full h-full rounded-3xl"
+              >
+            </iframe>
           </div>
         </div>
 
-        {/* Vision & Mission Grid */}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
-          <div class="bg-gray-50 p-10 rounded-3xl space-y-6 hover:shadow-xl transition-shadow border border-gray-100 group">
-            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-              <Eye size="32" />
-            </div>
-            <h3 class="text-3xl font-bold text-dark">Nuestra Visión</h3>
-            <p class="text-gray-800 leading-relaxed font-medium">
-              Buscamos ser reconocidos como el centro de referencia integral en Madrid, donde cada migrante iberoamericano encuentre las herramientas para su desarrollo pleno en una sociedad equitativa y justa.
-            </p>
-          </div>
-
-          <div class="bg-gray-50 p-10 rounded-3xl space-y-6 hover:shadow-xl transition-shadow border border-gray-100 group">
-            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-              <Rocket size="32" />
-            </div>
-            <h3 class="text-3xl font-bold text-dark">Nuestra Misión</h3>
-            <p class="text-gray-800 leading-relaxed font-medium">
-              Brindamos soporte vital inmediato: alimentación, refugio, atención médica y formación. Trabajamos para transformar la asistencia en empoderamiento y soluciones de vida sostenibles.
-            </p>
-          </div>
-        </div>
-
-        {/* Strategy Section */}
-        <div class="bg-dark rounded-[40px] p-8 md:p-16 text-white relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          
-          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-              <h2 class="text-3xl font-bold">Nuestro Objetivo Estratégico</h2>
-              <p class="text-white text-lg leading-relaxed font-medium">
-                Ser el pilar de apoyo continuo que permita a los migrantes reintegrarse plenamente, facilitando el acceso a recursos educativos, laborales y sociales esenciales para alcanzar sus sueños.
-              </p>
-              <div class="flex flex-wrap gap-4 pt-4">
-                <div class="flex items-center gap-2 text-sm text-white font-bold py-2.5 px-5 bg-primary/20 rounded-full border border-primary-light/30 backdrop-blur-sm transition-all hover:bg-primary/30">
-                  <HandHeart size="18" class="text-primary-light" /> Solidaridad
-                </div>
-                <div class="flex items-center gap-2 text-sm text-white font-bold py-2.5 px-5 bg-primary/20 rounded-full border border-primary-light/30 backdrop-blur-sm transition-all hover:bg-primary/30">
-                  <Globe size="18" class="text-primary-light" /> Integración
-                </div>
-                <div class="flex items-center gap-2 text-sm text-white font-bold py-2.5 px-5 bg-primary/20 rounded-full border border-primary-light/30 backdrop-blur-sm transition-all hover:bg-primary/30">
-                  <Users size="18" class="text-primary-light" /> Comunidad
-                </div>
+        {/* Sections: Objetivo, Visión y Misión */}
+        <div class="space-y-24 mb-32">
+          {/* Nuestro Objetivo */}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div class="flex justify-center reveal-left">
+              <div class="w-full max-w-sm md:max-w-lg lg:max-w-none">
+                <Image src={combinedLogo} alt="Personal de ASISVE colaborando" class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl" />
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-              <Image src={vision1} alt="Impacto" class="rounded-2xl aspect-square object-cover shadow-lg translate-y-8" />
-              <Image src={vision2} alt="Comunidad" class="rounded-2xl aspect-square object-cover shadow-lg" />
+            <div class="space-y-4 md:space-y-6 border-l-4 border-primary pl-6 md:pl-10 reveal-right" style="animation-delay: 300ms">
+              <h2 class="text-2xl md:text-3xl font-bold text-dark tracking-tight">Nuestro Objetivo</h2>
+              <p class="text-gray-600 text-sm md:text-base leading-relaxed max-w-xl">
+                Nuestro objetivo es ser el pilar de apoyo integral para los migrantes de Iberoamérica en Madrid. Queremos ofrecer un espacio de acogida y apoyo continuo que permita a los migrantes encontrar una nueva oportunidad de vida, con el respaldo necesario para que puedan reintegrarse en la sociedad, accediendo a recursos educativos, asistencia social y oportunidades laborales. Apostamos por el empoderamiento de cada individuo, promoviendo su bienestar y ayudando a que sus sueños se hagan realidad.
+              </p>
+            </div>
+          </div>
+
+          {/* Nuestra Visión */}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div class="flex justify-center reveal-left">
+              <div class="w-full max-w-sm md:max-w-lg lg:max-w-none">
+                <Image src={vision1} alt="Nuestra Visión" class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl" />
+              </div>
+            </div>
+            <div class="space-y-4 md:space-y-6 border-l-4 border-primary pl-6 md:pl-10 reveal-right" style="animation-delay: 300ms">
+              <h2 class="text-2xl md:text-3xl font-bold text-dark tracking-tight">Nuestra Visión</h2>
+              <p class="text-gray-600 text-sm md:text-base leading-relaxed max-w-xl">
+                Nos visualizamos como una comunidad inclusiva y acogedora que se compromete a empoderar a los migrantes de Iberoamérica en Madrid. Buscamos ser reconocidos como un centro de recursos integrales, donde cada persona pueda encontrar el apoyo necesario para su integración y desarrollo personal. Aspiramos a construir puentes de entendimiento y colaboración entre diferentes culturas, promoviendo la diversidad y la igualdad de oportunidades en nuestra sociedad. Trabajamos hacia un futuro donde todos los migrantes se sientan incluidos, valorados, respetados y capaces de alcanzar su máximo potencial en un entorno de equidad y justicia.
+              </p>
+            </div>
+          </div>
+
+          {/* Nuestra Misión */}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div class="flex justify-center reveal-left">
+              <div class="w-full max-w-sm md:max-w-lg lg:max-w-none">
+                <Image src={vision2} alt="Nuestra Misión" class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl" />
+              </div>
+            </div>
+            <div class="space-y-4 md:space-y-6 border-l-4 border-primary pl-6 md:pl-10 reveal-right" style="animation-delay: 300ms">
+              <h2 class="text-2xl md:text-3xl font-bold text-dark tracking-tight">Nuestra Misión</h2>
+              <p class="text-gray-600 text-sm md:text-base leading-relaxed max-w-xl">
+                Nuestra misión es brindar apoyo integral a los migrantes de Iberoamérica en Madrid, ofreciendo cestas de alimentos nutritivos semanalmente, ropa adecuada, refugio temporal seguro, consultas médicas y cursos de formación. Nos esforzamos por ser un faro de esperanza y solidarity, proporcionando asistencia humanitaria y promoviendo la dignidad y el bienestar de cada individuo que llega a nuestras puertas, trabajando de manera colaborativa con diversas organizaciones y entidades para proporcionar soluciones sostenibles y holísticas que aborden las necesidades inmediatas y a largo plazo de esta comunidad.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Award Section */}
+        <div class="bg-primary text-white py-10 md:py-14 px-8 md:px-12 rounded-[2.5rem] mb-24 shadow-xl">
+          <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            <div class="w-32 h-32 md:w-36 md:h-36 bg-white rounded-full flex items-center justify-center shrink-0 shadow-lg border-4 border-white/20 overflow-hidden">
+              <Image src={premioImg} alt="Certificado Premio Excelencia Hispana" class="w-full h-full object-contain p-2" />
+            </div>
+            <div class="text-center md:text-left space-y-4">
+              <h3 class="text-2xl md:text-3xl font-bold uppercase tracking-widest text-white/95">Orgullosamente premiados</h3>
+              <p class="text-lg md:text-xl font-medium leading-relaxed italic text-white/90">
+                "Ganadores a la <strong>“EXCELENCIA HISPANA 2025"</strong>, en la categoría Asociación Civil Hispana” por la Cámara de Empresarios Venezolanos en España, CeVe.
+              </p>
             </div>
           </div>
         </div>
 
         {/* Stats Section */}
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-24 text-center">
-          <div class="p-8">
-            <div class="text-5xl font-extrabold text-primary mb-2 stat-number" data-target="8334">0</div>
+        <h2 class="text-4xl lg:text-5xl font-bold text-dark text-center">Nuestro impacto en la comunidad</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10 text-center">
+          <div class="flex flex-col p-6 gap-4">
+            <div class="text-5xl font-extrabold text-primary stat-number" data-target="14293">0</div>
             <div class="text-gray-800 font-bold uppercase tracking-wide">Familias Beneficiadas</div>
           </div>
-          <div class="p-8">
-            <div class="text-5xl font-extrabold text-primary mb-2 stat-number" data-target="505">0</div>
+          <div class="flex flex-col p-6 gap-4">
+            <div class="text-5xl font-extrabold text-primary stat-number" data-target="692">0</div>
             <div class="text-gray-800 font-bold uppercase tracking-wide">Personas en Refugio</div>
           </div>
-          <div class="p-8">
-            <div class="text-5xl font-extrabold text-primary mb-2 stat-number" data-target="414" data-suffix="k+">0</div>
+          <div class="flex flex-col p-6 gap-4">
+            <div class="text-5xl font-extrabold text-primary stat-number" data-target="684970">0</div>
             <div class="text-gray-800 font-bold uppercase tracking-wide">Kilos de Alimentos</div>
           </div>
         </div>
@@ -141,9 +158,30 @@ import vision2 from "../assets/img/vision-2.jpg";
     stats.forEach(stat => observer.observe(stat));
   };
 
+  const setupRevealAnimations = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('reveal-left')) {
+            entry.target.classList.add('animate-left');
+          } else if (entry.target.classList.contains('reveal-right')) {
+            entry.target.classList.add('animate-right');
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
+  };
+
   // Run on load and after view transitions
   animateStats();
-  document.addEventListener('astro:after-swap', animateStats);
+  setupRevealAnimations();
+  document.addEventListener('astro:after-swap', () => {
+    animateStats();
+    setupRevealAnimations();
+  });
 </script>
 
 <style>
@@ -155,5 +193,27 @@ import vision2 from "../assets/img/vision-2.jpg";
   .animate-fade-in-up {
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-100px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(100px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal-left, .reveal-right {
+    opacity: 0;
+  }
+
+  .animate-left {
+    animation: fadeInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-right {
+    animation: fadeInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 </style>

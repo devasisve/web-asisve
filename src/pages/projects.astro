@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Image } from "astro:assets";
 import { 
   Briefcase, 
   GraduationCap, 
@@ -9,7 +8,10 @@ import {
   ArrowRight,
   ShieldCheck,
   Users2,
-  Zap
+  Zap,
+  MapPin,
+  Home,
+  Warehouse,
 } from "lucide-astro";
 import SponsorsCarousel from "../components/SponsorsCarousel.astro";
 
@@ -60,18 +62,11 @@ const dossierFeatures = [
 ];
 
 // Sponsors data moved here to decouple the component
-const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.{png,webp,jpg,jpeg}', { eager: true });
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/logos/*.{png,webp,jpg,jpeg}', { eager: true });
 const sponsorsData = [
-  { name: "Banco de Alimentos", logoPath: "../assets/img/banco-alimentos.png" },
-  { name: "Shukran", logoPath: "../assets/img/logo-shukran.png" },
-  { name: "Amazon", logoPath: "../assets/img/amazon.png" },
-  { name: "Altius", logoPath: "../assets/img/logo-altius.png" },
-  { name: "Diaconía", logoPath: "../assets/img/logo-diaconia.png" },
-  { name: "Remar", logoPath: "../assets/img/logo-remar.png" },
-  { name: "Alcamar", logoPath: "../assets/img/logo-alcamar.webp" },
-  { name: "AMA", logoPath: "../assets/img/logo-ama.jpg" },
-  { name: "Frioval", logoPath: "../assets/img/frioval.jpg" },
-  { name: "Comunidad de Madrid", logoPath: "../assets/img/logo-madrid.webp" },
+  { name: "Logo Asisve", logoPath: "../assets/logos/Logo_asisve-horizontal.webp" },
+  { name: "cacfé Karoma", logoPath: "../assets/logos/Logo_karoma.webp" },
+  { name: "Malta C58", logoPath: "../assets/logos/Logo_malta.webp" },
 ];
 
 const sponsors = sponsorsData
@@ -80,6 +75,40 @@ const sponsors = sponsorsData
     logo: sponsorImages[s.logoPath]?.default
   }))
   .filter(s => s.logo);
+
+const expansionProjects = [
+  {
+    title: "Ampliación del Refugio",
+    address: "Calle Fuentelviejo 37",
+    description: "Espacio fundamental para ofrecer alojamiento digno y seguro a personas en situación crítica.",
+    details: [
+      "Duplicar capacidad: De 38 a 76 camas.",
+      "Nuevos baños y duchas.",
+      "Ampliación de cocina y comedor comunitario."
+    ],
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.208270979254!2d-3.5734384048508088!3d40.44852708005571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42303089e603bb%3A0xb16c7eb033df1df4!2sC.%20de%20Fuentelviejo%2C%2037%2C%20San%20Blas-Canillejas%2C%2028022%20Madrid!5e0!3m2!1ses!2ses!4v1776014855102!5m2!1ses!2ses",
+    icon: Home,
+    color: "primary"
+  },
+  {
+    title: "Remodelación de Nave Multiusos",
+    address: "Calle Diciembre 8",
+    description: "El corazón de jornadas familiares, educativas y solidarias.",
+    details: [
+      "Talleres de capacitación y actividades.",
+      "Instalación de cámaras frigoríficas para alimentos.",
+      "Área para mercadillos solidarios.",
+      "Servicios de orientación legal y migratoria."
+    ],
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.308684862523!2d-3.5721532227288715!3d40.44630435383678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42303aeb564a79%3A0x743c7a3fc260d29a!2sC%2F%20de%20Diciembre%2C%208%2C%20San%20Blas-Canillejas%2C%2028022%20Madrid!5e0!3m2!1ses!2ses!4v1776015000428!5m2!1ses!2ses",
+    icon: Warehouse,
+    color: "dark"
+  }
+];
+
+const videoUrl = "https://www.youtube.com/embed/4GOhkd-TTas";
+const GOOGLE_MAPS_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
+
 ---
 
 <Layout 
@@ -117,7 +146,6 @@ const sponsors = sponsorsData
                 <step.icon class="text-white w-8 h-8" />
               </div>
               <div class="space-y-4 text-left">
-                <span class="text-primary-contrast/50 font-black text-4xl opacity-20 group-hover:opacity-40 transition-opacity">0{index + 1}</span>
                 <h3 class="text-2xl font-bold text-white tracking-tight">{step.title}</h3>
                 <p class="text-white/70 text-lg leading-relaxed">{step.description}</p>
               </div>
@@ -193,13 +221,6 @@ const sponsors = sponsorsData
               <span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-black uppercase">Fase 1: Actual</span>
               <h3 class="text-3xl font-black text-dark leading-none">Consolidación de Ventas</h3>
               <p class="text-lg text-gray-600 font-medium">Formación experta en el sector comercial para el mercado español. Perfiles validados con altas capacidades comunicativas.</p>
-              <div class="aspect-video rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                <img 
-                    src="https://trello.com/1/cards/69c94b4e4c679ae62b6325fe/attachments/69d5285dea41c276ee9309fd/previews/69d5285eea41c276ee930a4a/download/image.webp" 
-                    alt="Formación en ventas ASISVE" 
-                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
               <ul class="space-y-3 pt-4">
                  <li class="flex items-center gap-3 font-bold text-dark">
                     <div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
@@ -224,13 +245,6 @@ const sponsors = sponsorsData
               <span class="inline-block px-4 py-1.5 rounded-full bg-primary/30 text-white text-sm font-black uppercase">Fase 2: Próximamente</span>
               <h3 class="text-3xl font-black text-white leading-none">Expansión a Oficios</h3>
               <p class="text-lg text-white/70 font-medium">Respuesta a la escasez de técnicos en Electricidad e Fontanería. Capacitación técnica práctica y especializada.</p>
-              <div class="aspect-video rounded-3xl overflow-hidden shadow-lg border-4 border-white/10 grayscale group-hover:grayscale-0 transition-all duration-700">
-                <img 
-                    src="https://trello.com/1/cards/69c94b4e4c679ae62b6325fe/attachments/69d529f7f0f73379ae9dbd8c/previews/69d529f8f0f73379ae9dbde9/download/image.webp" 
-                    alt="Formación en oficios técnicos" 
-                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
               <ul class="space-y-3 pt-4">
                  <li class="flex items-center gap-3 font-bold text-white/80">
                     <div class="w-5 h-5 rounded-full bg-primary/50 flex items-center justify-center">
@@ -305,12 +319,12 @@ const sponsors = sponsorsData
                 <div class="absolute -top-1/2 -left-1/4 w-full h-full bg-white/5 rounded-full blur-[100px] animate-pulse"></div>
                 
                 <div class="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="space-y-10">
+                    <div class="space-y-8">
                         <div class="space-y-4">
                             <h2 class="text-4xl md:text-6xl font-black tracking-tighter leading-tight drop-shadow-lg">
                                 Dossier de <br/> <span class="text-primary-contrast italic">Talento Comercial</span>
                             </h2>
-                            <p class="text-xl md:text-2xl text-white/80 font-medium">Nuestra herramienta principal para abrir puertas en el tejido empresarial español.</p>
+                            <p class="text-xl md:text-2xl text-white/80 font-medium leading-relaxed">Nuestra herramienta principal para abrir puertas en el tejido empresarial español.</p>
                         </div>
 
                         <div class="grid gap-6">
@@ -327,7 +341,7 @@ const sponsors = sponsorsData
                             ))}
                         </div>
 
-                        <div class="pt-6">
+                        <div class="pt-4">
                             <a 
                                 href="/contact" 
                                 class="inline-flex items-center gap-4 bg-white text-primary hover:bg-primary-contrast px-10 py-5 rounded-2xl font-black text-xl transition-all shadow-2xl active:scale-95 group"
@@ -338,15 +352,90 @@ const sponsors = sponsorsData
                         </div>
                     </div>
 
-                    <div class="relative hidden lg:block">
-                        <div class="absolute -inset-10 bg-white/5 rounded-full blur-3xl"></div>
-                        <img 
-                            src="https://trello.com/1/cards/69c94b4e4c679ae62b6325fe/attachments/69d52bfb20d8b27d50fafbe3/previews/69d52bfc20d8b27d50fafc50/download/image.webp" 
-                            alt="Dossier ASISVE Preview" 
-                            class="w-full h-auto rounded-4xl shadow-[-20px_20px_60px_rgba(0,0,0,0.4)] rotate-3 hover:rotate-0 transition-all duration-700 border-4 border-white/10"
-                        />
+                    <!-- Video Subsection -->
+                    <div class="relative group">
+                        <div class="absolute -inset-4 bg-white/10 rounded-4xl blur-2xl group-hover:bg-white/20 transition-all duration-700"></div>
+                        <div class="relative aspect-9/16 max-w-84 mx-auto bg-dark rounded-4xl overflow-hidden shadow-2xl border-4 border-white/10">
+                            <iframe 
+                                class="w-full h-full"
+                                src={videoUrl}
+                                title="Talento Comercial ASISVE"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen
+                            ></iframe>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expansion Projects -->
+    <section class="py-24 bg-gray-50 overflow-hidden">
+        <div class="container max-w-[1320px] mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <span class="text-primary font-black uppercase tracking-widest text-sm">Próximos Pasos</span>
+                <h2 class="text-4xl md:text-6xl font-black text-dark tracking-tighter">Nuestros Proyectos de <br/><span class="text-primary italic">Expansión</span></h2>
+                <p class="text-xl text-gray-600 font-medium">Infraestructura y espacios orientados al crecimiento operativo.</p>
+                <div class="w-24 h-2 bg-primary mx-auto rounded-full mt-6"></div>
+            </div>
+
+            <div class="space-y-32">
+                {expansionProjects.map((project, index) => (
+                    <div class={`grid lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+                        <div class={`space-y-8 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class={`w-12 h-12 rounded-xl flex items-center justify-center bg-${project.color}/10 text-${project.color}`}>
+                                        <project.icon size={24} />
+                                    </div>
+                                    <span class="text-gray-400 font-bold tracking-widest text-sm uppercase">Proyecto {index + 1}</span>
+                                </div>
+                                <h3 class="text-3xl md:text-4xl font-black text-dark tracking-tight leading-tight">
+                                    {project.title}
+                                </h3>
+                                <div class="flex items-center gap-2 text-primary font-bold">
+                                    <MapPin size={18} />
+                                    <span>{project.address}</span>
+                                </div>
+                            </div>
+
+                            <p class="text-xl text-gray-700 leading-relaxed font-medium">
+                                {project.description}
+                            </p>
+
+                            <div class="grid gap-4">
+                                {project.details.map(detail => (
+                                    <div class="flex items-start gap-4 p-5 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
+                                        <div class={`mt-1 w-6 h-6 rounded-full flex items-center justify-center bg-${project.color}/5 text-${project.color} group-hover:scale-110 transition-transform`}>
+                                            <CheckCircle2 size={14} />
+                                        </div>
+                                        <span class="text-gray-700 font-bold">{detail}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div class={`relative group ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                            <div class={`absolute -inset-4 bg-${project.color}/5 rounded-[3rem] blur-2xl group-hover:bg-${project.color}/10 transition-all duration-700`}></div>
+                            <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-gray-200 border-4 border-white aspect-video md:aspect-4/3 lg:aspect-video">
+                                <iframe 
+                                    src={project.mapEmbed}
+                                    class="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-700"
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                ></iframe>
+                                <!-- Label decoration -->
+                                <div class="absolute top-6 left-6 px-4 py-2 bg-dark/80 backdrop-blur-md text-white rounded-xl text-xs font-black flex items-center gap-2">
+                                    <MapPin size={12} class="text-primary" />
+                                    <span>UBICACIÓN REAL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     </section>

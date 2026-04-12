@@ -34,7 +34,7 @@ const allSponsors = [...sponsors, ...sponsors];
   <div class="relative flex overflow-x-hidden group max-w-[1480px] mx-auto">
     <div class="animate-scroll flex gap-8 py-4 whitespace-nowrap min-w-full">
       {allSponsors.map((sponsor) => (
-        <div class="flex shrink-0 w-64 h-32 items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 grayscale hover:grayscale-0">
+        <div class="flex shrink-0 w-64 h-32 items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
           <Image 
             src={sponsor.logo} 
             alt={`Logo de ${sponsor.name}`} 

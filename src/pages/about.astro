@@ -43,7 +43,11 @@ import premioImg from "../assets/about/premio.jpeg";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <div class="flex justify-center reveal-left">
               <div class="w-full max-w-sm md:max-w-lg lg:max-w-none">
-                <Image src={combinedLogo} alt="Personal de ASISVE colaborando" class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl" />
+                <Image 
+                  src={combinedLogo} 
+                  alt="Personal de ASISVE colaborando" 
+                  class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform duration-300 zoomable-image" 
+                />
               </div>
             </div>
             <div class="space-y-4 md:space-y-6 border-l-4 border-primary pl-6 md:pl-10 reveal-right" style="animation-delay: 300ms">
@@ -58,7 +62,11 @@ import premioImg from "../assets/about/premio.jpeg";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <div class="flex justify-center reveal-left">
               <div class="w-full max-w-sm md:max-w-lg lg:max-w-none">
-                <Image src={vision1} alt="Nuestra Visión" class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl" />
+                <Image 
+                  src={vision1} 
+                  alt="Nuestra Visión" 
+                  class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform duration-300 zoomable-image" 
+                />
               </div>
             </div>
             <div class="space-y-4 md:space-y-6 border-l-4 border-primary pl-6 md:pl-10 reveal-right" style="animation-delay: 300ms">
@@ -73,7 +81,11 @@ import premioImg from "../assets/about/premio.jpeg";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <div class="flex justify-center reveal-left">
               <div class="w-full max-w-sm md:max-w-lg lg:max-w-none">
-                <Image src={vision2} alt="Nuestra Misión" class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl" />
+                <Image 
+                  src={vision2} 
+                  alt="Nuestra Misión" 
+                  class="w-full aspect-4/3 object-cover rounded-3xl shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform duration-300 zoomable-image" 
+                />
               </div>
             </div>
             <div class="space-y-4 md:space-y-6 border-l-4 border-primary pl-6 md:pl-10 reveal-right" style="animation-delay: 300ms">
@@ -88,7 +100,7 @@ import premioImg from "../assets/about/premio.jpeg";
         {/* Award Section */}
         <div class="bg-primary text-white py-10 md:py-14 px-8 md:px-12 rounded-[2.5rem] mb-24 shadow-xl">
           <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div class="w-32 h-32 md:w-36 md:h-36 bg-white rounded-full flex items-center justify-center shrink-0 shadow-lg border-4 border-white/20 overflow-hidden">
+            <div class="w-32 h-32 md:w-36 md:h-36 bg-white rounded-full flex items-center justify-center shrink-0 shadow-lg border-4 border-white/20 overflow-hidden cursor-zoom-in hover:scale-110 transition-transform duration-300 zoomable-image">
               <Image src={premioImg} alt="Certificado Premio Excelencia Hispana" class="w-full h-full object-contain p-2" />
             </div>
             <div class="text-center md:text-left space-y-4">
@@ -119,6 +131,18 @@ import premioImg from "../assets/about/premio.jpeg";
       </div>
     </div>
   </section>
+
+  {/* Lightbox Modal */}
+  <div id="image-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm">
+    <button id="close-modal" class="absolute top-6 right-6 text-white hover:text-primary transition-colors focus:outline-none" aria-label="Cerrar">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="max-w-5xl max-h-[90vh] p-4 flex items-center justify-center">
+      <img id="modal-img" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" />
+    </div>
+  </div>
 </Layout>
 
 <script>
@@ -175,12 +199,68 @@ import premioImg from "../assets/about/premio.jpeg";
     document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
   };
 
+  const setupImageZoom = () => {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img') as HTMLImageElement;
+    const closeModal = document.getElementById('close-modal');
+    const zoomableImages = document.querySelectorAll('.zoomable-image');
+
+    const openModal = (imgSrc: string, alt: string) => {
+      if (!modal || !modalImg) return;
+      modalImg.src = imgSrc;
+      modalImg.alt = alt;
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'hidden';
+      
+      // Trigger zoom animation
+      setTimeout(() => {
+        modalImg.classList.remove('scale-95');
+        modalImg.classList.add('scale-100');
+      }, 10);
+    };
+
+    const closeImageModal = () => {
+      if (!modal || !modalImg) return;
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalImg.classList.remove('scale-100');
+      modalImg.classList.add('scale-95');
+      document.body.style.overflow = '';
+      
+      // Clean up src after animation
+      setTimeout(() => {
+        modalImg.src = '';
+      }, 300);
+    };
+
+    zoomableImages.forEach(container => {
+      container.addEventListener('click', () => {
+        const img = container.tagName === 'IMG' ? container as HTMLImageElement : container.querySelector('img');
+        if (img) {
+          openModal(img.src, img.alt);
+        }
+      });
+    });
+
+    closeModal?.addEventListener('click', closeImageModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeImageModal();
+    });
+
+    // Close on escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeImageModal();
+    });
+  };
+
   // Run on load and after view transitions
   animateStats();
   setupRevealAnimations();
+  setupImageZoom();
+
   document.addEventListener('astro:after-swap', () => {
     animateStats();
     setupRevealAnimations();
+    setupImageZoom();
   });
 </script>
 

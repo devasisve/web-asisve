@@ -117,20 +117,20 @@ const GOOGLE_MAPS_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 >
   <main class="overflow-hidden">
     <!-- Hero Section -->
-    <section class="relative bg-primary py-24 md:py-32 flex items-center justify-center text-center overflow-hidden">
+    <section class="relative py-24 md:py-32 flex items-center justify-center text-center overflow-hidden">
       <!-- Decorative Background Elements -->
       <div class="absolute inset-0 z-0">
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--color-primary-light)_0%,transparent_70%)] opacity-20"></div>
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-dark/50 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-20"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full blur-3xl"></div>
       </div>
 
       <div class="container max-w-[1320px] mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto space-y-8 animate-fade-in">
-          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight">
-            Un Proyecto de <span class="italic text-primary-contrast">Integración Socio-Laboral</span>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-dark leading-tight tracking-tight">
+            Un Proyecto de <span class="italic text-primary">Integración Socio-Laboral</span>
           </h1>
-          <p class="text-xl md:text-2xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed">
+          <p class="text-xl md:text-2xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed">
             ASISVE desarrolla un modelo estructurado que conecta formación práctica, capacitación técnica y acceso real al mercado laboral.
           </p>
         </div>
@@ -139,7 +139,7 @@ const GOOGLE_MAPS_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20">
           {steps.map((step, index) => (
             <div 
-              class="group relative p-8 rounded-4xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-500 hover:-translate-y-2"
+              class="group relative p-8 rounded-4xl bg-primary backdrop-blur-sm border border-gray-200 hover:border-gray-200 transition-all duration-500 hover:-translate-y-2"
               style={`animation-delay: ${index * 150}ms`}
             >
               <div class={`w-16 h-16 rounded-2xl bg-linear-to-br ${step.gradient} flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 transition-transform duration-500`}>
@@ -147,7 +147,7 @@ const GOOGLE_MAPS_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
               </div>
               <div class="space-y-4 text-left">
                 <h3 class="text-2xl font-bold text-white tracking-tight">{step.title}</h3>
-                <p class="text-white/70 text-lg leading-relaxed">{step.description}</p>
+                <p class="text-white/90 text-lg leading-relaxed">{step.description}</p>
               </div>
             </div>
           ))}

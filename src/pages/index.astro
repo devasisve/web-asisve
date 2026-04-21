@@ -68,18 +68,26 @@ const services = [
 ];
 
 // Datos de colaboradores desacoplados
-const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.{png,webp,jpg,jpeg}', { eager: true });
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.{png,webp,jpg,jpeg}', { eager: true });
 const sponsorsData = [
   { name: "Banco de Alimentos", logoPath: "../assets/img/banco-alimentos.png" },
   { name: "Shukran", logoPath: "../assets/img/logo-shukran.png" },
   { name: "Amazon", logoPath: "../assets/img/amazon.png" },
   { name: "Altius", logoPath: "../assets/img/logo-altius.png" },
-  { name: "Diaconía", logoPath: "../assets/img/logo-diaconia.png" },
+  { name: "La Red de Acción Social", logoPath: "../assets/logos/Logo_red_social.webp" },
   { name: "Remar", logoPath: "../assets/img/logo-remar.png" },
   { name: "Alcamar", logoPath: "../assets/img/logo-alcamar.webp" },
   { name: "AMA", logoPath: "../assets/img/logo-ama.jpg" },
   { name: "Frioval", logoPath: "../assets/img/frioval.jpg" },
   { name: "Comunidad de Madrid", logoPath: "../assets/img/logo-madrid.webp" },
+  { name: "Mahou San Miguel", logoPath: "../assets/logos/Logo_Fundacion-Mahou.webp" },
+  { name: "Malta +58", logoPath: "../assets/logos/Logo_Malta.webp" },
+  { name: "Caixa Bank", logoPath: "../assets/logos/Logo_caixa-bank.jpg" },
+  { name: "Los Chamos", logoPath: "../assets/logos/Logo_Chamos.webp" },
+  { name: "Luz del Mundo", logoPath: "../assets/logos/Logo_luz_del_mundo.jpg" },
+  { name: "CTT", logoPath: "../assets/logos/Logo-ctt-express.webp" },
+  { name: "Café Karoma", logoPath: "../assets/logos/Logo_karoma.webp" },
+  { name: "Instrelec", logoPath: "../assets/logos/Logo_instrelec.png" },
 ];
 
 const sponsors = sponsorsData

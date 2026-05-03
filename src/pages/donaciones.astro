@@ -1,0 +1,138 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DonorboxWidget from "../components/DonorboxWidget.astro";
+import { Heart, ShieldCheck, Zap, Users, ArrowRight } from "lucide-astro";
+import { Image } from "astro:assets";
+
+// Hero Image - Using an existing one or placeholder if not found
+import heroDonations from "../assets/img/hero-inicio.webp"; // Using same as home for consistency, could be changed
+
+const benefits = [
+  {
+    icon: ShieldCheck,
+    title: "Donación Segura",
+    description: "Tus datos están protegidos por encriptación SSL de nivel bancario a través de Donorbox y Stripe."
+  },
+  {
+    icon: Zap,
+    title: "Impacto Inmediato",
+    description: "Tu aporte llega directamente a nuestras jornadas de alimentación y refugio sin intermediarios innecesarios."
+  },
+  {
+    icon: Users,
+    title: "Transparencia Total",
+    description: "Enviamos reportes trimestrales a todos nuestros donantes sobre el uso de los fondos."
+  }
+];
+---
+
+<Layout title="Donaciones | ASISVE - Tu ayuda transforma vidas" description="Apoya nuestra labor humanitaria. Tu donación nos permite seguir brindando alimentos, refugio y asesoría legal a quienes más lo necesitan.">
+  
+  {/* Header Hero Section */}
+  <section class="relative pt-32 pb-20 overflow-hidden bg-dark">
+    <div class="absolute inset-0 z-0 opacity-40">
+       <Image
+        src={heroDonations}
+        class="w-full h-full object-cover grayscale"
+        alt="Impacto de tu ayuda"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-linear-to-b from-dark via-dark/80 to-dark"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary-light text-sm font-bold animate-fade-in">
+          <Heart size={16} class="fill-current" />
+          Haz una diferencia hoy
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight">
+          Tu generosidad es el motor <br/> 
+          <span class="text-primary-light">de nuestra misión</span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Cada euro donado se transforma en comida, medicinas y esperanza para familias migrantes y personas en riesgo de exclusión.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Main Donation Section */}
+  <section class="py-20 -mt-20 relative z-20">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row gap-16 items-start">
+        
+        {/* Left Side: Copy & Trust */}
+        <div class="lg:w-1/2 space-y-12 order-2 lg:order-1">
+          <div class="space-y-8">
+            <h2 class="text-4xl font-bold text-dark">¿Por qué donar a ASISVE?</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              Somos una organización comprometida con la dignidad humana. En Madrid y alrededores, miles de personas enfrentan barreras invisibles cada día. Con tu apoyo, derribamos esas barreras.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-8">
+            {benefits.map((benefit) => (
+              <div class="flex gap-6 p-6 rounded-2xl bg-gray-50 border border-gray-100 transition-all hover:shadow-md hover:bg-white group">
+                <div class="shrink-0 w-12 h-12 rounded-xl bg-primary-contrast flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                  <benefit.icon size={24} />
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-dark mb-2">{benefit.title}</h3>
+                  <p class="text-gray-600">{benefit.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="p-8 rounded-3xl bg-primary text-white space-y-4">
+            <h3 class="text-2xl font-bold flex items-center gap-2">
+              Deducción Fiscal
+            </h3>
+            <p class="text-primary-contrast/90 leading-relaxed">
+              Recuerda que ASISVE es una entidad declarada de utilidad pública. Tus donaciones pueden desgravar hasta un **80%** en tu declaración de la renta (IRPF).
+            </p>
+            <a href="/contact" class="inline-flex items-center gap-2 font-bold hover:underline">
+              Más información <ArrowRight size={18} />
+            </a>
+          </div>
+        </div>
+
+        {/* Right Side: The Widget */}
+        <div class="lg:w-1/2 w-full order-1 lg:order-2 sticky top-32">
+          <div class="relative">
+            {/* Background decorative elements */}
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary-light/10 rounded-full blur-3xl -z-10"></div>
+            
+            <DonorboxWidget />
+            
+            <p class="text-center mt-6 text-sm text-gray-500 flex items-center justify-center gap-2">
+              <ShieldCheck size={14} /> Donación procesada de forma segura por Donorbox
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Browser specific optimizations */
+  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .bg-primary\/20 {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+</style>

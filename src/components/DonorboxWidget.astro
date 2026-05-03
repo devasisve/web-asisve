@@ -1,0 +1,117 @@
+---
+/**
+ * DonorboxWidget Component
+ * High-performance, SEO-friendly Donorbox integration.
+ * Features: Lazy loading, Skeleton UI, Parameterizable Props.
+ */
+import { DONORBOX_CONFIG } from "../config/donorbox";
+
+interface Props {
+  campaign?: string;
+  showStripe?: boolean;
+  searchParams?: string;
+  className?: string;
+}
+
+const { 
+  campaign = DONORBOX_CONFIG.campaignName, 
+  searchParams = "default_interval=m&show_content=true",
+  className = ""
+} = Astro.props;
+
+const embedUrl = `${DONORBOX_CONFIG.baseUrl}${campaign}?${searchParams}`;
+---
+
+<div class:list={["donorbox-container relative min-h-[600px] w-full max-w-2xl mx-auto rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100", className]}>
+  {/* Skeleton Loader - Improves CLS and UX during load */}
+  <div id="donorbox-skeleton" class="absolute inset-0 z-0 flex flex-col p-8 space-y-6 animate-pulse bg-white">
+    <div class="h-8 bg-gray-200 rounded-lg w-3/4"></div>
+    <div class="h-12 bg-gray-100 rounded-xl w-full"></div>
+    <div class="grid grid-cols-3 gap-4">
+      <div class="h-16 bg-gray-100 rounded-xl"></div>
+      <div class="h-16 bg-gray-100 rounded-xl"></div>
+      <div class="h-16 bg-gray-100 rounded-xl"></div>
+    </div>
+    <div class="h-48 bg-gray-50 rounded-2xl w-full"></div>
+    <div class="h-14 bg-primary/20 rounded-full w-full mt-auto"></div>
+  </div>
+
+  {/* Iframe with Lazy Loading */}
+  <iframe
+    src={embedUrl}
+    name={DONORBOX_CONFIG.defaults.name}
+    allow={DONORBOX_CONFIG.defaults.allow}
+    scrolling={DONORBOX_CONFIG.defaults.scrolling}
+    height={DONORBOX_CONFIG.defaults.height}
+    width={DONORBOX_CONFIG.defaults.width}
+    style="max-width: 100%; min-width: 250px; max-height:none!important"
+    class="relative z-10 opacity-0 transition-opacity duration-700 ease-in-out invisible"
+    id="donorbox-iframe"
+    title="Donation Form"
+  ></iframe>
+
+  {/* Security & Fallback */}
+  <noscript>
+    <div class="p-8 text-center text-gray-600">
+      <p>Para realizar una donación, por favor habilite JavaScript o visite:</p>
+      <a href={`https://donorbox.org/${campaign}`} class="text-primary font-bold underline" target="_blank" rel="noopener noreferrer">
+        Nuestro portal de donaciones externo
+      </a>
+    </div>
+  </noscript>
+</div>
+
+<script>
+  /**
+   * Performance & UX Logic
+   * 1. Detects when the iframe is loaded to hide skeleton
+   * 2. Uses IntersectionObserver to load the widget script only when needed (Lazy Loading)
+   */
+  const iframe = document.getElementById('donorbox-iframe') as HTMLIFrameElement;
+  const skeleton = document.getElementById('donorbox-skeleton');
+
+  if (iframe) {
+    iframe.onload = () => {
+      iframe.classList.remove('opacity-0', 'invisible');
+      if (skeleton) skeleton.classList.add('hidden');
+    };
+  }
+
+  // Optimized Script Loading
+  const loadDonorboxScript = () => {
+    if (document.querySelector('script[src*="donorbox.org/widget.js"]')) return;
+    
+    const script = document.createElement('script');
+    script.src = "https://donorbox.org/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+  };
+
+  // Only load script when container is in viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        loadDonorboxScript();
+        observer.disconnect();
+      }
+    });
+  }, { rootMargin: '200px' });
+
+  const container = document.querySelector('.donorbox-container');
+  if (container) observer.observe(container);
+</script>
+
+<style>
+  /* Custom Fallbacks for cross-browser consistency */
+  .donorbox-container {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+  
+  /* Fallback for browsers that don't support modern animate-pulse */
+  @keyframes pulse-fallback {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+  }
+</style>

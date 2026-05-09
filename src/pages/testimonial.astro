@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import { Quote, Star } from 'lucide-astro';
 import { Image } from "astro:assets";
-import serviceMedica from "../assets/img/jornada-medica.jpg";
-import serviceAlimentos from "../assets/img/entrega-alimentos.jpg";
-import serviceVoluntariado from "../assets/img/voluntariado.jpg";
+import serviceMedica from "../assets/testimonial/CALLE002.webp";
+import serviceAlimentos from "../assets/testimonial/CALLE003.webp";
+import serviceVoluntariado from "../assets/testimonial/CALLE004.webp";
 
 const testimonials = [
   {
@@ -94,6 +94,23 @@ const testimonials = [
           Nuestra labor cobra vida a través de las personas que forman parte de esta gran familia.
         </p>
       </div>
+      
+      <!-- Video Testimonial Destacado -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 mb-16 md:mb-24">
+        <div class="md:col-start-2">
+          <div class="video-testimonial relative w-full max-w-[320px] mx-auto rounded-[32px] overflow-hidden shadow-2xl border-8 border-white bg-dark animate-fade-in-up">
+            <iframe 
+              class="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/xWLoMt9yM-w" 
+              title="Testimonio ASISVE" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="text-center mt-6 text-gray-500 font-medium italic">"Una historia de superación y esperanza"</p>
+        </div>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
         {testimonials.map((t, index) => (
@@ -138,5 +155,10 @@ const testimonials = [
   .animate-fade-in-up {
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+  }
+
+  .video-testimonial {
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
   }
 </style>

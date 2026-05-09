@@ -5,7 +5,7 @@ import InstagramPostCard from "./InstagramPostCard.astro";
 
 // Pre-fetch some dummy/initial data for SEO/Structure, 
 // but the real data will be fetched on the client.
-const { posts: initialPosts } = await InstagramService.getFeed(3);
+const { posts: initialPosts } = await InstagramService.getFeed(3, true);
 
 const BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
 ---
@@ -64,12 +64,21 @@ const BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
     if (!container || !url) return;
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(`${url}?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Pragma': 'no-cache',
+          'Cache-Control': 'no-cache'
+        }
+      });
       if (!response.ok) return;
       const data = await response.json();
       
       if (data && Array.isArray(data.posts)) {
-        const posts = data.posts.slice(0, 3);
+        // Filtrar solo Reels/Videos y respetar el orden de Behold (que incluye pins)
+        const posts = data.posts
+          .filter((p: any) => p.mediaType === 'VIDEO' || p.isReel)
+          .slice(0, 3);
         
         // Clear container
         container.innerHTML = "";

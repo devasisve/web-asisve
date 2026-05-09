@@ -1,6 +1,6 @@
 import type { InstagramPost } from "../types/instagram";
 
-const BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
+const BEHOLD_URL = "https://feeds.behold.so/NZV3TXLHs6tdYAWabgJ7";
 
 const DUMMY_POSTS: InstagramPost[] = [
   {

@@ -1,141 +1,53 @@
 ---
-import { Instagram } from "lucide-astro";
 import { InstagramService } from "../services/instagram.service";
 import InstagramPostCard from "./InstagramPostCard.astro";
 
-// Pre-fetch some dummy/initial data for SEO/Structure, 
-// but the real data will be fetched on the client.
+// Pre-fetch data on the server to avoid CORS issues on the client
+// We fetch 6 to ensure we have enough after filtering for Reels/Videos if needed, 
+// though the service now handles the 3 most recent.
 const { posts: initialPosts } = await InstagramService.getFeed(3, true);
-
-const BEHOLD_URL = "https://app.behold.so/feeds/NZV3TXLHs6tdYAWabgJ7";
 ---
 
 <section class="py-24 bg-dark relative overflow-hidden" id="instagram-section">
-  <!-- Decorative Glows -->
-  <div class="absolute inset-0 opacity-10 pointer-events-none">
-    <div class="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-[120px] translate-x-1/2 translate-y-1/2"></div>
-  </div>
+  <!-- Decorative Background -->
+  <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+  <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10"></div>
 
-  <div class="container mx-auto px-4 relative z-10">
-    <!-- Header Section -->
-    <header class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 text-center md:text-left">
-      <div class="space-y-4">
-        <h2 class="text-primary-contrast font-bold tracking-widest uppercase text-sm">
-          Nuestro Lado Humano
+  <div class="container mx-auto px-4">
+    <header class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary-light text-xs font-bold uppercase tracking-widest mb-4">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          En vivo desde Instagram
+        </div>
+        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-tight">
+          Nuestra labor en <span class="text-primary-light italic">tiempo real</span>
         </h2>
-        <h3 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-          Síguenos en Instagram
-        </h3>
-        <div class="w-20 h-1.5 bg-primary rounded-full mx-auto md:mx-0"></div>
       </div>
-
-      <a
-        href="https://www.instagram.com/asisve_madrid/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="bg-white/10 hover:bg-white text-white hover:text-dark px-8 py-4 rounded-full font-bold transition-all backdrop-blur-md border border-white/20 flex items-center gap-3 group"
-        aria-label="Abrir perfil de Instagram de Asisve Madrid"
+      
+      <a 
+        href="https://www.instagram.com/asisve_/" 
+        target="_blank" 
+        class="group flex items-center gap-4 bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-4 rounded-2xl transition-all"
       >
-        <Instagram size="24" class="group-hover:scale-110 transition-transform" />
-        @asisve_madrid_
+        <span class="text-white font-bold">Seguir en Instagram</span>
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </div>
       </a>
     </header>
 
-    <!-- Posts Grid (Initially empty, populated by script) -->
+    <!-- Posts Grid -->
     <div 
       id="instagram-posts-container" 
-      data-url={BEHOLD_URL}
       class="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[400px]"
     >
       {initialPosts.map((post) => (
-        <div class="opacity-50 blur-sm pointer-events-none">
-          <InstagramPostCard post={post} />
-        </div>
+        <InstagramPostCard post={post} />
       ))}
     </div>
   </div>
 </section>
-
-<script>
-  async function loadInstagramFeed() {
-    const container = document.getElementById("instagram-posts-container");
-    const url = container?.dataset.url;
-    if (!container || !url) return;
-
-    try {
-      const response = await fetch(`${url}?t=${Date.now()}`, {
-        cache: 'no-store',
-        headers: {
-          'Pragma': 'no-cache',
-          'Cache-Control': 'no-cache'
-        }
-      });
-      if (!response.ok) return;
-      const data = await response.json();
-      
-      if (data && Array.isArray(data.posts)) {
-        // Filtrar solo Reels/Videos y respetar el orden de Behold (que incluye pins)
-        const posts = data.posts.slice(0, 3);
-        
-        // Clear container
-        container.innerHTML = "";
-        
-        posts.forEach((post: any) => {
-          const beholdMedia = post.sizes?.large?.mediaUrl || post.sizes?.full?.mediaUrl || post.mediaUrl || post.media_url;
-          const caption = post.caption || post.text || "";
-          const isReel = post.mediaType === "VIDEO" || post.isReel;
-          
-          const cardHtml = `
-            <a
-              href="${post.permalink}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group relative aspect-4/5 rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-2xl transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
-              aria-label="Ver publicación en Instagram"
-            >
-              <img
-                src="${beholdMedia}"
-                alt="${caption.replace(/"/g, '&quot;')}"
-                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
-              
-              ${isReel ? `
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-xl transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </div>
-                </div>
-              ` : ''}
-
-              <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300">
-                <div class="backdrop-blur-md bg-black/30 rounded-xl p-3 mb-3 border border-white/10">
-                  <p class="text-white line-clamp-2 text-sm font-semibold leading-relaxed">
-                    ${caption}
-                  </p>
-                </div>
-                <span class="bg-red-600 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
-                  Ver ${isReel ? "Reel" : "Post"}
-                </span>
-              </div>
-            </a>
-          `;
-          container.insertAdjacentHTML("beforeend", cardHtml);
-        });
-      }
-    } catch (error) {
-      console.error("Error loading Instagram feed on client:", error);
-      // Fallback: remove blur from initial posts so users see something (even if links expire)
-      const blurred = container.querySelectorAll('.blur-sm');
-      blurred.forEach(el => el.classList.remove('blur-sm', 'opacity-50', 'pointer-events-none'));
-    }
-  }
-
-  // Load feed
-  loadInstagramFeed();
-  
-  // Re-load on view transitions if using them
-  document.addEventListener('astro:after-swap', loadInstagramFeed);
-</script>

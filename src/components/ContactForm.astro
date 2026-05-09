@@ -41,6 +41,8 @@
         type="text" 
         name="codigopostal" 
         id="codigopostal" 
+        pattern="[0-9]{5}"
+        title="Cinco dígitos numéricos"
         class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300"
         placeholder="28001"
       />
@@ -66,7 +68,7 @@
       id="Mensaje" 
       rows="4" 
       required 
-      class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300 resize-none overflow-hidden h-32"
+      class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300 resize-y min-h-[128px]"
       placeholder="Escribe tu mensaje aquí..."
     ></textarea>
   </div>
@@ -100,7 +102,7 @@
     <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
   </button>
   
-  <div id="formStatus" class="hidden text-center p-5 rounded-2xl font-bold border-2 transition-all duration-500 scale-95 opacity-0"></div>
+  <div id="formStatus" aria-live="polite" class="hidden text-center p-5 rounded-2xl font-bold border-2 transition-all duration-500 scale-95 opacity-0"></div>
 </form>
 
 <!-- Modal de Privacidad -->
@@ -211,6 +213,9 @@
 
     // Realizar la petición a nuestra nueva API en PHP
     const result = await ApiClient.post('/contact.php', dataObj);
+
+    // Scroll al mensaje de estado para que el usuario lo vea (especialmente en móvil)
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     // Reset de botón
     submitBtn.disabled = false;

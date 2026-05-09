@@ -8,11 +8,28 @@ SetEnv SMTP_PASS "Asisve$77"
     Deny from all
 </FilesMatch>
 
-# 2. CONFIGURACIÓN DE CORS (Para que tu API responda al Frontend)
+# 2. CONFIGURACIÓN DE SEGURIDAD AVANZADA (Headers)
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
-    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+    # Proteger contra Clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    # Proteger contra Sniffing de tipos de archivo
+    Header set X-Content-Type-Options "nosniff"
+    # Forzar HTTPS (HSTS) - Solo si tienes SSL activo
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    # Protección básica XSS
+    Header set X-XSS-Protection "1; mode=block"
+    # Política de Referencia
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Restricción de CORS (Dominios autorizados)
+    # Temporalmente permitimos Netlify y Hostinger para tus pruebas
+    SetEnvIf Origin "https://asisve.netlify.app" ALLOWED_ORIGIN=$0
+    SetEnvIf Origin "https://forestgreen-pelican-956861.hostingersite.com" ALLOWED_ORIGIN=$0
+    SetEnvIf Origin "https://asisve.org" ALLOWED_ORIGIN=$0
+    
+    Header set Access-Control-Allow-Origin %{ALLOWED_ORIGIN}e env=ALLOWED_ORIGIN
+    Header set Access-Control-Allow-Methods "POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
 </IfModule>
 
 # 3. SEGURIDAD GENERAL

@@ -35,8 +35,13 @@ $nombre   = filter_var($input['nombre'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 $email    = filter_var($input['email'] ?? '', FILTER_VALIDATE_EMAIL);
 $asunto   = filter_var($input['Asunto'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 $mensaje  = filter_var($input['Mensaje'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-$phone    = filter_var($input['phone'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-$cp       = filter_var($input['codigopostal'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+// PROTECCIÓN ANTIBOTS (Honeypot)
+if (!empty($input['_honeypot'] ?? '')) {
+    // Si el campo invisible está lleno, es un bot. Respondemos éxito pero no hacemos nada.
+    Response::json(true, '¡Mensaje enviado correctamente!');
+    exit;
+}
 
 // Validaciones básicas antes de proceder
 if (empty($nombre) || !$email || empty($mensaje)) {

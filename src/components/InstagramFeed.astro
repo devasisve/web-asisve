@@ -7,7 +7,7 @@ import InstagramPostCard from "./InstagramPostCard.astro";
 // but the real data will be fetched on the client.
 const { posts: initialPosts } = await InstagramService.getFeed(3, true);
 
-const BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
+const BEHOLD_URL = "https://app.behold.so/feeds/NZV3TXLHs6tdYAWabgJ7";
 ---
 
 <section class="py-24 bg-dark relative overflow-hidden" id="instagram-section">
@@ -76,9 +76,7 @@ const BEHOLD_URL = "https://feeds.behold.so/snMGZB4CaidBcYo4aY7b";
       
       if (data && Array.isArray(data.posts)) {
         // Filtrar solo Reels/Videos y respetar el orden de Behold (que incluye pins)
-        const posts = data.posts
-          .filter((p: any) => p.mediaType === 'VIDEO' || p.isReel)
-          .slice(0, 3);
+        const posts = data.posts.slice(0, 3);
         
         // Clear container
         container.innerHTML = "";

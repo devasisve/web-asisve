@@ -67,35 +67,24 @@ const services = [
   },
 ];
 
-// Datos de colaboradores desacoplados
-const sponsorImages = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.{png,webp,jpg,jpeg}', { eager: true });
-const sponsorsData = [
-  { name: "Banco de Alimentos", logoPath: "../assets/img/banco-alimentos.png" },
-  { name: "Shukran", logoPath: "../assets/img/logo-shukran.png" },
-  { name: "Amazon", logoPath: "../assets/img/amazon.png" },
-  { name: "Altius", logoPath: "../assets/img/logo-altius.png" },
-  { name: "La Red de Acción Social", logoPath: "../assets/logos/Logo_red_social.webp" },
-  { name: "Remar", logoPath: "../assets/img/logo-remar.png" },
-  { name: "Alcamar", logoPath: "../assets/img/logo-alcamar.webp" },
-  { name: "AMA", logoPath: "../assets/img/logo-ama.jpg" },
-  { name: "Frioval", logoPath: "../assets/img/frioval.jpg" },
-  { name: "Comunidad de Madrid", logoPath: "../assets/img/logo-madrid.webp" },
-  { name: "Mahou San Miguel", logoPath: "../assets/logos/Logo_Fundacion-Mahou.webp" },
-  { name: "Malta +58", logoPath: "../assets/logos/Logo_Malta.webp" },
-  { name: "Caixa Bank", logoPath: "../assets/logos/Logo_caixa-bank.jpg" },
-  { name: "Los Chamos", logoPath: "../assets/logos/Logo_Chamos.webp" },
-  { name: "Luz del Mundo", logoPath: "../assets/logos/Logo_luz_del_mundo.jpg" },
-  { name: "CTT", logoPath: "../assets/logos/Logo-ctt-express.webp" },
-  { name: "Café Karoma", logoPath: "../assets/logos/Logo_karoma.webp" },
-  { name: "Instrelec", logoPath: "../assets/logos/Logo_instrelec.png" },
-];
+// Carga automática de todos los logos de colaboradores
+const logoFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/logos/*.{png,webp,jpg,jpeg}', { eager: true });
 
-const sponsors = sponsorsData
-  .map(s => ({
-    name: s.name,
-    logo: sponsorImages[s.logoPath]?.default
-  }))
-  .filter(s => s.logo);
+const sponsors = Object.entries(logoFiles)
+  .filter(([path]) => !path.toLowerCase().includes('asisve')) // Excluir logo institucional
+  .map(([path, image]) => {
+    const fileName = path.split('/').pop()?.split('.')[0] || '';
+    const cleanName = fileName
+      .replace(/^logo[-_]/i, '')    // Quita "Logo_" o "Logo-"
+      .replace(/[-_]/g, ' ')        // Cambia _ y - por espacios
+      .trim()
+      .replace(/\b\w/g, l => l.toUpperCase()); // Capitaliza palabras
+
+    return {
+      name: cleanName,
+      logo: image.default
+    };
+  });
 ---
 
 <Layout title="ASISVE | Ayuda en acción">

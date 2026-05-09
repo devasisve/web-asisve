@@ -31,14 +31,14 @@ const allSponsors = [...sponsors, ...sponsors];
     </div>
   </div>
 
-  <div class="relative flex overflow-x-hidden group max-w-[1480px] mx-auto">
-    <div class="animate-scroll flex gap-8 py-4 whitespace-nowrap min-w-full">
+  <div class="relative flex overflow-x-hidden group w-full max-w-[1480px] mx-auto">
+    <div class="animate-scroll flex gap-8 py-8 whitespace-nowrap">
       {allSponsors.map((sponsor) => (
-        <div class="flex shrink-0 w-64 h-32 items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:scale-120 transition-all duration-300">
+        <div class="flex shrink-0 w-64 h-32 items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
           <Image 
             src={sponsor.logo} 
             alt={`Logo de ${sponsor.name}`} 
-            class="w-full max-w-full max-h-full object-contain object-center"
+            class="w-full max-w-full max-h-full object-contain object-center transition-all duration-500"
             loading="lazy"
           />
         </div>
@@ -50,7 +50,8 @@ const allSponsors = [...sponsors, ...sponsors];
 <style>
   .animate-scroll {
     display: flex;
-    animation: scroll 10s linear infinite; 
+    animation: scroll 40s linear infinite; 
+    width: max-content;
   }
 
   .group:hover .animate-scroll {
@@ -62,7 +63,7 @@ const allSponsors = [...sponsors, ...sponsors];
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-50%);
     }
   }
 </style>

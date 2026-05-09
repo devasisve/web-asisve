@@ -1,0 +1,34 @@
+# VARIABLES DE ENTORNO SEGURAS
+SetEnv DB_PASS "Asisve01**"
+SetEnv SMTP_PASS "Asisve$77"
+
+# 1. BLOQUEAR ACCESO A ARCHIVOS SENSIBLES
+<FilesMatch "^\.env|^\.git|^\.ht">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 2. CONFIGURACIÓN DE CORS (Para que tu API responda al Frontend)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# 3. SEGURIDAD GENERAL
+# Ocultar la firma del servidor
+ServerSignature Off
+
+# Evitar el listado de directorios
+Options -Indexes
+
+# 4. MANEJO DE RUTAS ASTRO (Opcional, para SPA)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Si el archivo o directorio no existe, redirigir a index.html (Útil para Astro)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # No redirigir si la ruta empieza por /api/
+    RewriteCond %{REQUEST_URI} !^/api/
+    RewriteRule ^ index.html [L]
+</IfModule>

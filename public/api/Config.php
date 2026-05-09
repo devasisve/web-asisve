@@ -1,14 +1,15 @@
 <?php
 /**
- * Configuración centralizada de la API - SEGURIDAD MEJORADA
+ * Configuración centralizada de la API - SEGURIDAD VÍA APACHE (.htaccess)
  */
+
 class Config {
-    // Database credentials (usando getenv para ocultar en producción)
-    const DB_HOST = 'qald438.asisve.org'; // Cambia a localhost si es el mismo servidor
+    // Database credentials
+    const DB_HOST = 'qald438.asisve.org';
     const DB_NAME = 'qald438';
     const DB_USER = 'qald438';
     
-    // SMTP configuration (usando variables de entorno o constantes)
+    // SMTP configuration
     const SMTP_HOST = 'smtp.buzondecorreo.com';
     const SMTP_USER = 'contacto@asisve.org';
     const SMTP_PORT = 587;
@@ -19,13 +20,22 @@ class Config {
     const ALLOWED_ORIGIN = '*'; 
 
     /**
-     * Métodos para obtener contraseñas de forma segura
+     * Métodos para obtener contraseñas desde variables de entorno (.htaccess)
      */
     public static function getDbPass() {
-        return getenv('DB_PASS') ?: 'Asisve01**';
+        // En Apache, SetEnv pone las variables en $_SERVER o getenv()
+        $pass = getenv('DB_PASS') ?: (isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : null);
+        if (!$pass) {
+            die("Error de Seguridad: DB_PASS no configurado en el servidor.");
+        }
+        return $pass;
     }
 
     public static function getSmtpPass() {
-        return getenv('SMTP_PASS') ?: 'Asisve$77';
+        $pass = getenv('SMTP_PASS') ?: (isset($_SERVER['SMTP_PASS']) ? $_SERVER['SMTP_PASS'] : null);
+        if (!$pass) {
+            die("Error de Seguridad: SMTP_PASS no configurado en el servidor.");
+        }
+        return $pass;
     }
 }

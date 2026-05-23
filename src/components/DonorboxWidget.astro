@@ -19,7 +19,7 @@ const {
 ---
 
 <div class:list={["donorbox-widget-wrapper w-full max-w-[500px] mx-auto", className]}>
-  <script type="module" src="https://donorbox.org/widgets.js" async></script>
+  <script is:inline type="module" src="https://donorbox.org/widgets.js" async></script>
   <dbox-widget 
     campaign={campaign} 
     type="donation_form" 

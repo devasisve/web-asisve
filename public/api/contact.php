@@ -35,6 +35,8 @@ $nombre   = filter_var($input['nombre'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 $email    = filter_var($input['email'] ?? '', FILTER_VALIDATE_EMAIL);
 $asunto   = filter_var($input['Asunto'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 $mensaje  = filter_var($input['Mensaje'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$phone    = filter_var($input['phone'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+$cp       = filter_var($input['codigopostal'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 
 // PROTECCIÓN ANTIBOTS (Honeypot)
 if (!empty($input['_honeypot'] ?? '')) {
@@ -116,7 +118,11 @@ try {
     Response::json(true, '¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.');
 
 } catch (Exception $e) {
-    // Error en el envío (Loggear en producción, no mostrar detalles sensibles innecesarios)
+    // Error en el envío específico de PHPMailer
     error_log("PHPMailer Error: " . $mail->ErrorInfo);
-    Response::error('Lo sentimos, no se pudo enviar el mensaje en este momento. Inténtalo más tarde.', 500);
+    Response::error('Error de correo (SMTP): ' . $e->getMessage() . ' | Info: ' . $mail->ErrorInfo, 500);
+} catch (\Throwable $e) {
+    // Cualquier otro error del sistema (como variables de entorno no cargadas)
+    error_log("Error del Sistema: " . $e->getMessage());
+    Response::error('Error interno del servidor: ' . $e->getMessage(), 500);
 }

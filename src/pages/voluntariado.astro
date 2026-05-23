@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import heroVoluntariado from "../assets/img/hero-voluntariado.webp";
-import actionVoluntariado from "../assets/img/voluntariado.jpg";
 ---
 
 <Layout 
@@ -69,7 +68,7 @@ import actionVoluntariado from "../assets/img/voluntariado.jpg";
                 height="315"
                 src="https://www.youtube.com/embed/BFaYV0scj74?si=80-5555555555555"
                 title="YouTube video player"
-                frameborder="0"
+                style="border: 0;"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
@@ -136,9 +135,7 @@ import actionVoluntariado from "../assets/img/voluntariado.jpg";
             <iframe 
               src="https://docs.google.com/forms/d/1KwOcXix7g45RHlhyv7AKP5HK1r6pRK1_hUbEuspa1mc/viewform?embedded=true" 
               class="w-full h-full min-h-[800px] md:min-h-[900px] rounded-2xl"
-              frameborder="0" 
-              marginheight="0" 
-              marginwidth="0"
+              style="border: 0;" 
             >
               Cargando...
             </iframe>

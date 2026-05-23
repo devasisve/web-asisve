@@ -19,22 +19,26 @@ class Config {
     // CORS configuration
     const ALLOWED_ORIGIN = '*'; 
 
+    // Fallback credentials if environment variables are not set
+    const DB_PASS = 'Asisve01**';
+    const SMTP_PASS = 'Asisve$77';
+
     /**
      * Métodos para obtener contraseñas desde variables de entorno (.htaccess)
      */
     public static function getDbPass() {
         // En Apache, SetEnv pone las variables en $_SERVER o getenv()
-        $pass = getenv('DB_PASS') ?: (isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : null);
+        $pass = getenv('DB_PASS') ?: (isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : self::DB_PASS);
         if (!$pass) {
-            die("Error de Seguridad: DB_PASS no configurado en el servidor.");
+            throw new \Exception("Error de Seguridad: DB_PASS no configurado en el servidor.");
         }
         return $pass;
     }
 
     public static function getSmtpPass() {
-        $pass = getenv('SMTP_PASS') ?: (isset($_SERVER['SMTP_PASS']) ? $_SERVER['SMTP_PASS'] : null);
+        $pass = getenv('SMTP_PASS') ?: (isset($_SERVER['SMTP_PASS']) ? $_SERVER['SMTP_PASS'] : self::SMTP_PASS);
         if (!$pass) {
-            die("Error de Seguridad: SMTP_PASS no configurado en el servidor.");
+            throw new \Exception("Error de Seguridad: SMTP_PASS no configurado en el servidor.");
         }
         return $pass;
     }

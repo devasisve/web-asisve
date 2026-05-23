@@ -1,6 +1,6 @@
-# VARIABLES DE ENTORNO SEGURAS
-SetEnv DB_PASS "Asisve01**"
-SetEnv SMTP_PASS "Asisve$77"
+# VARIABLES DE ENTORNO SEGURAS (Comentadas para evitar Error 500 en Hostinger)
+# SetEnv DB_PASS "Asisve01**"
+# SetEnv SMTP_PASS "Asisve$77"
 
 # 1. BLOQUEAR ACCESO A ARCHIVOS SENSIBLES
 <FilesMatch "^\.env|^\.git|^\.ht">
@@ -21,15 +21,14 @@ SetEnv SMTP_PASS "Asisve$77"
     # Política de Referencia
     Header set Referrer-Policy "strict-origin-when-cross-origin"
     
-    # Restricción de CORS (Dominios autorizados)
-    # Temporalmente permitimos Netlify y Hostinger para tus pruebas
-    SetEnvIf Origin "https://asisve.netlify.app" ALLOWED_ORIGIN=$0
-    SetEnvIf Origin "https://forestgreen-pelican-956861.hostingersite.com" ALLOWED_ORIGIN=$0
-    SetEnvIf Origin "https://asisve.org" ALLOWED_ORIGIN=$0
+    # Restricción de CORS (Comentadas para evitar Error 500 en Hostinger; manejado directamente en PHP por Response.php)
+    # SetEnvIf Origin "https://asisve.netlify.app" ALLOWED_ORIGIN=$0
+    # SetEnvIf Origin "https://forestgreen-pelican-956861.hostingersite.com" ALLOWED_ORIGIN=$0
+    # SetEnvIf Origin "https://asisve.org" ALLOWED_ORIGIN=$0
     
-    Header set Access-Control-Allow-Origin %{ALLOWED_ORIGIN}e env=ALLOWED_ORIGIN
-    Header set Access-Control-Allow-Methods "POST, OPTIONS"
-    Header set Access-Control-Allow-Headers "Content-Type"
+    # Header set Access-Control-Allow-Origin %{ALLOWED_ORIGIN}e env=ALLOWED_ORIGIN
+    # Header set Access-Control-Allow-Methods "POST, OPTIONS"
+    # Header set Access-Control-Allow-Headers "Content-Type"
 </IfModule>
 
 # 3. SEGURIDAD GENERAL

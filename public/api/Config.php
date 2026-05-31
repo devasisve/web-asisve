@@ -21,7 +21,7 @@ class Config {
 
     // Fallback credentials if environment variables are not set
     const DB_PASS = 'Asisve01**';
-    const SMTP_PASS = 'Asisve$77';
+    const SMTP_PASS = 'Contacto22**';
 
     /**
      * Métodos para obtener contraseñas desde variables de entorno (.htaccess)

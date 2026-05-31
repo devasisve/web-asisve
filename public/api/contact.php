@@ -78,7 +78,7 @@ try {
     $mail->SMTPAuth   = true;
     $mail->Username   = Config::SMTP_USER;
     $mail->Password   = Config::getSmtpPass();
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->SMTPSecure = (Config::SMTP_PORT === 465) ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = Config::SMTP_PORT;
     $mail->CharSet    = 'UTF-8';
 

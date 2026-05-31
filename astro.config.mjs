@@ -9,7 +9,15 @@ export default defineConfig({
   output: 'static',
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://forestgreen-pelican-956861.hostingersite.com',
+          changeOrigin: true,
+        }
+      }
+    }
   },
 
   integrations: []

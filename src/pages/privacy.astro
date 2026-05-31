@@ -1,52 +1,193 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { ShieldCheck, UserCheck, FileText, Share2, Calendar, Scale } from "lucide-astro";
 ---
 
-<Layout title="Política de Privacidad | ASISVE">
-  <section class="py-24 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-4xl">
-      <div class="bg-white p-10 md:p-16 rounded-[40px] shadow-sm border border-gray-100">
-        <h1 class="text-4xl font-extrabold text-dark mb-8 border-b border-primary/10 pb-4">Política de Privacidad</h1>
-        
-        <div class="prose prose-lg prose-primary max-w-none space-y-8 text-gray-600">
-          <p>
-            Antes de continuar navegando por <a href="https://www.asisve.org" target="_blank" class="text-primary font-semibold hover:underline">www.asisve.org</a> o proporcionarnos cualquier dato personal, es importante que conozcas los términos de nuestra política de privacidad.
-          </p>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">Legislación Aplicable</h2>
-            <p>Cumplimos con la legislación española y europea en materia de protección de datos:</p>
-            <ul class="list-disc pl-6 space-y-2">
-              <li><strong>Reglamento General de Protección de Datos (RGPD)</strong>: Reglamento (UE) 2016/679.</li>
-              <li><strong>Ley Orgánica de Protección de Datos (LOPD)</strong>: Ley 15/1999 y Real Decreto 1720/2007.</li>
-              <li><strong>Ley de Servicios de la Sociedad de la Información (LSSI)</strong>: Ley 34/2002.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">Protección y Tratamiento</h2>
-            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-2">
-              <p><strong>Denominación social:</strong> Asociación ASISVE</p>
-              <p><strong>NIF:</strong> G10809218</p>
-              <p><strong>Domicilio:</strong> C/ del Fuentelviejo 37, 28022 Madrid</p>
-              <p><strong>Email:</strong> <a href="mailto:administracion@asisve.org" class="text-primary">administracion@asisve.org</a></p>
-            </div>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">Derechos de los Usuarios</h2>
-            <p>Tienes derecho a acceder, rectificar, suprimir, limitar el tratamiento, oponerte al uso de tus datos y a la portabilidad de los mismos. Puedes ejercer estos derechos contactando por email.</p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">Finalidad y Conservación</h2>
-            <p>Recogemos datos para responder consultas y enviar nuestro boletín. Los datos se conservan mientras dure la relación o hasta que solicites su eliminación.</p>
-          </section>
-
-          <p class="text-sm italic pt-8 border-t border-gray-100">
-            Al utilizar este sitio web, declaras aceptar el tratamiento de tus datos personales conforme a esta política.
-          </p>
+<Layout title="Política de Privacidad | ASISVE" description="Política de privacidad oficial de la Asociación de Solidaridad e Integración Sociolaboral de Venezuela (ASISVE). Conoce cómo protegemos y tratamos tus datos personales de acuerdo con el RGPD y la LOPDGDD.">
+  <section class="py-24 bg-gray-50/50">
+    <div class="container mx-auto px-4 max-w-7xl">
+      
+      {/* Page Header */}
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-black uppercase tracking-wider">
+          <ShieldCheck size={16} />
+          Protección de Datos
         </div>
+        <h1 class="text-4xl md:text-5xl font-black text-dark tracking-tight">Política de Privacidad</h1>
+        <p class="text-gray-500 text-base leading-relaxed">
+          Asociación ASISVE — Documento Legal Oficial. Garantizamos el pleno alineamiento de nuestros procesos con el marco jurídico europeo y español.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 md:p-16 rounded-[40px] shadow-2xl border border-gray-100 space-y-12">
+        
+        {/* Section 1 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <UserCheck size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">1. Identificación del Responsable del Tratamiento</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            El responsable del tratamiento de los datos recabados en este sitio web es la <strong class="text-dark font-bold">Asociación ASISVE</strong>, con NIF <strong class="text-dark font-bold">G10809218</strong> y domicilio oficial en <strong class="text-dark font-bold">C/ del Fuentelviejo 37, 28022 Madrid, España</strong>.
+          </p>
+          <div class="bg-primary-contrast/30 p-5 rounded-2xl border border-primary/10 inline-flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+            <span class="text-sm font-semibold text-primary-dark">
+              Correo electrónico de contacto: <a href="mailto:administracion@asisve.org" class="underline hover:text-primary transition-colors">administracion@asisve.org</a>
+            </span>
+          </div>
+        </section>
+
+        {/* Section 2 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <Scale size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">2. Marco Normativo de Aplicación</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            ASISVE garantiza el pleno alineamiento de sus procesos con el marco jurídico europeo y español:
+          </p>
+          <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+            <li class="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 transition-all hover:bg-white hover:shadow-md">
+              <h4 class="font-bold text-dark text-sm mb-1">RGPD</h4>
+              <p class="text-xs text-gray-500 leading-relaxed">Reglamento General de Protección de Datos (Reglamento UE 2016/679).</p>
+            </li>
+            <li class="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 transition-all hover:bg-white hover:shadow-md">
+              <h4 class="font-bold text-dark text-sm mb-1">LOPDGDD</h4>
+              <p class="text-xs text-gray-500 leading-relaxed">Ley Orgánica de Protección de Datos Personales y Garantía de Derechos Digitales (Ley Orgánica 3/2018).</p>
+            </li>
+            <li class="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 transition-all hover:bg-white hover:shadow-md">
+              <h4 class="font-bold text-dark text-sm mb-1">LSSI-CE</h4>
+              <p class="text-xs text-gray-500 leading-relaxed">Ley de Servicios de la Sociedad de la Información y de Comercio Electrónico (Ley 34/2002).</p>
+            </li>
+          </ul>
+        </section>
+
+        {/* Section 3 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <FileText size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">3. Finalidades del Tratamiento y Bases de Legitimación</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            Tratamos sus datos únicamente con las finalidades específicas detalladas a continuación, amparados bajo sus correspondientes bases legales de legitimación:
+          </p>
+          
+          <div class="overflow-x-auto rounded-[2rem] border border-gray-100 shadow-xl bg-white max-w-full">
+            <table class="min-w-full divide-y divide-gray-100 text-left border-collapse text-sm">
+              <thead class="bg-primary text-white">
+                <tr>
+                  <th class="px-6 py-5 font-black uppercase tracking-wider text-xs whitespace-nowrap">Finalidad</th>
+                  <th class="px-6 py-5 font-black uppercase tracking-wider text-xs">Datos Tratados</th>
+                  <th class="px-6 py-5 font-black uppercase tracking-wider text-xs">Base Legal de Legitimación</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 bg-white">
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-6 py-5 font-bold text-dark align-top whitespace-nowrap">Contacto y Consultas</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Nombre, apellidos, dirección de correo electrónico y texto del mensaje.</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Consentimiento expreso del propio interesado al enviar el formulario (Art. 6.1.a RGPD).</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-6 py-5 font-bold text-dark align-top whitespace-nowrap">Envío de Boletín Informativo</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Nombre y correo electrónico.</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Consentimiento explícito mediante suscripción voluntaria (Art. 6.1.a RGPD).</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-6 py-5 font-bold text-dark align-top whitespace-nowrap">Gestión de Donaciones</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Identificación, datos fiscales, importe económico y método de pago elegido.</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Ejecución de la relación jurídica contractual / acuerdo de donación (Art. 6.1.b RGPD).</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-6 py-5 font-bold text-dark align-top whitespace-nowrap">Obligaciones Fiscales</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">Datos identificativos del donante y cuantía económica aportada.</td>
+                  <td class="px-6 py-5 text-gray-600 align-top">
+                    Cumplimiento de una obligación legal (Art. 6.1.c RGPD) sujeta a la Ley 49/2002. Se realizará la comunicación obligatoria a la <strong class="text-dark font-bold">Agencia Tributaria Española (AEAT)</strong> mediante el <strong class="text-dark font-bold">Modelo 182</strong> para las deducciones pertinentes.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Section 4 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <Share2 size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">4. Destinatarios y Transferencias Internacionales</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Para la ejecución técnica de los flujos de cobro, los datos se comunican de forma segura a los siguientes encargados del tratamiento independientes:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+            <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
+                <h4 class="font-bold text-dark">Donorbox (Rebel Idealist LLC)</h4>
+              </div>
+              <p class="text-sm text-gray-500 leading-relaxed">
+                Ubicado en EE.UU. Opera como herramienta de captación. Transferencia internacional autorizada en virtud del <em>Data Privacy Framework UE-EE.UU.</em> y Cláusulas Contractuales Tipo de la Comisión Europea.
+              </p>
+            </div>
+            
+            <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
+                <h4 class="font-bold text-dark">PayPal (Europe) S.à r.l. et Cie, S.C.A.</h4>
+              </div>
+              <p class="text-sm text-gray-500 leading-relaxed">
+                Ubicado en Luxemburgo (UE). Procesa los pagos seguros bajo la estricta normativa PSD2 y estándares PCI-DSS de la Eurozona.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <Calendar size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">5. Plazos de Conservación</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Los datos de consultas y boletines se conservarán mientras persista el interés o hasta la solicitud de supresión por parte del interesado. 
+          </p>
+          <div class="bg-primary/5 border-l-4 border-primary p-6 rounded-r-2xl text-sm md:text-base text-gray-700 leading-relaxed">
+            Los registros relativos a donaciones y transacciones fiscales permanecerán bloqueados y custodiados durante un mínimo de <strong class="text-primary-dark font-black">diez (10) años</strong> por imperativo legal (prevención del blanqueo de capitales y plazos de prescripción de la Ley General Tributaria).
+          </div>
+        </section>
+
+        {/* Section 6 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <ShieldCheck size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">6. Ejercicio de Derechos (ARCO-POL)</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Los usuarios pueden ejercitar sus derechos de Acceso, Rectificación, Supresión, Limitación, Oposición y Portabilidad remitiendo una solicitud escrita acompañada de una copia de su documento de identidad a <a href="mailto:administracion@asisve.org" class="text-primary font-bold hover:underline">administracion@asisve.org</a>.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            Disponen asimismo del derecho de presentar una reclamación ante la <strong class="text-dark font-bold">Agencia Española de Protección de Datos (AEPD)</strong> a través de su canal oficial (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:underline">www.aepd.es</a>).
+          </p>
+        </section>
+
+        {/* Footer info stamp */}
+        <div class="pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-4">
+          <span>Asociación ASISVE — Documento Legal Oficial</span>
+          <span>Última actualización: Mayo 2026</span>
+        </div>
+        
       </div>
     </div>
   </section>

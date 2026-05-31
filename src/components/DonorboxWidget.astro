@@ -1,7 +1,8 @@
 ---
 /**
- * DonorboxWidget Component (Multi-step Version)
+ * DonorboxWidget Component (Multi-step Version with GDPR compliance)
  * Uses the modern dbox-widget for better performance and mobile UX.
+ * Integrates an elegant lock-overlay and privacy modal to protect donor data.
  */
 import { DONORBOX_CONFIG } from "../config/donorbox";
 
@@ -18,14 +19,248 @@ const {
 } = Astro.props;
 ---
 
-<div class:list={["donorbox-widget-wrapper w-full max-w-[500px] mx-auto", className]}>
-  <script is:inline type="module" src="https://donorbox.org/widgets.js" async></script>
-  <dbox-widget 
-    campaign={campaign} 
-    type="donation_form" 
-    amount={amount} 
-    enable-auto-scroll="true"
-  ></dbox-widget>
+<div class="donorbox-container w-full max-w-[425px] mx-auto space-y-6">
+  {/* Widget Wrapper */}
+  <div class:list={["donorbox-widget-wrapper relative overflow-hidden rounded-[2.5rem] transition-all duration-300", className]}>
+    
+    {/* Elegant Lock Overlay */}
+    <div 
+      id="donorboxLockOverlay" 
+      class="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 sm:p-10 bg-white/80 backdrop-blur-[2px] text-center transition-all duration-500 pointer-events-auto"
+    >
+      <div class="p-8 bg-white/95 rounded-3xl shadow-2xl border border-gray-100 max-w-xs sm:max-w-sm mx-auto space-y-6">
+        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto">
+          {/* Padlock Icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-xl font-black text-dark">Formulario Protegido</h3>
+          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">
+            Por motivos de protección de datos, activa la casilla de abajo para desbloquear el formulario y poder realizar tu donación de forma segura.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* The Donorbox iframe wrapper */}
+    <div id="donorboxWidgetWrapper" class="transition-all duration-500 opacity-20 pointer-events-none select-none blur-[2px]">
+      <script is:inline type="module" src="https://donorbox.org/widgets.js" async></script>
+      <dbox-widget 
+        campaign={campaign} 
+        type="donation_form" 
+        amount={amount} 
+        enable-auto-scroll="true"
+        id="donorboxWidget"
+      ></dbox-widget>
+    </div>
+  </div>
+
+  {/* Checkbox Card */}
+  <div class="bg-white p-6 sm:p-8 rounded-[2rem] shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-300">
+    <div class="flex items-start gap-4">
+      <input 
+        type="checkbox" 
+        id="approveDonation" 
+        class="mt-1 w-5 h-5 rounded border-gray-200 text-primary focus:ring-primary transition-all cursor-pointer accent-primary shrink-0"
+      />
+      <label for="approveDonation" class="text-sm text-gray-600 leading-relaxed cursor-pointer select-none">
+        <span class="text-red-500 font-bold">*</span> He leído y acepto la <button type="button" id="openDonationPrivacy" class="text-primary font-black hover:underline cursor-pointer bg-transparent border-none p-0 inline-flex align-baseline transition-colors">Política de Privacidad de ASISVE</button> y consiento el tratamiento de mis datos para la gestión de mi donación.
+      </label>
+    </div>
+  </div>
+</div>
+
+{/* Modal de Privacidad de Donaciones (Primera Capa GDPR) */}
+<div id="donationPrivacyModal" class="fixed inset-0 z-60 items-center justify-center bg-dark/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
+  <div id="donation-privacy-modal-content" class="relative w-[calc(100%-2rem)] max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300">
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+      <div class="w-10"></div> <!-- Spacer -->
+      <div class="flex-1 text-center">
+        <h3 class="text-xl font-black text-dark flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Protección de Datos
+        </h3>
+        <p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-wider mt-1">Información Básica</p>
+      </div>
+      <button type="button" id="closeDonationPrivacyIcon" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-400 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    
+    <!-- Content -->
+    <div class="p-8 max-h-[60vh] overflow-y-auto space-y-6 text-gray-600 leading-relaxed text-left text-sm sm:text-base">
+      <div class="grid grid-cols-1 gap-6">
+        <div class="border-b border-gray-100 pb-4">
+          <h4 class="font-bold text-dark mb-1">Responsable</h4>
+          <p>Asociación ASISVE.</p>
+        </div>
+        
+        <div class="border-b border-gray-100 pb-4">
+          <h4 class="font-bold text-dark mb-1">Finalidad</h4>
+          <p>Gestión administrativa y fiscal de su donación, emisión del certificado de deducción fiscal aplicable (Modelo 182 ante la AEAT) y envío de información institucional vinculada a nuestros fines.</p>
+        </div>
+        
+        <div class="border-b border-gray-100 pb-4">
+          <h4 class="font-bold text-dark mb-1">Legitimación</h4>
+          <p>Ejecución de la relación jurídica contractual de donación y cumplimiento de obligaciones legales de índole tributaria (Ley 49/2002 de Mecenazgo).</p>
+        </div>
+        
+        <div class="border-b border-gray-100 pb-4">
+          <h4 class="font-bold text-dark mb-1">Destinatarios</h4>
+          <p>No se cederán datos a terceros salvo obligación legal (Agencia Tributaria Española). Se comunica que el tratamiento técnico requiere la colaboración de las plataformas Donorbox (transferencia internacional regulada bajo el Data Privacy Framework UE-EE.UU.) y PayPal como encargados de tratamiento independientes.</p>
+        </div>
+        
+        <div class="border-b border-gray-100 pb-4">
+          <h4 class="font-bold text-dark mb-1">Derechos</h4>
+          <p>Acceso, rectificación, supresión, limitación, oposición y portabilidad de los datos en cualquier momento mediante comunicación escrita a <a href="mailto:administracion@asisve.org" class="text-primary font-bold hover:underline">administracion@asisve.org</a>.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-dark mb-1">Información Adicional</h4>
+          <p>Puede consultar la información detallada y completa accediendo a través del enlace de la <button type="button" id="openFullPrivacy" class="text-primary font-bold hover:underline cursor-pointer bg-transparent border-none p-0 inline-flex align-baseline transition-colors">Política de Privacidad Completa</button>.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="p-6 bg-gray-50 border-t border-gray-100 flex justify-center">
+      <button type="button" id="closeDonationPrivacyBtn" class="bg-primary hover:bg-dark text-white px-10 py-3 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 min-w-[150px] cursor-pointer">
+        Entendido
+      </button>
+    </div>
+  </div>
+</div>
+
+{/* Modal de Política de Privacidad Completa (Segunda Capa GDPR integrada) */}
+<div id="fullPrivacyModal" class="fixed inset-0 z-70 items-center justify-center bg-dark/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
+  <div id="full-privacy-modal-content" class="relative w-[calc(100%-2rem)] max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300">
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+      <button type="button" id="backToFirstModal" class="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-dark transition-colors cursor-pointer bg-gray-100 px-3 py-1.5 rounded-xl border-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Atrás
+      </button>
+      <h3 class="text-lg font-black text-dark text-center flex-1">
+        Política de Privacidad Completa
+      </h3>
+      <button type="button" id="closeFullPrivacyIcon" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-400 cursor-pointer border-none bg-transparent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    
+    <!-- Content (Full scrollable) -->
+    <div class="p-8 max-h-[60vh] overflow-y-auto space-y-8 text-gray-600 leading-relaxed text-left text-sm sm:text-base">
+      
+      {/* Section 1 */}
+      <section class="space-y-3">
+        <h4 class="text-base font-black text-dark flex items-center gap-2 border-b border-gray-100 pb-2">
+          <span class="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs shrink-0 font-bold">1</span>
+          Identificación del Responsable del Tratamiento
+        </h4>
+        <p>
+          El responsable del tratamiento de los datos recabados en este sitio web es la <strong>Asociación ASISVE</strong>, con NIF <strong>G10809218</strong> y domicilio oficial en <strong>C/ del Fuentelviejo 37, 28022 Madrid, España</strong>. Correo electrónico de contacto: <a href="mailto:administracion@asisve.org" class="text-primary font-bold hover:underline">administracion@asisve.org</a>.
+        </p>
+      </section>
+
+      {/* Section 2 */}
+      <section class="space-y-3">
+        <h4 class="text-base font-black text-dark flex items-center gap-2 border-b border-gray-100 pb-2">
+          <span class="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs shrink-0 font-bold">2</span>
+          Marco Normativo de Aplicación
+        </h4>
+        <p>ASISVE garantiza el pleno alineamiento de sus procesos con el marco jurídico europeo y español:</p>
+        <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray-500">
+          <li><strong>Reglamento General de Protección de Datos (RGPD)</strong>: Reglamento (UE) 2016/679.</li>
+          <li><strong>Ley Orgánica de Protección de Datos Personales y Garantía de los Derechos Digitales (LOPDGDD)</strong>: Ley Orgánica 3/2018.</li>
+          <li><strong>Ley de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE)</strong>: Ley 34/2002.</li>
+        </ul>
+      </section>
+
+      {/* Section 3 */}
+      <section class="space-y-3">
+        <h4 class="text-base font-black text-dark flex items-center gap-2 border-b border-gray-100 pb-2">
+          <span class="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs shrink-0 font-bold">3</span>
+          Finalidades del Tratamiento y Bases de Legitimación
+        </h4>
+        <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm bg-white max-w-full">
+          <table class="min-w-full divide-y divide-gray-100 text-left text-xs border-collapse">
+            <thead class="bg-primary text-white">
+              <tr>
+                <th class="px-4 py-3 font-bold uppercase whitespace-nowrap">Finalidad</th>
+                <th class="px-4 py-3 font-bold uppercase">Datos Tratados</th>
+                <th class="px-4 py-3 font-bold uppercase">Base de Legitimación</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 bg-white text-gray-600">
+              <tr class="hover:bg-gray-50/30 transition-colors">
+                <td class="px-4 py-3 font-bold text-dark align-top whitespace-nowrap">Contacto y Consultas</td>
+                <td class="px-4 py-3 align-top">Nombre, email, texto mensaje.</td>
+                <td class="px-4 py-3 align-top">Consentimiento expreso (Art. 6.1.a RGPD).</td>
+              </tr>
+              <tr class="hover:bg-gray-50/30 transition-colors">
+                <td class="px-4 py-3 font-bold text-dark align-top whitespace-nowrap">Boletín Informativo</td>
+                <td class="px-4 py-3 align-top">Nombre y correo.</td>
+                <td class="px-4 py-3 align-top">Suscripción voluntaria (Art. 6.1.a RGPD).</td>
+              </tr>
+              <tr class="hover:bg-gray-50/30 transition-colors">
+                <td class="px-4 py-3 font-bold text-dark align-top whitespace-nowrap">Gestión Donaciones</td>
+                <td class="px-4 py-3 align-top">Identificación, datos fiscales, importe, método de pago.</td>
+                <td class="px-4 py-3 align-top">Relación contractual (Art. 6.1.b RGPD).</td>
+              </tr>
+              <tr class="hover:bg-gray-50/30 transition-colors">
+                <td class="px-4 py-3 font-bold text-dark align-top whitespace-nowrap">Obligaciones Fiscales</td>
+                <td class="px-4 py-3 align-top">Datos del donante y cuantía.</td>
+                <td class="px-4 py-3 align-top">Obligación legal (Art. 6.1.c RGPD - Ley 49/2002) ante AEAT (Modelo 182).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Section 4 */}
+      <section class="space-y-3">
+        <h4 class="text-base font-black text-dark flex items-center gap-2 border-b border-gray-100 pb-2">
+          <span class="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs shrink-0 font-bold">4</span>
+          Destinatarios y Transferencias Internacionales
+        </h4>
+        <ul class="space-y-2 text-xs sm:text-sm text-gray-500 list-none p-0">
+          <li class="flex flex-col gap-0.5"><strong class="text-dark">Donorbox (Rebel Idealist LLC):</strong> Ubicado en EE.UU. Opera como captación. Transferencia internacional regulada bajo el <em>Data Privacy Framework UE-EE.UU.</em> y Cláusulas Contractuales Tipo de la CE.</li>
+          <li class="flex flex-col gap-0.5 mt-2"><strong class="text-dark">PayPal (Europe) S.à r.l. et Cie, S.C.A.:</strong> Ubicado en Luxemburgo (UE). Procesa los pagos seguros bajo la normativa PSD2 y estándares PCI-DSS.</li>
+        </ul>
+      </section>
+
+      {/* Section 5 */}
+      <section class="space-y-3">
+        <h4 class="text-base font-black text-dark flex items-center gap-2 border-b border-gray-100 pb-2">
+          <span class="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs shrink-0 font-bold">5</span>
+          Plazos de Conservación
+        </h4>
+        <p>
+          Los datos de consultas y boletines se conservarán mientras persista el interés o hasta la solicitud de supresión. Los registros fiscales y de donaciones permanecerán bloqueados por un mínimo de <strong>diez (10) años</strong> por imperativo legal (prevención de blanqueo de capitales).
+        </p>
+      </section>
+
+      {/* Section 6 */}
+      <section class="space-y-3">
+        <h4 class="text-base font-black text-dark flex items-center gap-2 border-b border-gray-100 pb-2">
+          <span class="w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center text-xs shrink-0 font-bold">6</span>
+          Ejercicio de Derechos (ARCO-POL)
+        </h4>
+        <p>
+          Puede ejercitar sus derechos de Acceso, Rectificación, Supresión, Limitación, Oposición y Portabilidad remitiendo solicitud con copia de identidad a <a href="mailto:administracion@asisve.org" class="text-primary font-bold hover:underline">administracion@asisve.org</a>. Tiene derecho a reclamar ante la AEPD (<a href="https://www.aepd.es" target="_blank" class="text-primary hover:underline">www.aepd.es</a>).
+        </p>
+      </section>
+
+    </div>
+    
+    <!-- Footer -->
+    <div class="p-6 bg-gray-50 border-t border-gray-100 flex justify-center">
+      <button type="button" id="closeFullPrivacyBtn" class="bg-primary hover:bg-dark text-white px-10 py-3 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 min-w-[150px] cursor-pointer border-none">
+        Entendido y Cerrar
+      </button>
+    </div>
+  </div>
 </div>
 
 <style is:global>
@@ -36,8 +271,109 @@ const {
     width: 100%;
   }
 
-  /* Optional: Customizing the widget container shadow to match your site */
   .donorbox-widget-wrapper {
     filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
   }
 </style>
+
+<script>
+  const checkbox = document.querySelector('#approveDonation') as HTMLInputElement;
+  const overlay = document.querySelector('#donorboxLockOverlay') as HTMLDivElement;
+  const widgetWrapper = document.querySelector('#donorboxWidgetWrapper') as HTMLDivElement;
+
+  // First Modal elements
+  const openModalBtn = document.querySelector('#openDonationPrivacy') as HTMLButtonElement;
+  const closeModalBtn = document.querySelector('#closeDonationPrivacyBtn') as HTMLButtonElement;
+  const closeModalBtnIcon = document.querySelector('#closeDonationPrivacyIcon') as HTMLButtonElement;
+  const modal = document.querySelector('#donationPrivacyModal') as HTMLDivElement;
+  const modalContent = document.querySelector('#donation-privacy-modal-content');
+
+  // Second Modal elements (Full Privacy)
+  const openFullModalBtn = document.querySelector('#openFullPrivacy') as HTMLButtonElement;
+  const closeFullModalBtn = document.querySelector('#closeFullPrivacyBtn') as HTMLButtonElement;
+  const closeFullModalBtnIcon = document.querySelector('#closeFullPrivacyIcon') as HTMLButtonElement;
+  const backToFirstBtn = document.querySelector('#backToFirstModal') as HTMLButtonElement;
+  const fullModal = document.querySelector('#fullPrivacyModal') as HTMLDivElement;
+  const fullModalContent = document.querySelector('#full-privacy-modal-content');
+
+  // Toggle widget enable/disable state
+  const updateWidgetState = () => {
+    if (checkbox?.checked) {
+      // Unlocked
+      overlay?.classList.add('opacity-0', 'pointer-events-none');
+      widgetWrapper?.classList.remove('opacity-20', 'select-none', 'pointer-events-none', 'blur-[2px]');
+      widgetWrapper?.classList.add('opacity-100');
+    } else {
+      // Locked
+      overlay?.classList.remove('opacity-0', 'pointer-events-none');
+      widgetWrapper?.classList.add('opacity-20', 'select-none', 'pointer-events-none', 'blur-[2px]');
+      widgetWrapper?.classList.remove('opacity-100');
+    }
+  };
+
+  checkbox?.addEventListener('change', updateWidgetState);
+
+  // General Modal Toggle Helper
+  const toggleModalElement = (modalEl: HTMLDivElement | null, contentEl: Element | null, show: boolean) => {
+    if (!modalEl || !contentEl) return;
+    
+    if (show) {
+      modalEl.classList.remove('hidden');
+      modalEl.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        modalEl.classList.remove('opacity-0', 'pointer-events-none');
+        modalEl.classList.add('opacity-100');
+        contentEl.classList.remove('scale-95');
+        contentEl.classList.add('scale-100');
+      });
+    } else {
+      modalEl.classList.remove('opacity-100');
+      modalEl.classList.add('opacity-0', 'pointer-events-none');
+      contentEl.classList.remove('scale-100');
+      contentEl.classList.add('scale-95');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        modalEl.classList.add('hidden');
+        modalEl.classList.remove('flex');
+      }, 300);
+    }
+  };
+
+  // First Modal triggers
+  openModalBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleModalElement(modal, modalContent, true);
+  });
+
+  [closeModalBtn, closeModalBtnIcon].forEach(btn => {
+    btn?.addEventListener('click', () => toggleModalElement(modal, modalContent, false));
+  });
+
+  // Second Modal triggers
+  openFullModalBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Smoothly close first modal and open second
+    toggleModalElement(modal, modalContent, false);
+    setTimeout(() => {
+      toggleModalElement(fullModal, fullModalContent, true);
+    }, 150);
+  });
+
+  // Back button (returns to first modal)
+  backToFirstBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleModalElement(fullModal, fullModalContent, false);
+    setTimeout(() => {
+      toggleModalElement(modal, modalContent, true);
+    }, 150);
+  });
+
+  // Close everything from second modal
+  [closeFullModalBtn, closeFullModalBtnIcon].forEach(btn => {
+    btn?.addEventListener('click', () => toggleModalElement(fullModal, fullModalContent, false));
+  });
+
+  // Initial state check
+  updateWidgetState();
+</script>

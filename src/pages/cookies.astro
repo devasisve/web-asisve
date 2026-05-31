@@ -1,46 +1,125 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Database, EyeOff, FileSpreadsheet, Trash2 } from "lucide-astro";
 ---
 
-<Layout title="Política de Cookies | ASISVE">
-  <section class="py-24 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-4xl">
-      <div class="bg-white p-10 md:p-16 rounded-[40px] shadow-sm border border-gray-100">
-        <h1 class="text-4xl font-extrabold text-dark mb-8 border-b border-primary/10 pb-4">Política de Cookies</h1>
-        
-        <div class="prose prose-lg prose-primary max-w-none space-y-8 text-gray-600">
-          <p>
-            En ASISVE usamos cookies para mejorar tu experiencia en nuestro sitio web, ofrecer funcionalidades y obtener estadísticas de uso.
-          </p>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">¿Qué son las cookies?</h2>
-            <p>
-              Son pequeños archivos de texto que se almacenan en tu navegador para recordar tus preferencias y analizar cómo usas el sitio.
-            </p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">Tipos de cookies que usamos</h2>
-            <ul class="list-disc pl-6 space-y-4">
-              <li><strong>Cookies necesarias:</strong> Imprescindibles para el funcionamiento del sitio.</li>
-              <li><strong>Cookies de rendimiento:</strong> Recopilan datos anónimos para mejorar el sitio (Google Analytics).</li>
-              <li><strong>Cookies sociales:</strong> Permiten compartir contenido en redes como Facebook o Instagram.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-bold text-dark mb-4">Administración</h2>
-            <p>
-              Puedes aceptar, rechazar o configurar las cookies desde el banner de consentimiento que aparece al inicio o borrar las cookies desde la configuración de tu navegador.
-            </p>
-          </section>
-
-          <div class="bg-primary/5 p-8 rounded-3xl border border-primary/10 mt-12">
-            <h3 class="text-xl font-bold text-dark mb-4">¿Preguntas?</h3>
-            <p>Si tienes dudas sobre nuestra política de cookies, puedes contactarnos a través de nuestra <a href="/contact" class="text-primary font-bold">página de contacto</a>.</p>
-          </div>
+<Layout title="Política de Cookies | ASISVE" description="Política de cookies oficial de la Asociación de Solidaridad e Integración Sociolaboral de Venezuela (ASISVE). Conoce cómo gestionamos el consentimiento de las cookies en nuestra pasarela de donaciones.">
+  <section class="py-24 bg-gray-50/50">
+    <div class="container mx-auto px-4 max-w-7xl">
+      
+      {/* Page Header */}
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-black uppercase tracking-wider">
+          <Database size={16} />
+          Configuración Técnica
         </div>
+        <h1 class="text-4xl md:text-5xl font-black text-dark tracking-tight">Política de Cookies</h1>
+        <p class="text-gray-500 text-base leading-relaxed">
+          Asociación ASISVE — Documento Legal Oficial. Cumplimos rigurosamente con la Directiva ePrivacy y las normativas vigentes sobre protección de datos.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 md:p-16 rounded-[40px] shadow-2xl border border-gray-100 space-y-12">
+        
+        {/* Section 1 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <EyeOff size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">1. Criterio de Bloqueo Tecnológico</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            En cumplimiento de la Directiva ePrivacy y la Guía de la AEPD, los scripts que dan soporte a las funcionalidades externas de <strong class="text-dark font-bold">Donorbox</strong> y <strong class="text-dark font-bold">PayPal</strong> se encuentran programados para ser retenidos de forma proactiva.
+          </p>
+          <div class="bg-primary/5 border-l-4 border-primary p-6 rounded-r-2xl text-sm md:text-base text-gray-700 leading-relaxed">
+            No se ejecutará código ni se descargarán rastreadores en el terminal del usuario hasta que este preste su **consentimiento explícito** en el Banner inicial de la web.
+          </div>
+        </section>
+
+        {/* Section 2 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <FileSpreadsheet size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">2. Inventario Técnico de Cookies en la Pasarela</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            A continuación, se detalla de forma transparente la lista de cookies utilizadas en nuestra pasarela y su propósito legal y técnico:
+          </p>
+          
+          <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-xl bg-white max-w-full">
+            <table class="min-w-full divide-y divide-gray-100 text-left border-collapse text-xs md:text-sm">
+              <thead class="bg-primary text-white">
+                <tr>
+                  <th class="px-5 py-4 font-black uppercase tracking-wider text-xs whitespace-nowrap">Proveedor</th>
+                  <th class="px-5 py-4 font-black uppercase tracking-wider text-xs whitespace-nowrap">Cookie</th>
+                  <th class="px-5 py-4 font-black uppercase tracking-wider text-xs whitespace-nowrap">Tipo / Duración</th>
+                  <th class="px-5 py-4 font-black uppercase tracking-wider text-xs">Propósito Legal y Técnico</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 bg-white text-gray-600">
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-5 py-4 font-bold text-dark align-top whitespace-nowrap">ASISVE</td>
+                  <td class="px-5 py-4 font-mono text-primary font-semibold align-top whitespace-nowrap">cookie-consent</td>
+                  <td class="px-5 py-4 align-top whitespace-nowrap">Técnica / 1 año</td>
+                  <td class="px-5 py-4 align-top">Registra la opción seleccionada por el usuario en la ventana flotante de consentimiento de la web.</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-5 py-4 font-bold text-dark align-top whitespace-nowrap">Donorbox</td>
+                  <td class="px-5 py-4 font-mono text-primary font-semibold align-top whitespace-nowrap">_donorbox_session</td>
+                  <td class="px-5 py-4 align-top whitespace-nowrap">Técnica / Sesión</td>
+                  <td class="px-5 py-4 align-top">Garantiza la continuidad del proceso del formulario dentro del módulo incrustado de donación.</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-5 py-4 font-bold text-dark align-top whitespace-nowrap">Donorbox / Stripe</td>
+                  <td class="px-5 py-4 font-mono text-primary font-semibold align-top leading-relaxed">
+                    __stripe_mid<br/>
+                    __stripe_sid
+                  </td>
+                  <td class="px-5 py-4 align-top whitespace-nowrap">Seguridad / Hasta 1 año</td>
+                  <td class="px-5 py-4 align-top">Prevención de fraude: Análisis de comportamiento del hardware para evitar ataques con tarjetas de crédito clonadas.</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-5 py-4 font-bold text-dark align-top whitespace-nowrap">PayPal</td>
+                  <td class="px-5 py-4 font-mono text-primary font-semibold align-top leading-relaxed">
+                    _csrf<br/>
+                    enforce_policy
+                  </td>
+                  <td class="px-5 py-4 align-top whitespace-nowrap">Seguridad / Sesión e interanual</td>
+                  <td class="px-5 py-4 align-top">Mitigación de ataques de inyección cruzada (CSRF) y mantenimiento de políticas de privacidad del entorno de pago.</td>
+                </tr>
+                <tr class="hover:bg-gray-50/30 transition-colors">
+                  <td class="px-5 py-4 font-bold text-dark align-top whitespace-nowrap">PayPal</td>
+                  <td class="px-5 py-4 font-mono text-primary font-semibold align-top whitespace-nowrap">ts / ts_c / l7_az</td>
+                  <td class="px-5 py-4 align-top whitespace-nowrap">Analítica / Funcional / 2 años</td>
+                  <td class="px-5 py-4 align-top">Control de rendimiento informático del complemento de pago y balanceo de tráfico de red financiera.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Section 3 */}
+        <section class="space-y-4">
+          <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <Trash2 size={20} />
+            </div>
+            <h2 class="text-2xl font-black text-dark">3. Desactivación</h2>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            El usuario podrá revocar la aceptación en cualquier momento a través del panel permanente integrado en la web, o eliminando los archivos locales modificando los ajustes técnicos de privacidad de su propio navegador de Internet.
+          </p>
+        </section>
+
+        {/* Footer info stamp */}
+        <div class="pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-4">
+          <span>Asociación ASISVE — Documento Legal Oficial</span>
+          <span>Última actualización: Mayo 2026</span>
+        </div>
+        
       </div>
     </div>
   </section>

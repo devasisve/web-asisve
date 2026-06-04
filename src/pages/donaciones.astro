@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DonorboxWidget from "../components/DonorboxWidget.astro";
-import { Heart, ShieldCheck, Zap, Users } from "lucide-astro";
+import { Heart, ShieldCheck, Zap, Users, Smartphone, Building } from "lucide-astro";
 import { Image } from "astro:assets";
 
 // Hero Image - Using an existing one or placeholder if not found
@@ -110,7 +110,177 @@ const benefits = [
     </div>
   </section>
 
+  {/* Otras formas de donar */}
+  <section class="py-16 md:py-24 bg-gray-50 border-t border-gray-100 relative z-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="text-center space-y-4 mb-16">
+        <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-primary-contrast text-primary text-xs font-bold uppercase tracking-wider">
+          Otras formas de colaborar
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black text-dark tracking-tight">
+          Donación Directa
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          Si prefieres no utilizar el formulario web, puedes realizar tu donación mediante transferencia bancaria o a través de Bizum de forma rápida y segura.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        {/* Card 1: Bizum */}
+        <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-primary-contrast flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <Smartphone size={24} />
+              </div>
+              <div>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Pago Móvil</span>
+                <h3 class="text-2xl font-black text-dark">Bizum Solidario</h3>
+              </div>
+            </div>
+            
+            <p class="text-gray-600 leading-relaxed text-sm">
+              Colabora al instante desde tu teléfono móvil. Solo necesitas el código de nuestra asociación.
+            </p>
+
+            <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 flex flex-col items-center justify-center text-center space-y-3 relative overflow-hidden">
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Código de ONG / Campaña</span>
+              <div class="flex items-center gap-4">
+                <span class="text-4xl md:text-5xl font-black text-primary tracking-wider font-mono">12859</span>
+                <button 
+                  class="copy-btn group/btn flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-500 hover:text-dark text-xs font-bold transition-all cursor-pointer shadow-sm hover:shadow active:scale-95"
+                  data-copy="12859"
+                  title="Copiar código Bizum"
+                >
+                  <span class="copy-text">Copiar</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="copy-icon"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon hidden text-green-600"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+              </div>
+              <span class="text-[11px] font-bold text-gray-400">Titular: Asociación ASISVE</span>
+            </div>
+
+            <div class="space-y-3 pt-2">
+              <h4 class="font-bold text-dark text-sm flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold">i</span>
+                ¿Cómo donar con Bizum?
+              </h4>
+              <ol class="list-decimal pl-5 space-y-1.5 text-xs text-gray-500">
+                <li>Abre la aplicación de tu entidad bancaria y accede a <strong>Bizum</strong>.</li>
+                <li>Selecciona la opción de <strong>Donar</strong> o <strong>Bizum Solidario / ONG</strong>.</li>
+                <li>Introduce el código de campaña <strong>12859</strong>.</li>
+                <li>Indica el importe de tu aportación y confirma la operación.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 2: Transferencia Bancaria */}
+        <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-primary-contrast flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <Building size={24} />
+              </div>
+              <div>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Cuenta Corriente</span>
+                <h3 class="text-2xl font-black text-dark">Transferencia Bancaria</h3>
+              </div>
+            </div>
+
+            <p class="text-gray-600 leading-relaxed text-sm">
+              Realiza una transferencia directa desde tu banco. Ideal para donaciones de cualquier importe.
+            </p>
+
+            <div class="space-y-4 p-6 rounded-2xl bg-gray-50 border border-gray-100 text-sm">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-gray-200/60 pb-3">
+                <span class="text-xs font-bold text-gray-400 uppercase">Banco</span>
+                <span class="font-bold text-dark text-right">Santander</span>
+              </div>
+              
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-gray-200/60 pb-3">
+                <span class="text-xs font-bold text-gray-400 uppercase">Titular</span>
+                <span class="font-bold text-dark text-right">Asociación ASISVE</span>
+              </div>
+
+              <div class="flex flex-col gap-1.5 border-b border-gray-200/60 pb-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-gray-400 uppercase">IBAN</span>
+                  <button 
+                    class="copy-btn group/btn flex items-center gap-1 px-2.5 py-1 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-500 hover:text-dark text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+                    data-copy="ES1900493503802314056278"
+                    title="Copiar IBAN"
+                  >
+                    <span class="copy-text">Copiar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="copy-icon"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon hidden text-green-600"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+                <span class="font-bold text-dark font-mono text-[13px] md:text-sm tracking-wide break-all bg-white px-3 py-1.5 rounded-lg border border-gray-200/60 text-center select-all">
+                  ES19 0049 3503 8023 1405 6278
+                </span>
+              </div>
+
+              <div class="flex flex-col gap-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-gray-400 uppercase">Concepto recomendado</span>
+                  <button 
+                    class="copy-btn group/btn flex items-center gap-1 px-2.5 py-1 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-500 hover:text-dark text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+                    data-copy="Donación Solidaria ASISVE"
+                    title="Copiar concepto"
+                  >
+                    <span class="copy-text">Copiar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="copy-icon"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon hidden text-green-600"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+                <span class="font-bold text-dark bg-white px-3 py-1.5 rounded-lg border border-gray-200/60 text-center text-xs md:text-sm select-all">
+                  Donación Solidaria ASISVE
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<script>
+  // Copy to clipboard logic
+  const copyButtons = document.querySelectorAll('.copy-btn');
+  copyButtons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const textToCopy = btn.getAttribute('data-copy');
+      if (!textToCopy) return;
+      
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        
+        const copyText = btn.querySelector('.copy-text');
+        const copyIcon = btn.querySelector('.copy-icon');
+        const checkIcon = btn.querySelector('.check-icon');
+        
+        if (copyText) copyText.textContent = '¡Copiado!';
+        copyIcon?.classList.add('hidden');
+        checkIcon?.classList.remove('hidden');
+        btn.classList.add('border-green-300', 'bg-green-50', 'text-green-700');
+        btn.classList.remove('border-gray-200', 'bg-white', 'text-gray-500');
+        
+        setTimeout(() => {
+          if (copyText) copyText.textContent = 'Copiar';
+          copyIcon?.classList.remove('hidden');
+          checkIcon?.classList.add('hidden');
+          btn.classList.remove('border-green-300', 'bg-green-50', 'text-green-700');
+          btn.classList.add('border-gray-200', 'bg-white', 'text-gray-500');
+        }, 2000);
+      } catch (err) {
+        console.error('Error al copiar al portapapeles: ', err);
+      }
+    });
+  });
+</script>
 
 <style>
   .animate-fade-in {

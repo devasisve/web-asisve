@@ -10,6 +10,7 @@
         class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300"
         placeholder="Tu nombre completo..."
       />
+      <p id="error-nombre" class="text-xs text-primary font-medium mt-1.5 hidden opacity-0 transition-all duration-300"></p>
     </div>
     <div class="space-y-2">
       <label for="email" class="text-sm font-bold text-dark/70 ml-1">Correo electrónico *</label>
@@ -21,6 +22,7 @@
         class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300"
         placeholder="ejemplo@correo.com"
       />
+      <p id="error-email" class="text-xs text-primary font-medium mt-1.5 hidden opacity-0 transition-all duration-300"></p>
     </div>
   </div>
 
@@ -34,6 +36,7 @@
         class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300"
         placeholder="+34 000 000 000"
       />
+      <p id="error-phone" class="text-xs text-primary font-medium mt-1.5 hidden opacity-0 transition-all duration-300"></p>
     </div>
     <div class="space-y-2">
       <label for="codigopostal" class="text-sm font-bold text-dark/70 ml-1">Código Postal</label>
@@ -46,6 +49,7 @@
         class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300"
         placeholder="28001"
       />
+      <p id="error-codigopostal" class="text-xs text-primary font-medium mt-1.5 hidden opacity-0 transition-all duration-300"></p>
     </div>
   </div>
 
@@ -59,6 +63,7 @@
       class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300"
       placeholder="¿Cómo podemos ayudarte?"
     />
+    <p id="error-Asunto" class="text-xs text-primary font-medium mt-1.5 hidden opacity-0 transition-all duration-300"></p>
   </div>
 
   <div class="space-y-2">
@@ -71,20 +76,24 @@
       class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all duration-300 placeholder:text-gray-300 resize-y min-h-[128px]"
       placeholder="Escribe tu mensaje aquí..."
     ></textarea>
+    <p id="error-Mensaje" class="text-xs text-primary font-medium mt-1.5 hidden opacity-0 transition-all duration-300"></p>
   </div>
 
-  <div class="flex items-start gap-3 py-2">
-    <input 
-      type="checkbox" 
-      name="privacy" 
-      id="privacy" 
-      required 
-      class="mt-1 w-5 h-5 rounded border-gray-200 text-primary focus:ring-primary transition-all cursor-pointer accent-primary"
-    />
-    <label for="privacy" class="text-sm text-gray-500 leading-relaxed cursor-pointer select-none">
-      Al hacer click aceptas nuestros <span class="text-dark font-bold">Términos y Condiciones</span> y <span class="text-dark font-bold">Políticas de Privacidad</span>.
-      <button type="button" id="openPrivacy" class="text-primary font-bold hover:underline ml-1 cursor-pointer">(Leer más)</button>
-    </label>
+  <div class="space-y-1 py-2">
+    <div class="flex items-start gap-3">
+      <input 
+        type="checkbox" 
+        name="privacy" 
+        id="privacy" 
+        required 
+        class="mt-1 w-5 h-5 rounded border-gray-200 text-primary focus:ring-primary transition-all cursor-pointer accent-primary"
+      />
+      <label for="privacy" class="text-sm text-gray-500 leading-relaxed cursor-pointer select-none">
+        Al hacer click aceptas nuestros <span class="text-dark font-bold">Términos y Condiciones</span> y <span class="text-dark font-bold">Políticas de Privacidad</span>.
+        <button type="button" id="openPrivacy" class="text-primary font-bold hover:underline ml-1 cursor-pointer">(Leer más)</button>
+      </label>
+    </div>
+    <p id="error-privacy" class="text-xs text-primary font-medium mt-1 hidden opacity-0 transition-all duration-300"></p>
   </div>
   
   {/* Campo trampa para bots (Honeypot) - Invisible para humanos */}
@@ -144,15 +153,33 @@
   </div>
 </div>
 
-<style>
-</style>
-
 <script>
   import { ApiClient } from '../services/api.client';
 
   const form = document.querySelector('#contactForm') as HTMLFormElement;
   const statusEl = document.querySelector('#formStatus') as HTMLDivElement;
   const submitBtn = document.querySelector('#formSubmit') as HTMLButtonElement;
+
+  // Form inputs
+  const nombreInput = document.querySelector('#nombre') as HTMLInputElement;
+  const emailInput = document.querySelector('#email') as HTMLInputElement;
+  const phoneInput = document.querySelector('#phone') as HTMLInputElement;
+  const codigopostalInput = document.querySelector('#codigopostal') as HTMLInputElement;
+  const asuntoInput = document.querySelector('#Asunto') as HTMLInputElement;
+  const mensajeInput = document.querySelector('#Mensaje') as HTMLTextAreaElement;
+  const privacyInput = document.querySelector('#privacy') as HTMLInputElement;
+
+  // Error containers
+  const errorNombre = document.querySelector('#error-nombre') as HTMLParagraphElement;
+  const errorEmail = document.querySelector('#error-email') as HTMLParagraphElement;
+  const errorPhone = document.querySelector('#error-phone') as HTMLParagraphElement;
+  const errorCodigopostal = document.querySelector('#error-codigopostal') as HTMLParagraphElement;
+  const errorAsunto = document.querySelector('#error-Asunto') as HTMLParagraphElement;
+  const errorMensaje = document.querySelector('#error-Mensaje') as HTMLParagraphElement;
+  const errorPrivacy = document.querySelector('#error-privacy') as HTMLParagraphElement;
+
+  // Track fields touched by user to avoid premature validation feedback (UX enhancement)
+  const touchedFields = new Set<string>();
 
   // Modal Logic
   const openModalBtn = document.querySelector('#openPrivacy') as HTMLButtonElement;
@@ -195,10 +222,232 @@
     btn?.addEventListener('click', () => toggleModal(false));
   });
 
+  // Validation Styles
+  const NORMAL_CLASSES = ['border-gray-100', 'bg-gray-50/50', 'focus:ring-primary/5'];
+  const ERROR_CLASSES = ['border-primary-light', 'bg-primary-contrast/30', 'focus:ring-primary/10'];
 
+  function showError(input: HTMLInputElement | HTMLTextAreaElement, errorEl: HTMLParagraphElement, message: string) {
+    if (input.type !== 'checkbox') {
+      NORMAL_CLASSES.forEach(c => input.classList.remove(c));
+      ERROR_CLASSES.forEach(c => input.classList.add(c));
+    }
+    errorEl.textContent = message;
+    errorEl.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      errorEl.classList.remove('opacity-0');
+      errorEl.classList.add('opacity-100');
+    });
+    input.setAttribute('aria-invalid', 'true');
+  }
+
+  function clearError(input: HTMLInputElement | HTMLTextAreaElement, errorEl: HTMLParagraphElement) {
+    if (input.type !== 'checkbox') {
+      ERROR_CLASSES.forEach(c => input.classList.remove(c));
+      NORMAL_CLASSES.forEach(c => input.classList.add(c));
+    }
+    errorEl.classList.remove('opacity-100');
+    errorEl.classList.add('opacity-0');
+    input.setAttribute('aria-invalid', 'false');
+    setTimeout(() => {
+      if (errorEl.classList.contains('opacity-0')) {
+        errorEl.classList.add('hidden');
+      }
+    }, 300);
+  }
+
+  // Validators
+  function validateNombre(isInputEvent = false): boolean {
+    if (isInputEvent && !touchedFields.has('nombre')) return true;
+
+    const value = nombreInput.value.trim();
+    if (!value) {
+      showError(nombreInput, errorNombre, 'El nombre completo es obligatorio.');
+      return false;
+    }
+    if (value.length < 3) {
+      showError(nombreInput, errorNombre, 'El nombre debe tener al menos 3 caracteres.');
+      return false;
+    }
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜïÏ\s'-]+$/.test(value)) {
+      showError(nombreInput, errorNombre, 'El nombre solo puede contener letras y espacios.');
+      return false;
+    }
+    clearError(nombreInput, errorNombre);
+    return true;
+  }
+
+  function validateEmail(isInputEvent = false): boolean {
+    if (isInputEvent && !touchedFields.has('email')) return true;
+
+    const value = emailInput.value.trim();
+    if (!value) {
+      showError(emailInput, errorEmail, 'El correo electrónico es obligatorio.');
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      showError(emailInput, errorEmail, 'Ingresa un correo electrónico válido (ejemplo@correo.com).');
+      return false;
+    }
+    clearError(emailInput, errorEmail);
+    return true;
+  }
+
+  function validatePhone(isInputEvent = false): boolean {
+    if (isInputEvent && !touchedFields.has('phone')) return true;
+
+    const value = phoneInput.value.trim();
+    if (!value) {
+      clearError(phoneInput, errorPhone);
+      return true;
+    }
+    const phoneRegex = /^\+?[0-9\s-]{9,20}$/;
+    const digitsOnly = value.replace(/[^0-9]/g, '');
+    if (!phoneRegex.test(value) || digitsOnly.length < 9) {
+      showError(phoneInput, errorPhone, 'Ingresa un número de teléfono válido (mínimo 9 dígitos).');
+      return false;
+    }
+    clearError(phoneInput, errorPhone);
+    return true;
+  }
+
+  function validateCodigopostal(isInputEvent = false): boolean {
+    if (isInputEvent && !touchedFields.has('codigopostal')) return true;
+
+    const value = codigopostalInput.value.trim();
+    if (!value) {
+      clearError(codigopostalInput, errorCodigopostal);
+      return true;
+    }
+    if (value.length !== 5 || !/^[0-9]{5}$/.test(value)) {
+      showError(codigopostalInput, errorCodigopostal, 'El código postal debe tener exactamente 5 números.');
+      return false;
+    }
+    clearError(codigopostalInput, errorCodigopostal);
+    return true;
+  }
+
+  function validateAsunto(isInputEvent = false): boolean {
+    if (isInputEvent && !touchedFields.has('Asunto')) return true;
+
+    const value = asuntoInput.value.trim();
+    if (!value) {
+      showError(asuntoInput, errorAsunto, 'El asunto es obligatorio.');
+      return false;
+    }
+    if (value.length < 5) {
+      showError(asuntoInput, errorAsunto, 'El asunto debe tener al menos 5 caracteres.');
+      return false;
+    }
+    clearError(asuntoInput, errorAsunto);
+    return true;
+  }
+
+  function validateMensaje(isInputEvent = false): boolean {
+    if (isInputEvent && !touchedFields.has('Mensaje')) return true;
+
+    const value = mensajeInput.value.trim();
+    if (!value) {
+      showError(mensajeInput, errorMensaje, 'El mensaje es obligatorio.');
+      return false;
+    }
+    if (value.length < 10) {
+      showError(mensajeInput, errorMensaje, 'El mensaje debe tener al menos 10 caracteres.');
+      return false;
+    }
+    clearError(mensajeInput, errorMensaje);
+    return true;
+  }
+
+  function validatePrivacy(): boolean {
+    if (!privacyInput.checked) {
+      showError(privacyInput, errorPrivacy, 'Debes aceptar los Términos y Condiciones y Políticas de Privacidad.');
+      return false;
+    }
+    clearError(privacyInput, errorPrivacy);
+    return true;
+  }
+
+  // Live filtering and listeners
+  nombreInput?.addEventListener('input', () => validateNombre(true));
+  nombreInput?.addEventListener('blur', () => {
+    touchedFields.add('nombre');
+    validateNombre(false);
+  });
+  
+  emailInput?.addEventListener('input', () => validateEmail(true));
+  emailInput?.addEventListener('blur', () => {
+    touchedFields.add('email');
+    validateEmail(false);
+  });
+  
+  phoneInput?.addEventListener('input', () => {
+    let val = phoneInput.value;
+    const hasPlus = val.startsWith('+');
+    val = val.replace(/[^0-9\s-]/g, '');
+    if (hasPlus) {
+      val = '+' + val;
+    }
+    phoneInput.value = val;
+    validatePhone(true);
+  });
+  phoneInput?.addEventListener('blur', () => {
+    touchedFields.add('phone');
+    validatePhone(false);
+  });
+  
+  codigopostalInput?.addEventListener('input', () => {
+    codigopostalInput.value = codigopostalInput.value.replace(/[^0-9]/g, '').slice(0, 5);
+    validateCodigopostal(true);
+  });
+  codigopostalInput?.addEventListener('blur', () => {
+    touchedFields.add('codigopostal');
+    validateCodigopostal(false);
+  });
+  
+  asuntoInput?.addEventListener('input', () => validateAsunto(true));
+  asuntoInput?.addEventListener('blur', () => {
+    touchedFields.add('Asunto');
+    validateAsunto(false);
+  });
+  
+  mensajeInput?.addEventListener('input', () => validateMensaje(true));
+  mensajeInput?.addEventListener('blur', () => {
+    touchedFields.add('Mensaje');
+    validateMensaje(false);
+  });
+  
+  privacyInput?.addEventListener('change', () => {
+    touchedFields.add('privacy');
+    validatePrivacy();
+  });
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Mark all fields as touched to display errors immediately on submit attempt
+    ['nombre', 'email', 'phone', 'codigopostal', 'Asunto', 'Mensaje', 'privacy'].forEach(f => touchedFields.add(f));
+
+    // Run all validations
+    const isNombreValid = validateNombre(false);
+    const isEmailValid = validateEmail(false);
+    const isPhoneValid = validatePhone(false);
+    const isCpValid = validateCodigopostal(false);
+    const isAsuntoValid = validateAsunto(false);
+    const isMensajeValid = validateMensaje(false);
+    const isPrivacyValid = validatePrivacy();
+
+    const isFormValid = isNombreValid && isEmailValid && isPhoneValid && isCpValid && isAsuntoValid && isMensajeValid && isPrivacyValid;
+
+    if (!isFormValid) {
+      const firstInvalidInput = form.querySelector('[aria-invalid="true"]') as HTMLElement;
+      if (firstInvalidInput) {
+        firstInvalidInput.focus();
+        firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
     const formData = new FormData(form);
     const dataObj = Object.fromEntries(formData);
     
@@ -213,7 +462,7 @@
     // Realizar la petición a nuestra nueva API en PHP
     const result = await ApiClient.post('/contact.php', dataObj);
 
-    // Scroll al mensaje de estado para que el usuario lo vea (especialmente en móvil)
+    // Scroll al mensaje de estado
     statusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     // Reset de botón
@@ -224,6 +473,7 @@
       statusEl.textContent = result.message || '¡Mensaje enviado con éxito!';
       statusEl.className = 'text-center p-5 rounded-2xl font-bold border-2 bg-green-50/50 border-green-200 text-green-700 block scale-100 opacity-100';
       form.reset();
+      touchedFields.clear(); // Reset touched status
       
       // Ocultar mensaje después de 5 segundos
       setTimeout(() => {
@@ -236,4 +486,3 @@
     }
   });
 </script>
-

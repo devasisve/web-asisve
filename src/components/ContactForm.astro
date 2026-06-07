@@ -339,6 +339,10 @@
       showError(asuntoInput, errorAsunto, 'El asunto debe tener al menos 5 caracteres.');
       return false;
     }
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜïÏ\s]+$/.test(value)) {
+      showError(asuntoInput, errorAsunto, 'El asunto solo puede contener letras y espacios.');
+      return false;
+    }
     clearError(asuntoInput, errorAsunto);
     return true;
   }
@@ -351,8 +355,8 @@
       showError(mensajeInput, errorMensaje, 'El mensaje es obligatorio.');
       return false;
     }
-    if (value.length < 10) {
-      showError(mensajeInput, errorMensaje, 'El mensaje debe tener al menos 10 caracteres.');
+    if (value.length < 10 || value.length > 200) {
+      showError(mensajeInput, errorMensaje, 'El mensaje debe tener entre 10 y 200 caracteres.');
       return false;
     }
     clearError(mensajeInput, errorMensaje);

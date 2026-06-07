@@ -16,9 +16,66 @@ import "@fontsource/roboto/700.css";
 interface Props {
 	title: string;
 	description?: string;
+	ogImage?: string;
+	ogType?: string;
+	canonicalUrl?: string;
 }
 
-const { title, description = "ASISVE - Ayuda en acción, hazte voluntario." } = Astro.props;
+const { 
+	title, 
+	description = "ASISVE - Ayuda en acción, hazte voluntario.",
+	ogImage = "/favicon.png",
+	ogType = "website",
+	canonicalUrl
+} = Astro.props;
+
+const canonical = canonicalUrl || new URL(Astro.url.pathname, "https://asisve.org").toString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "NGO",
+      "@id": "https://asisve.org/#organization",
+      "name": "ASISVE",
+      "alternateName": "Asociación de Solidaridad e Integración Sociolaboral de Venezuela",
+      "url": "https://asisve.org",
+      "logo": "https://asisve.org/favicon.png",
+      "image": "https://asisve.org/favicon.png",
+      "description": "Asociación sin fines de lucro en Madrid orientada al apoyo, alimentación, medicamentos e integración sociolaboral de familias migrantes y personas en riesgo de exclusión.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "C. de Fuentelviejo, 37, San Blas",
+        "addressLocality": "Madrid",
+        "addressRegion": "Madrid",
+        "postalCode": "28022",
+        "addressCountry": "ES"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.432658,
+        "longitude": -3.613328
+      },
+      "telephone": "+34644740559",
+      "email": "contacto@asisve.org",
+      "sameAs": [
+        "https://www.instagram.com/asisve_madrid/",
+        "https://www.tiktok.com/@asisve_madrid",
+        "https://www.youtube.com/@Asociaci%C3%B3nASISVE"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      "url": canonical,
+      "name": title,
+      "description": description,
+      "isPartOf": {
+        "@id": "https://asisve.org/#website"
+      }
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -32,13 +89,43 @@ const { title, description = "ASISVE - Ayuda en acción, hazte voluntario." } = 
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" content="#7e2b34" />
 		<meta name="generator" content={Astro.generator} />
+		
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(ogImage, "https://asisve.org").toString()} />
+		<meta property="og:site_name" content="ASISVE" />
+		<meta property="og:locale" content="es_ES" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonical} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(ogImage, "https://asisve.org").toString()} />
+
+		<!-- GEO Positioning Meta Tags -->
+		<meta name="geo.region" content="ES-M" />
+		<meta name="geo.placename" content="Madrid" />
+		<meta name="geo.position" content="40.432658;-3.613328" />
+		<meta name="ICBM" content="40.432658, -3.613328" />
+
+		<!-- Structured Data JSON-LD -->
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
 		<slot name="head" />
 	</head>
 	<body>
 		<Navbar />
-		<slot />
+		<main id="main-content">
+			<slot />
+		</main>
 		<Footer />
 		<CookieBanner />
 	</body>

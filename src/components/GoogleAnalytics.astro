@@ -1,0 +1,52 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<!-- Google tag (gtag.js) -->
+<script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${id}`} async></script>
+<script is:inline set:html={`
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+
+  // 1. Read existing preferences or set default (denied)
+  var consentPreferences = { analytics: false, marketing: false };
+  try {
+    var saved = localStorage.getItem('cookie-preferences');
+    if (saved) {
+      consentPreferences = JSON.parse(saved);
+    }
+  } catch (e) {
+    console.error('Error parsing cookie preferences:', e);
+  }
+
+  // 2. Set default consent state for Google Consent Mode v2
+  gtag('consent', 'default', {
+    'analytics_storage': consentPreferences.analytics ? 'granted' : 'denied',
+    'ad_storage': consentPreferences.marketing ? 'granted' : 'denied',
+    'ad_user_data': consentPreferences.marketing ? 'granted' : 'denied',
+    'ad_personalization': consentPreferences.marketing ? 'granted' : 'denied',
+    'wait_for_update': 500
+  });
+
+  // 3. Configure Google Analytics
+  gtag('js', new Date());
+  gtag('config', '${id}', {
+    'anonymize_ip': true
+  });
+
+  // 4. Listen for updates from CookieBanner
+  window.addEventListener('cookie-consent-updated', function(event) {
+    var preferences = event.detail.preferences;
+    gtag('consent', 'update', {
+      'analytics_storage': preferences.analytics ? 'granted' : 'denied',
+      'ad_storage': preferences.marketing ? 'granted' : 'denied',
+      'ad_user_data': preferences.marketing ? 'granted' : 'denied',
+      'ad_personalization': preferences.marketing ? 'granted' : 'denied'
+    });
+  });
+`} />

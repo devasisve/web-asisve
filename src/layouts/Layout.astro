@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import CookieBanner from "../components/CookieBanner.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 // Import local fonts from @fontsource
 import "@fontsource/open-sans/400.css";
@@ -30,6 +31,7 @@ const {
 } = Astro.props;
 
 const canonical = canonicalUrl || new URL(Astro.url.pathname, "https://asisve.org").toString();
+const gaId = "G-P6QT0R39KS";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -81,6 +83,7 @@ const jsonLd = {
 <!doctype html>
 <html lang="es">
 	<head>
+		{gaId && <GoogleAnalytics id={gaId} />}
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
